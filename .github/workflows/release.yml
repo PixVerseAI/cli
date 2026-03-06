@@ -50,6 +50,7 @@ jobs:
             npm publish --provenance --access public
             echo "✓ ${name}@${VERSION} published"
           }
+          publish_pkg "pixverse"
           publish_pkg "@pixverse-ai/cli"
           publish_pkg "pixverse-cli"
           publish_pkg "pixverse-ai-cli"
@@ -64,7 +65,19 @@ jobs:
           npm view pixverse-cli@${VERSION} version
           npm view pixverse-ai-cli@${VERSION} version
 
+      - name: Extract release notes from CHANGELOG
+        id: changelog
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          # Extract content between this version's heading and the next ## heading
+          NOTES=$(sed -n "/^## ${TAG} /,/^## /{/^## ${TAG} /d;/^## /d;p}" CHANGELOG.md)
+          if [ -z "$NOTES" ]; then
+            NOTES="Release ${TAG}"
+          fi
+          # Write to file to preserve multiline content
+          echo "$NOTES" > /tmp/release-notes.md
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          generate_release_notes: true
+          body_path: /tmp/release-notes.md
