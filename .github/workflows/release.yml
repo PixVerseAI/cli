@@ -33,11 +33,6 @@ jobs:
       - name: Check package contents
         run: npm pack --dry-run
 
-      - name: Publish pixverse
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Publish @pixverse/cli
         run: |
           node -e "
@@ -53,7 +48,6 @@ jobs:
         run: |
           sleep 15
           VERSION="${GITHUB_REF_NAME#v}"
-          npm view pixverse@${VERSION} version
           npm view @pixverse/cli@${VERSION} version
 
       - name: Create GitHub Release
