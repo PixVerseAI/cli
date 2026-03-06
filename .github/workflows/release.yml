@@ -33,8 +33,19 @@ jobs:
       - name: Check package contents
         run: npm pack --dry-run
 
-      - name: Publish to npm
+      - name: Publish pixverse
         run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @pixverse/cli
+        run: |
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            pkg.name = '@pixverse/cli';
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -43,6 +54,7 @@ jobs:
           sleep 15
           VERSION="${GITHUB_REF_NAME#v}"
           npm view pixverse@${VERSION} version
+          npm view @pixverse/cli@${VERSION} version
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
