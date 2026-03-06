@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v1.0.0)'
+        required: true
 
 permissions:
   contents: write
@@ -18,7 +23,16 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
+      - name: Resolve tag
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "RELEASE_TAG=${TAG}" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${TAG#v}" >> $GITHUB_ENV
+          echo "Releasing: ${TAG}"
+
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.RELEASE_TAG }}
 
       - uses: actions/setup-node@v4
         with:
@@ -35,7 +49,7 @@ jobs:
 
       - name: Publish packages
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          VERSION="${RELEASE_VERSION}"
           publish_pkg() {
             local name="$1"
             if npm view "${name}@${VERSION}" version > /dev/null 2>&1; then
@@ -47,8 +61,11 @@ jobs:
               pkg.name = '${name}';
               require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
             "
-            npm publish --provenance --access public
-            echo "✓ ${name}@${VERSION} published"
+            if npm publish --provenance --access public; then
+              echo "✓ ${name}@${VERSION} published"
+            else
+              echo "⚠ ${name}@${VERSION} publish failed — continuing"
+            fi
           }
           publish_pkg "pixverse"
           publish_pkg "@pixverse-ai/cli"
@@ -60,7 +77,7 @@ jobs:
       - name: Verify publication
         run: |
           sleep 15
-          VERSION="${GITHUB_REF_NAME#v}"
+          VERSION="${RELEASE_VERSION}"
           npm view @pixverse-ai/cli@${VERSION} version
           npm view pixverse-cli@${VERSION} version
           npm view pixverse-ai-cli@${VERSION} version
@@ -68,7 +85,7 @@ jobs:
       - name: Extract release notes from CHANGELOG
         id: changelog
         run: |
-          TAG="${GITHUB_REF_NAME}"
+          TAG="${RELEASE_TAG}"
           # Extract content between this version's heading and the next ## heading
           NOTES=$(sed -n "/^## ${TAG} /,/^## /{/^## ${TAG} /d;/^## /d;p}" CHANGELOG.md)
           if [ -z "$NOTES" ]; then
@@ -80,4 +97,5 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ env.RELEASE_TAG }}
           body_path: /tmp/release-notes.md
