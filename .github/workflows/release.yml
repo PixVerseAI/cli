@@ -33,36 +33,26 @@ jobs:
       - name: Check package contents
         run: npm pack --dry-run
 
-      - name: Publish @pixverse-ai/cli
+      - name: Publish packages
         run: |
-          node -e "
-            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            pkg.name = '@pixverse-ai/cli';
-            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-          npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish pixverse-cli
-        run: |
-          node -e "
-            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            pkg.name = 'pixverse-cli';
-            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-          npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish pixverse-ai-cli
-        run: |
-          node -e "
-            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            pkg.name = 'pixverse-ai-cli';
-            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
-          npm publish --provenance --access public
+          VERSION="${GITHUB_REF_NAME#v}"
+          publish_pkg() {
+            local name="$1"
+            if npm view "${name}@${VERSION}" version > /dev/null 2>&1; then
+              echo "✓ ${name}@${VERSION} already published — skipping"
+              return 0
+            fi
+            node -e "
+              const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+              pkg.name = '${name}';
+              require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+            "
+            npm publish --provenance --access public
+            echo "✓ ${name}@${VERSION} published"
+          }
+          publish_pkg "@pixverse-ai/cli"
+          publish_pkg "pixverse-cli"
+          publish_pkg "pixverse-ai-cli"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
