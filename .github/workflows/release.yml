@@ -44,11 +44,35 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Publish pixverse-cli
+        run: |
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            pkg.name = 'pixverse-cli';
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish pixverse-ai-cli
+        run: |
+          node -e "
+            const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            pkg.name = 'pixverse-ai-cli';
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Verify publication
         run: |
           sleep 15
           VERSION="${GITHUB_REF_NAME#v}"
           npm view @pixverse-ai/cli@${VERSION} version
+          npm view pixverse-cli@${VERSION} version
+          npm view pixverse-ai-cli@${VERSION} version
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
