@@ -4,7 +4,7 @@ The official command-line interface (CLI) for [PixVerse](https://pixverse.ai) â€
 
 ## What is PixVerse?
 
-PixVerse is an AI-powered creative platform that generates high-quality videos and images from text prompts or reference images. It supports a wide range of creative workflows including text-to-video, image-to-video, text-to-image, video transitions, lip-sync speech, sound effects, and more.
+PixVerse is an AI-powered creative platform that generates high-quality videos and images from text prompts or reference images. It supports a wide range of creative workflows including text-to-video, image-to-video, text-to-image, video transitions, lip-sync speech, sound effects, templates/effects, and more.
 
 ## What is PixVerse CLI?
 
@@ -109,6 +109,9 @@ pixverse create upscale --video <video_id> --quality 1080p
 
 # Generate video with character reference (requires 2+ images)
 pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends walking in a park"
+
+# Create from a template/effect
+pixverse create template --template-id 12345 --image ./photo.png
 ```
 
 ### Task Management
@@ -135,6 +138,23 @@ pixverse asset download <id>
 
 # Delete an asset
 pixverse asset delete <id>
+```
+
+### Templates
+
+```bash
+# List template categories
+pixverse template categories
+
+# List templates (with optional category filter and pagination)
+pixverse template list
+pixverse template list --category 5 --page 2 --limit 10
+
+# Search templates by keyword
+pixverse template search "dance"
+
+# Get template details
+pixverse template info <template_id>
 ```
 
 ### Account & Subscription
@@ -205,6 +225,11 @@ pixverse asset download "$VID" --dest ./output/
 | `create extend` | Extend video duration |
 | `create upscale` | Upscale video resolution |
 | `create reference` | Generate video with reference style |
+| `create template` | Create from a template/effect |
+| `template categories` | List template categories |
+| `template list` | List templates (with category filter) |
+| `template search` | Search templates by keyword |
+| `template info` | Get template details |
 | `task status` | Check task status |
 | `task wait` | Wait for task completion |
 | `asset list` | List generated assets |
