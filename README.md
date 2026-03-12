@@ -171,12 +171,19 @@ pixverse subscribe
 ### Configuration
 
 ```bash
-# Set default values
-pixverse config set default-model v5.6
+# Set output directory
 pixverse config set output-dir ~/Downloads
 
 # View current configuration
 pixverse config list
+
+# Show config file path
+pixverse config path
+
+# Set per-mode creation defaults (model, quality, duration, etc.)
+pixverse config defaults set video model v5.6
+pixverse config defaults set video quality 1080p
+pixverse config defaults show
 ```
 
 ## JSON Output for Scripts & Agents
@@ -224,7 +231,7 @@ pixverse asset download "$VID" --dest ./output/
 | `create sound` | Add AI sound effects to video |
 | `create extend` | Extend video duration |
 | `create upscale` | Upscale video resolution |
-| `create reference` | Generate video with reference style |
+| `create reference` | Generate video with character references |
 | `create template` | Create from a template/effect |
 | `template categories` | List template categories |
 | `template list` | List templates (with category filter) |
@@ -243,6 +250,8 @@ pixverse asset download "$VID" --dest ./output/
 | `config get` | Get a config value |
 | `config list` | List all config values |
 | `config reset` | Reset config to defaults |
+| `config path` | Show config file path |
+| `config defaults` | Manage per-mode creation defaults |
 
 ## Global Flags
 
