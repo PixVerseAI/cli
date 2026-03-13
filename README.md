@@ -107,7 +107,7 @@ pixverse create extend --video <video_id>
 # Upscale video resolution
 pixverse create upscale --video <video_id> --quality 1080p
 
-# Generate video with character reference (requires 2+ images)
+# Generate video with character reference (1–7 images)
 pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends walking in a park"
 
 # Create from a template/effect
