@@ -1,9 +1,23 @@
 # Changelog
 
+All notable changes to PixVerse CLI will be documented in this file.
 
-## v1.0.3 (2026-03-13)
 
-## v1.0.0 (2026-03-06)
+## [1.0.4](https://github.com/PixVerseAI/cli/releases/tag/v1.0.4) — 2026-03-23
+
+### Documentation
+
+- Rewrite public README with full product intro, usage guide, and accurate command examples
+
+### Features
+
+- Update creation success message to "Generation Task Created"
+
+### Miscellaneous
+
+- Update dependencies and configuration files
+
+## [1.0.0](https://github.com/PixVerseAI/cli/releases/tag/v1.0.0) — 2026-03-06
 
 Initial release of PixVerse CLI.
 

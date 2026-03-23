@@ -85,13 +85,11 @@ jobs:
       - name: Extract release notes from CHANGELOG
         id: changelog
         run: |
-          TAG="${RELEASE_TAG}"
-          # Extract content between this version's heading and the next ## heading
-          NOTES=$(sed -n "/^## ${TAG} /,/^## /{/^## ${TAG} /d;/^## /d;p}" CHANGELOG.md)
+          VERSION="${RELEASE_VERSION}"
+          NOTES=$(sed -n "/^## \[${VERSION}\]/,/^## \[/{/^## \[${VERSION}\]/d;/^## \[/d;p}" CHANGELOG.md)
           if [ -z "$NOTES" ]; then
-            NOTES="Release ${TAG}"
+            NOTES="Release v${VERSION}"
           fi
-          # Write to file to preserve multiline content
           echo "$NOTES" > /tmp/release-notes.md
 
       - name: Create GitHub Release
