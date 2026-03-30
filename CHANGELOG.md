@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+
+## [1.0.6](https://github.com/PixVerseAI/cli/releases/tag/v1.0.6) — 2026-03-30
+
+### Bug Fixes
+
+- Validate image model before API call to prevent silent fallback
+
 ## [1.0.5](https://github.com/PixVerseAI/cli/releases/tag/v1.0.5) — 2026-03-30
 
 ### Features
