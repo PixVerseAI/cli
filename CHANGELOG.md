@@ -2,6 +2,11 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.0.5](https://github.com/PixVerseAI/cli/releases/tag/v1.0.5) — 2026-03-30
+
+### Features
+
+- Add V6 model support, refactor defaults caching
 
 ## [1.0.4](https://github.com/PixVerseAI/cli/releases/tag/v1.0.4) — 2026-03-23
 

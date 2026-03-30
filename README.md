@@ -67,7 +67,7 @@ The wizard guides you through prompt, model, quality, aspect ratio, and other op
 ### Text to Video
 
 ```bash
-pixverse create video --prompt "A cat walking on Mars" --model v5.6 --quality 720p --aspect-ratio 16:9
+pixverse create video --prompt "A cat walking on Mars" --model v6 --quality 720p --aspect-ratio 16:9
 ```
 
 ### Image to Video
@@ -181,7 +181,7 @@ pixverse config list
 pixverse config path
 
 # Set per-mode creation defaults (model, quality, duration, etc.)
-pixverse config defaults set video model v5.6
+pixverse config defaults set video model v6
 pixverse config defaults set video quality 1080p
 pixverse config defaults show
 ```
