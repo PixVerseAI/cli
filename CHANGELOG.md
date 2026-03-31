@@ -3,6 +3,13 @@
 All notable changes to PixVerse CLI will be documented in this file.
 
 
+## [1.0.7](https://github.com/PixVerseAI/cli/releases/tag/v1.0.7) — 2026-03-31
+
+### Features
+
+- Add workspace support (list, status, switch, manage)
+
+
 ## [1.0.6](https://github.com/PixVerseAI/cli/releases/tag/v1.0.6) — 2026-03-30
 
 ### Bug Fixes

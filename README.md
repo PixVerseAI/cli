@@ -157,6 +157,23 @@ pixverse template search "dance"
 pixverse template info <template_id>
 ```
 
+### Workspaces
+
+```bash
+# List all workspaces
+pixverse workspace list
+
+# Show current workspace
+pixverse workspace status
+
+# Switch workspace (interactive or by ID)
+pixverse workspace switch
+pixverse workspace switch <workspace_id>
+
+# Open workspace management in browser
+pixverse workspace manage
+```
+
 ### Account & Subscription
 
 ```bash
@@ -243,7 +260,11 @@ pixverse asset download "$VID" --dest ./output/
 | `asset info` | Get asset details |
 | `asset download` | Download a generated asset |
 | `asset delete` | Delete an asset |
-| `account info` | View account info |
+| `workspace list` | List all workspaces |
+| `workspace status` | Show current workspace |
+| `workspace switch` | Switch workspace (interactive or by ID) |
+| `workspace manage` | Open workspace management in browser |
+| `account info` | View account info and workspace credits |
 | `account usage` | View credit usage |
 | `subscribe` | Open subscription page |
 | `config set` | Set a config value |
@@ -259,6 +280,7 @@ pixverse asset download "$VID" --dest ./output/
 |:---|:---|
 | `--json` | Output as JSON |
 | `-p` | Print mode (alias for `--json`) |
+| `--workspace-id <id>` | Override active workspace for this command (0 = personal) |
 | `-V, --version` | Show CLI version |
 | `-h, --help` | Show help for any command |
 
