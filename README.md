@@ -104,6 +104,9 @@ pixverse create sound --video <video_id> --prompt "Birds chirping in a forest"
 # Extend video duration
 pixverse create extend --video <video_id>
 
+# Modify an existing video
+pixverse create modify --video <video_id> --prompt "Change the background to a beach"
+
 # Upscale video resolution
 pixverse create upscale --video <video_id> --quality 1080p
 
@@ -247,6 +250,7 @@ pixverse asset download "$VID" --dest ./output/
 | `create speech` | Add lip-sync speech to video |
 | `create sound` | Add AI sound effects to video |
 | `create extend` | Extend video duration |
+| `create modify` | Modify an existing video |
 | `create upscale` | Upscale video resolution |
 | `create reference` | Generate video with character references |
 | `create template` | Create from a template/effect |
