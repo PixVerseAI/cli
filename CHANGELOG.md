@@ -2,6 +2,11 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.0.9](https://github.com/PixVerseAI/cli/releases/tag/v1.0.9) — 2026-04-02
+
+### Features
+
+- Add create modify command with keyframe support
 
 ## [1.0.8](https://github.com/PixVerseAI/cli/releases/tag/v1.0.8) — 2026-04-02
 
@@ -10,13 +15,11 @@ All notable changes to PixVerse CLI will be documented in this file.
 - Add `--no-audio` flag to `create video`, `create transition`, `create extend`, and `create reference` to allow disabling audio generation
 - Add `--no-multi-shot` flag to `create video` to allow disabling multi-shot mode
 
-
 ## [1.0.7](https://github.com/PixVerseAI/cli/releases/tag/v1.0.7) — 2026-03-31
 
 ### Features
 
 - Add workspace support (list, status, switch, manage)
-
 
 ## [1.0.6](https://github.com/PixVerseAI/cli/releases/tag/v1.0.6) — 2026-03-30
 
