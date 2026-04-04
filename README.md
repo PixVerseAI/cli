@@ -113,6 +113,9 @@ pixverse create upscale --video <video_id> --quality 1080p
 # Generate video with character reference (1–7 images)
 pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends walking in a park"
 
+# Motion control — character image + motion reference video
+pixverse create motion-control --image ./character.png --video ./dance.mp4
+
 # Create from a template/effect
 pixverse create template --template-id 12345 --image ./photo.png
 ```
@@ -253,6 +256,7 @@ pixverse asset download "$VID" --dest ./output/
 | `create modify` | Modify an existing video |
 | `create upscale` | Upscale video resolution |
 | `create reference` | Generate video with character references |
+| `create motion-control` | Motion control with character image + reference video |
 | `create template` | Create from a template/effect |
 | `template categories` | List template categories |
 | `template list` | List templates (with category filter) |
