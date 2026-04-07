@@ -3,6 +3,13 @@
 All notable changes to PixVerse CLI will be documented in this file.
 
 
+## [1.0.11](https://github.com/PixVerseAI/cli/releases/tag/v1.0.11) — 2026-04-07
+
+### Bug Fixes
+
+- Support batch polling for --count > 1 across all create commands
+
+
 ## [1.0.10](https://github.com/PixVerseAI/cli/releases/tag/v1.0.10) — 2026-04-04
 
 ### Features
