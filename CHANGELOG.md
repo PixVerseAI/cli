@@ -3,6 +3,13 @@
 All notable changes to PixVerse CLI will be documented in this file.
 
 
+## [1.0.12](https://github.com/PixVerseAI/cli/releases/tag/v1.0.12) — 2026-04-08
+
+### Features
+
+- Add pixverse-c1 model support, use friendly model display names
+
+
 ## [1.0.11](https://github.com/PixVerseAI/cli/releases/tag/v1.0.11) — 2026-04-07
 
 ### Bug Fixes
