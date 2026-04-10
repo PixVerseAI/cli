@@ -51,6 +51,39 @@ This opens your browser where you confirm the authorization. The CLI receives a 
 
 > You need a PixVerse account to use the CLI. Sign up at [pixverse.ai](https://pixverse.ai) if you don't have one.
 
+## Supported Models
+
+### Video Models (`--model <value>`)
+
+| Model | `--model` value | Quality | Duration | Aspect Ratio |
+|:---|:---|:---|:---|:---|
+| PixVerse V6 *(default)* | `v6` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` `21:9` |
+| PixVerse C1 | `pixverse-c1` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| PixVerse v5.6 | `v5.6` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
+| Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
+| Veo 3.1 Standard | `veo-3.1-standard` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
+| Veo 3.1 Fast | `veo-3.1-fast` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
+| Grok Imagine | `grok-imagine` | `480p` `720p` | `1`–`15`s | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3` |
+
+> Not all models support all creation modes. For per-mode model support (e.g. which models work with Transition, Reference, Motion Control), see the [PixVerse Skills](#for-ai-agents--advanced-usage) documentation.
+
+### Image Models (`--model <value>`)
+
+| Model | `--model` value | Quality | Aspect Ratio |
+|:---|:---|:---|:---|
+| Qwen Image *(default)* | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
+| Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` | `auto` `1:1` `16:9` `9:16` + more |
+| Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Gemini 2.5 Flash | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
+| Gemini 3.0 | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Gemini 3.1 Flash | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+
+---
+
 ## Usage
 
 ### Interactive Mode
@@ -119,6 +152,20 @@ pixverse create motion-control --image ./character.png --video ./dance.mp4
 # Create from a template/effect
 pixverse create template --template-id 12345 --image ./photo.png
 ```
+
+### Common Creation Flags
+
+These flags are available across most `create` subcommands:
+
+| Flag | Description |
+|:---|:---|
+| `--count <n>` | Generate multiple variations (1–4, default 1) |
+| `--seed <number>` | Set random seed for reproducible results |
+| `--off-peak` | Use off-peak pricing (lower credit cost) |
+| `--audio` / `--no-audio` | Enable or disable audio generation |
+| `--multi-shot` / `--no-multi-shot` | Enable or disable multi-shot mode (video only) |
+| `--no-wait` | Return immediately without waiting for completion |
+| `--timeout <sec>` | Polling timeout in seconds (default 300) |
 
 ### Task Management
 
@@ -292,9 +339,32 @@ pixverse asset download "$VID" --dest ./output/
 | `-V, --version` | Show CLI version |
 | `-h, --help` | Show help for any command |
 
+## For AI Agents — Advanced Usage
+
+For AI agents (Claude Code, Cursor, Codex, etc.), we **strongly recommend** installing [PixVerse Skills](https://github.com/PixVerseAI/skills) — a comprehensive skill library that teaches agents how to use PixVerse CLI correctly with full model constraints, multi-step pipelines, and error handling.
+
+**Install via Skills CLI:**
+
+```bash
+npx skills add https://github.com/pixverseai/skills --skill pixverse-ai-image-and-video-generator
+```
+
+**Or browse on ClawHub:**
+
+[https://clawhub.ai/pixverse-official/pixverse-ai-image-and-video-generator](https://clawhub.ai/pixverse-official/pixverse-ai-image-and-video-generator)
+
+Skills include:
+- Per-model parameter constraints (which models support which modes, quality levels, durations, aspect ratios)
+- End-to-end workflow pipelines (text-to-video, storyboard-to-video, video production, motion control, etc.)
+- Prompt optimization techniques for better generation quality
+- Batch creation patterns and error handling strategies
+
 ## Links
 
 - [PixVerse Website](https://pixverse.ai)
+- [PixVerse Skills](https://github.com/PixVerseAI/skills) — Agent skill library
+- [npm Package](https://www.npmjs.com/package/pixverse)
+- [Changelog](https://github.com/PixVerseAI/cli/blob/main/CHANGELOG.md)
 - [Report Issues](https://github.com/PixVerseAI/cli/issues)
 
 ## License

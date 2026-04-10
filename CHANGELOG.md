@@ -3,6 +3,13 @@
 All notable changes to PixVerse CLI will be documented in this file.
 
 
+## [1.0.13](https://github.com/PixVerseAI/cli/releases/tag/v1.0.13) — 2026-04-10
+
+### Features
+
+- --image and --video support more input types for better compatibility
+
+
 ## [1.0.12](https://github.com/PixVerseAI/cli/releases/tag/v1.0.12) — 2026-04-08
 
 ### Features

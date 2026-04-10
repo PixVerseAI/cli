@@ -1,6 +1,6 @@
 {
   "name": "pixverse",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "CLI for PixVerse — create AI videos and images from the command line",
   "license": "MIT",
   "author": "PixVerse <app@pixverse.ai>",
