@@ -2,6 +2,14 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.0](https://github.com/PixVerseAI/cli/releases/tag/v1.1.0) — 2026-04-12
+
+### Features
+
+- Add seedance-2.0 and seedance-2.0-fast models
+- Add kling-o3 and kling-3.0 models
+- Add asset list --source/--off-peak filtering and asset upload command with unified upload flow
+- Add saved folders command with list/items/new/rename/add/remove/delete
 
 ## [1.0.13](https://github.com/PixVerseAI/cli/releases/tag/v1.0.13) — 2026-04-10
 
@@ -9,20 +17,17 @@ All notable changes to PixVerse CLI will be documented in this file.
 
 - --image and --video support more input types for better compatibility
 
-
 ## [1.0.12](https://github.com/PixVerseAI/cli/releases/tag/v1.0.12) — 2026-04-08
 
 ### Features
 
 - Add pixverse-c1 model support, use friendly model display names
 
-
 ## [1.0.11](https://github.com/PixVerseAI/cli/releases/tag/v1.0.11) — 2026-04-07
 
 ### Bug Fixes
 
 - Support batch polling for --count > 1 across all create commands
-
 
 ## [1.0.10](https://github.com/PixVerseAI/cli/releases/tag/v1.0.10) — 2026-04-04
 

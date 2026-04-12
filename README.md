@@ -62,11 +62,19 @@ This opens your browser where you confirm the authorization. The CLI receives a 
 | PixVerse v5.6 | `v5.6` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
-| Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
+| PixVerse V5 Fast | `v5-fast` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| PixVerse V4.5 | `v4.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| Seedance 2.0 Standard | `seedance-2.0-standard` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
+| Seedance 2.0 Fast | `seedance-2.0-fast` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
+| Kling O3 Pro | `kling-o3-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
+| Kling O3 Standard | `kling-o3-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
+| Kling 3.0 Pro | `kling-3.0-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
+| Kling 3.0 Standard | `kling-3.0-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
+| Grok Imagine | `grok-imagine` | `480p` `720p` | `1`–`15`s | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3` |
 | Veo 3.1 Standard | `veo-3.1-standard` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
 | Veo 3.1 Fast | `veo-3.1-fast` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
-| Grok Imagine | `grok-imagine` | `480p` `720p` | `1`–`15`s | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3` |
+| Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
+| Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
 
 > Not all models support all creation modes. For per-mode model support (e.g. which models work with Transition, Reference, Motion Control), see the [PixVerse Skills](#for-ai-agents--advanced-usage) documentation.
 
@@ -74,13 +82,15 @@ This opens your browser where you confirm the authorization. The CLI receives a 
 
 | Model | `--model` value | Quality | Aspect Ratio |
 |:---|:---|:---|:---|
-| Qwen Image *(default)* | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
+| Qwen-image *(default)* | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
+| Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Gemini 2.5 Flash | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
-| Gemini 3.0 | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Gemini 3.1 Flash | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Kling O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` + more |
+| Kling 3.0 | `kling-image-v3` | `1080p` `1440p` | `16:9` `9:16` `1:1` + more |
 
 ---
 
@@ -180,8 +190,15 @@ pixverse task wait <id>
 ### Asset Management
 
 ```bash
-# List your generated assets
+# List your generated assets (default: created videos)
 pixverse asset list
+pixverse asset list --type image
+pixverse asset list --source upload
+pixverse asset list --source create --off-peak
+
+# Upload a local file or URL to asset library
+pixverse asset upload ./photo.png
+pixverse asset upload https://example.com/image.jpg
 
 # Get asset details
 pixverse asset info <id>
@@ -191,6 +208,32 @@ pixverse asset download <id>
 
 # Delete an asset
 pixverse asset delete <id>
+```
+
+### Saved Folders
+
+```bash
+# List all saved folders
+pixverse saved list
+
+# List items in a folder (default folder if omitted)
+pixverse saved items
+pixverse saved items <folder_id> --type image --source upload
+
+# Create a new folder
+pixverse saved new "My Collection"
+
+# Rename a folder
+pixverse saved rename <folder_id> "New Name"
+
+# Add assets to a folder
+pixverse saved add <asset_id...> --folder <folder_id> --type video
+
+# Remove assets from a folder
+pixverse saved remove <asset_id...> --folder <folder_id> --type video
+
+# Delete a folder
+pixverse saved delete <folder_id>
 ```
 
 ### Templates
@@ -311,10 +354,18 @@ pixverse asset download "$VID" --dest ./output/
 | `template info` | Get template details |
 | `task status` | Check task status |
 | `task wait` | Wait for task completion |
-| `asset list` | List generated assets |
+| `asset list` | List assets (`--source create\|upload`, `--type video\|image`, `--off-peak`) |
+| `asset upload` | Upload a local file or HTTPS URL to asset library |
 | `asset info` | Get asset details |
 | `asset download` | Download a generated asset |
 | `asset delete` | Delete an asset |
+| `saved list` | List saved folders |
+| `saved items` | List items in a saved folder |
+| `saved new` | Create a new saved folder |
+| `saved rename` | Rename a saved folder |
+| `saved add` | Add assets to a saved folder |
+| `saved remove` | Remove assets from a saved folder |
+| `saved delete` | Delete a saved folder |
 | `workspace list` | List all workspaces |
 | `workspace status` | Show current workspace |
 | `workspace switch` | Switch workspace (interactive or by ID) |
