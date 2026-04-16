@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+
+## [1.1.2](https://github.com/PixVerseAI/cli/releases/tag/v1.1.2) — 2026-04-16
+
+### Features
+
+- Add 1080p support for seedance-2.0-standard video generation
+
 ## [1.1.1](https://github.com/PixVerseAI/cli/releases/tag/v1.1.1) — 2026-04-16
 
 ### Features

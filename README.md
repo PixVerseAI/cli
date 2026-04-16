@@ -64,7 +64,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse V5 Fast | `v5-fast` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse V4.5 | `v4.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| Seedance 2.0 Standard | `seedance-2.0-standard` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
+| Seedance 2.0 Standard | `seedance-2.0-standard` | `480p` `720p` `1080p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Seedance 2.0 Fast | `seedance-2.0-fast` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Kling O3 Pro | `kling-o3-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling O3 Standard | `kling-o3-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
