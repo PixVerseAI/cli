@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.1](https://github.com/PixVerseAI/cli/releases/tag/v1.1.1) — 2026-04-16
+
+### Features
+
+- Add veo-3.1-lite model
+
 ## [1.1.0](https://github.com/PixVerseAI/cli/releases/tag/v1.1.0) — 2026-04-12
 
 ### Features

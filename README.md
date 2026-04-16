@@ -42,7 +42,7 @@ PixVerse CLI uses OAuth device flow — no need to manually copy tokens:
 pixverse auth login
 ```
 
-This opens your browser where you confirm the authorization. The CLI receives a token automatically and stores it locally.
+This opens a browser where you confirm the authorization. You can also copy the URL and authorize from **any browser on any device** — useful for SSH or headless environments. The CLI receives a token automatically and stores it locally.
 
 - Token is valid for 30 days
 - CLI sessions are independent from your web/app sessions
@@ -71,8 +71,9 @@ This opens your browser where you confirm the authorization. The CLI receives a 
 | Kling 3.0 Pro | `kling-3.0-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling 3.0 Standard | `kling-3.0-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Grok Imagine | `grok-imagine` | `480p` `720p` | `1`–`15`s | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3` |
-| Veo 3.1 Standard | `veo-3.1-standard` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
-| Veo 3.1 Fast | `veo-3.1-fast` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
+| Veo 3.1 Lite | `veo-3.1-lite` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
+| Veo 3.1 Standard | `veo-3.1-standard` | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
+| Veo 3.1 Fast | `veo-3.1-fast` | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
 | Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
 | Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
 
@@ -89,8 +90,8 @@ This opens your browser where you confirm the authorization. The CLI receives a 
 | Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Kling O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` + more |
-| Kling 3.0 | `kling-image-v3` | `1080p` `1440p` | `16:9` `9:16` `1:1` + more |
+| Kling Image O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` + more |
+| Kling Image V3 | `kling-image-v3` | `1080p` `1440p` | `16:9` `9:16` `1:1` + more |
 
 ---
 
