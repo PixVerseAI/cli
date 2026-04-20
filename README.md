@@ -108,6 +108,8 @@ pixverse create image
 
 The wizard guides you through prompt, model, quality, aspect ratio, and other options step by step.
 
+Local image inputs larger than `1920x1920` or `5MB` are automatically resized/compressed before upload. Remote image URLs are validated by the backend as-is.
+
 ### Text to Video
 
 ```bash

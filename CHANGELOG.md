@@ -3,6 +3,13 @@
 All notable changes to PixVerse CLI will be documented in this file.
 
 
+## [1.1.3](https://github.com/PixVerseAI/cli/releases/tag/v1.1.3) — 2026-04-20
+
+### Bug Fixes
+
+- Auto-compress oversized local images and harden JSON/download behavior
+
+
 ## [1.1.2](https://github.com/PixVerseAI/cli/releases/tag/v1.1.2) — 2026-04-16
 
 ### Features
