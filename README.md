@@ -84,6 +84,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Model | `--model` value | Quality | Aspect Ratio |
 |:---|:---|:---|:---|
 | Qwen-image *(default)* | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
+| GPT Image 2 | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `3:2` `2:3` (1080p) · `1:1` `16:9` `9:16` (1440p) · `16:9` `9:16` (2160p) |
 | Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
