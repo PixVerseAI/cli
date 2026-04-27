@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.5](https://github.com/PixVerseAI/cli/releases/tag/v1.1.5) — 2026-04-27
+
+### Features
+
+- Add happyhorse-1.0 video model
+
 ## [1.1.4](https://github.com/PixVerseAI/cli/releases/tag/v1.1.4) — 2026-04-22
 
 ### Features
