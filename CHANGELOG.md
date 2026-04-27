@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+
+## [1.1.6](https://github.com/PixVerseAI/cli/releases/tag/v1.1.6) — 2026-04-27
+
+### Features
+
+- Enable grok-imagine for extend and reference modes
+
 ## [1.1.5](https://github.com/PixVerseAI/cli/releases/tag/v1.1.5) — 2026-04-27
 
 ### Features

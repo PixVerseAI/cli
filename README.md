@@ -78,7 +78,21 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
 | Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
 
-> Not all models support all creation modes. For per-mode model support (e.g. which models work with Transition, Reference, Motion Control), see the [PixVerse Skills](#for-ai-agents--advanced-usage) documentation.
+> Not all models support all creation modes. See the per-mode support matrix below.
+
+#### Per-mode Model Support
+
+| Creation mode | Supported `--model` values |
+|:---|:---|
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `v5.6` `v5.5` `v5` `v5-fast` `seedance-2.0-standard` `seedance-2.0-fast` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `happyhorse-1.0` |
+| `create extend` | `v6` `v5.5` `v5` `grok-imagine` |
+| `create reference` (multi-subject fusion) | `pixverse-c1` `v5` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` |
+| `create transition` (2 frames) | `v6` `pixverse-c1` `v5.6` `v5.5` `v5` `v4.5` `seedance-2.0-standard` `seedance-2.0-fast` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` |
+| `create transition` (3+ frames) | `v5` `v4.5` |
+| `create modify` | `v5.5` |
+| `create motion-control` | `v5.6` |
+| `create speech` (lip sync) | `v5` |
+| `create sound` (sound effect) | `v5` |
 
 ### Image Models (`--model <value>`)
 
