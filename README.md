@@ -99,7 +99,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Model | `--model` value | Quality | Aspect Ratio |
 |:---|:---|:---|:---|
 | Qwen-image *(default)* | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
-| GPT Image 2 | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `3:2` `2:3` (1080p) · `1:1` `16:9` `9:16` (1440p) · `16:9` `9:16` (2160p) |
+| GPT Image 2 | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
 | Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
@@ -175,6 +175,9 @@ pixverse create upscale --video <video_id> --quality 1080p
 # Generate video with character reference (1–7 images)
 pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends walking in a park"
 
+# Seedance 2.0 reference — mix images and videos (max 3 videos, total ≤ 15s)
+pixverse create reference -m seedance-2.0-standard --images ./char.png --videos ./motion.mp4 --prompt "@image1 follows the motion in @video1"
+
 # Motion control — character image + motion reference video
 pixverse create motion-control --image ./character.png --video ./dance.mp4
 
@@ -201,6 +204,9 @@ These flags are available across most `create` subcommands:
 ```bash
 # Check task status
 pixverse task status <id>
+
+# Batch status query (parallel; per-ID failures captured in the response map)
+pixverse task status --ids 123,456,789 --type video --json
 
 # Wait for a task to complete
 pixverse task wait <id>
@@ -296,6 +302,10 @@ pixverse workspace manage
 pixverse account info
 pixverse account usage
 
+# View current concurrent generation slots (image / video)
+pixverse account slots
+pixverse account slots --json
+
 # Open subscription page in browser
 pixverse subscribe
 ```
@@ -371,7 +381,7 @@ pixverse asset download "$VID" --dest ./output/
 | `template list` | List templates (with category filter) |
 | `template search` | Search templates by keyword |
 | `template info` | Get template details |
-| `task status` | Check task status |
+| `task status` | Check task status (single `<id>` or `--ids id1,id2,...` for batch) |
 | `task wait` | Wait for task completion |
 | `asset list` | List assets (`--source create\|upload`, `--type video\|image`, `--off-peak`) |
 | `asset upload` | Upload a local file or HTTPS URL to asset library |
@@ -391,6 +401,7 @@ pixverse asset download "$VID" --dest ./output/
 | `workspace manage` | Open workspace management in browser |
 | `account info` | View account info and workspace credits |
 | `account usage` | View credit usage |
+| `account slots` | View current concurrent generation slots (image / video) |
 | `subscribe` | Open subscription page |
 | `config set` | Set a config value |
 | `config get` | Get a config value |

@@ -2,6 +2,16 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.7](https://github.com/PixVerseAI/cli/releases/tag/v1.1.7) — 2026-05-09
+
+### Features
+
+- Support Seedance 2.0 mixed image+video reference
+- Support more GPT Image 2 aspect ratios
+
+### Refactor
+
+- Simplify GPT Image 2 aspect ratio validation
 
 ## [1.1.6](https://github.com/PixVerseAI/cli/releases/tag/v1.1.6) — 2026-04-27
 
