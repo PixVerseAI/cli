@@ -2,6 +2,23 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.8](https://github.com/PixVerseAI/cli/releases/tag/v1.1.8) — 2026-05-14
+
+### Breaking Changes
+
+- Remove `create sound` command
+- Drop deprecated models from selected creation modes (passing them as `--model` now fails validation):
+  - `create video`: `v5.5`, `v5`, `v5-fast`
+  - `create extend`: `v5.5`, `v5`
+  - `create reference`: `v5`
+  - `create transition` (2 frames): `v5.5`, `v5`, `v4.5`
+  - `create transition` (3+ frames): `v4.5`
+
+### Features
+
+- Add `2160p` quality for `seedream-5.0-lite`
+- `create <mode> --no-wait --json` output now includes the resolved `params`
+
 ## [1.1.7](https://github.com/PixVerseAI/cli/releases/tag/v1.1.7) — 2026-05-09
 
 ### Features

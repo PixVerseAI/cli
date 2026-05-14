@@ -62,8 +62,6 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5.6 | `v5.6` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse V5 Fast | `v5-fast` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse V4.5 | `v4.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | Seedance 2.0 Standard | `seedance-2.0-standard` | `480p` `720p` `1080p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Seedance 2.0 Fast | `seedance-2.0-fast` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Happy Horse 1.0 | `happyhorse-1.0` | `720p` `1080p` | `3`–`15`s | `16:9` `9:16` `1:1` `4:3` `3:4` |
@@ -84,15 +82,14 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 | Creation mode | Supported `--model` values |
 |:---|:---|
-| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `v5.6` `v5.5` `v5` `v5-fast` `seedance-2.0-standard` `seedance-2.0-fast` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `happyhorse-1.0` |
-| `create extend` | `v6` `v5.5` `v5` `grok-imagine` |
-| `create reference` (multi-subject fusion) | `pixverse-c1` `v5` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` |
-| `create transition` (2 frames) | `v6` `pixverse-c1` `v5.6` `v5.5` `v5` `v4.5` `seedance-2.0-standard` `seedance-2.0-fast` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` |
-| `create transition` (3+ frames) | `v5` `v4.5` |
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `happyhorse-1.0` |
+| `create extend` | `v6` `grok-imagine` |
+| `create reference` (multi-subject fusion) | `pixverse-c1` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` |
+| `create transition` (2 frames) | `v6` `pixverse-c1` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` |
+| `create transition` (3+ frames) | `v5` |
 | `create modify` | `v5.5` |
 | `create motion-control` | `v5.6` |
 | `create speech` (lip sync) | `v5` |
-| `create sound` (sound effect) | `v5` |
 
 ### Image Models (`--model <value>`)
 
@@ -103,7 +100,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
-| Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` | `auto` `1:1` `16:9` `9:16` + more |
+| Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Kling Image O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` + more |
@@ -159,9 +156,6 @@ pixverse create transition --images ./frame1.png ./frame2.png ./frame3.png
 # Add lip-sync speech to a video (via TTS or audio file)
 pixverse create speech --video <video_id> --tts-text "Hello world"
 pixverse create speech --video <video_id> --audio ./speech.mp3
-
-# Add AI sound effects to a video
-pixverse create sound --video <video_id> --prompt "Birds chirping in a forest"
 
 # Extend video duration
 pixverse create extend --video <video_id>
@@ -370,7 +364,6 @@ pixverse asset download "$VID" --dest ./output/
 | `create image` | Text-to-image or image-to-image |
 | `create transition` | Create transitions between keyframes |
 | `create speech` | Add lip-sync speech to video |
-| `create sound` | Add AI sound effects to video |
 | `create extend` | Extend video duration |
 | `create modify` | Modify an existing video |
 | `create upscale` | Upscale video resolution |
