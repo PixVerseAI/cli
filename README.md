@@ -59,9 +59,6 @@ This opens a browser where you confirm the authorization. You can also copy the 
 |:---|:---|:---|:---|:---|
 | PixVerse V6 *(default)* | `v6` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` `21:9` |
 | PixVerse C1 | `pixverse-c1` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse v5.6 | `v5.6` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | Seedance 2.0 Standard | `seedance-2.0-standard` | `480p` `720p` `1080p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Seedance 2.0 Fast | `seedance-2.0-fast` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Happy Horse 1.0 | `happyhorse-1.0` | `720p` `1080p` | `3`–`15`s | `16:9` `9:16` `1:1` `4:3` `3:4` |
@@ -75,6 +72,9 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Veo 3.1 Fast | `veo-3.1-fast` | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
 | Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
 | Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
+| PixVerse v5.6 | `v5.6` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 
 > Not all models support all creation modes. See the per-mode support matrix below.
 
@@ -82,10 +82,10 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 | Creation mode | Supported `--model` values |
 |:---|:---|
-| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `happyhorse-1.0` |
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
 | `create extend` | `v6` `grok-imagine` |
-| `create reference` (multi-subject fusion) | `pixverse-c1` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` |
-| `create transition` (2 frames) | `v6` `pixverse-c1` `v5.6` `seedance-2.0-standard` `seedance-2.0-fast` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` |
+| `create reference` (multi-subject fusion) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6` |
+| `create transition` (2 frames) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6` |
 | `create transition` (3+ frames) | `v5` |
 | `create modify` | `v5.5` |
 | `create motion-control` | `v5.6` |
@@ -95,9 +95,9 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 | Model | `--model` value | Quality | Aspect Ratio |
 |:---|:---|:---|:---|
-| Qwen-image *(default)* | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
-| GPT Image 2 | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
+| GPT Image 2 *(default)* | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
 | Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
+| Qwen-image | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
 | Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
 | Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |

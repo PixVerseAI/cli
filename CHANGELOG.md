@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.9](https://github.com/PixVerseAI/cli/releases/tag/v1.1.9) — 2026-05-15
+
+### Features
+
+- Add `v6` model support to `create reference`
+- `create image` default model is now `gpt-image-2.0`
+
 ## [1.1.8](https://github.com/PixVerseAI/cli/releases/tag/v1.1.8) — 2026-05-14
 
 ### Breaking Changes
