@@ -30,14 +30,17 @@ jobs:
           echo "RELEASE_VERSION=${TAG#v}" >> $GITHUB_ENV
           echo "Releasing: ${TAG}"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ env.RELEASE_TAG }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Upgrade npm for OIDC trusted publishing
+        run: npm install -g npm@latest
 
       - name: Verify dist
         run: |
@@ -61,26 +64,34 @@ jobs:
               pkg.name = '${name}';
               require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
             "
-            if npm publish --provenance --access public; then
-              echo "✓ ${name}@${VERSION} published"
-            else
-              echo "⚠ ${name}@${VERSION} publish failed — continuing"
-            fi
+            npm publish --provenance --access public
+            echo "✓ ${name}@${VERSION} published"
           }
           publish_pkg "pixverse"
           publish_pkg "@pixverse-ai/cli"
           publish_pkg "pixverse-cli"
           publish_pkg "pixverse-ai-cli"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Verify publication
         run: |
-          sleep 15
           VERSION="${RELEASE_VERSION}"
-          npm view @pixverse-ai/cli@${VERSION} version
-          npm view pixverse-cli@${VERSION} version
-          npm view pixverse-ai-cli@${VERSION} version
+          verify_pkg() {
+            local name="$1"
+            for i in 1 2 3 4 5 6; do
+              if npm view "${name}@${VERSION}" version > /dev/null 2>&1; then
+                echo "✓ ${name}@${VERSION} visible on registry"
+                return 0
+              fi
+              echo "… ${name}@${VERSION} not visible yet (attempt $i), retrying in 10s"
+              sleep 10
+            done
+            echo "✗ ${name}@${VERSION} not visible after 60s"
+            return 1
+          }
+          verify_pkg "pixverse"
+          verify_pkg "@pixverse-ai/cli"
+          verify_pkg "pixverse-cli"
+          verify_pkg "pixverse-ai-cli"
 
       - name: Extract release notes from CHANGELOG
         id: changelog
@@ -93,7 +104,7 @@ jobs:
           echo "$NOTES" > /tmp/release-notes.md
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           body_path: /tmp/release-notes.md
