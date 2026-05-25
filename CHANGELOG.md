@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.10](https://github.com/PixVerseAI/cli/releases/tag/v1.1.10) — 2026-05-25
+
+### Features
+
+- `create modify` support `--images` for reference images
+
 ## [1.1.9](https://github.com/PixVerseAI/cli/releases/tag/v1.1.9) — 2026-05-15
 
 ### Features
