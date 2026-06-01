@@ -2,6 +2,14 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.1.11](https://github.com/PixVerseAI/cli/releases/tag/v1.1.11) — 2026-06-01
+
+### Features
+
+- `--prompt` and `--tts-text` accept `-` to read the value from stdin (pipe long or multi-line prompts)
+- Add `pixverse update` to upgrade the CLI, with a daily update-available notice
+- Add global `--trace-id` option to attach a caller-supplied UUIDv4 to all API requests
+
 ## [1.1.10](https://github.com/PixVerseAI/cli/releases/tag/v1.1.10) — 2026-05-25
 
 ### Features

@@ -129,6 +129,16 @@ Local image inputs larger than `1920x1920` or `5MB` are automatically resized/co
 pixverse create video --prompt "A cat walking on Mars" --model v6 --quality 720p --aspect-ratio 16:9
 ```
 
+### Prompts from stdin
+
+Pass `-` to `--prompt` (or `--tts-text`) to read the value from stdin. Handy for long or multi-line prompts and for piping output from another tool without fighting shell quoting:
+
+```bash
+echo "A neon city skyline at dusk, slow drone shot" | pixverse create video --prompt -
+cat scene.txt | pixverse create image --prompt - --json
+some-prompt-generator | pixverse create speech --video <id> --tts-text -
+```
+
 ### Image to Video
 
 ```bash
@@ -304,6 +314,15 @@ pixverse account slots --json
 pixverse subscribe
 ```
 
+### Keeping the CLI up to date
+
+```bash
+# Update to the latest published version
+pixverse update
+```
+
+When run interactively, the CLI checks the npm registry at most once per day and prints a one-line "update available" notice to **stderr** (never to stdout, so `--json` output stays clean). The check is skipped in `--json`/`-p` mode, in CI, and when stdout/stderr is piped.
+
 ### Configuration
 
 ```bash
@@ -396,6 +415,7 @@ pixverse asset download "$VID" --dest ./output/
 | `account usage` | View credit usage |
 | `account slots` | View current concurrent generation slots (image / video) |
 | `subscribe` | Open subscription page |
+| `update` | Update the CLI to the latest version (`npm i -g pixverse@latest`) |
 | `config set` | Set a config value |
 | `config get` | Get a config value |
 | `config list` | List all config values |
