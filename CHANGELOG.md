@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+
+## [1.1.12](https://github.com/PixVerseAI/cli/releases/tag/v1.1.12) — 2026-06-04
+
+### Bug Fixes
+
+- Fix media path validation rules
+
 ## [1.1.11](https://github.com/PixVerseAI/cli/releases/tag/v1.1.11) — 2026-06-01
 
 ### Features
