@@ -1,10 +1,10 @@
 # PixVerse CLI
 
-The official command-line interface (CLI) for [PixVerse](https://pixverse.ai) — create AI-powered videos and images directly from your terminal.
+The official command-line interface (CLI) for [PixVerse](https://pixverse.ai) — create AI-powered videos, images, and audio directly from your terminal.
 
 ## What is PixVerse?
 
-PixVerse is an AI-powered creative platform that generates high-quality videos and images from text prompts or reference images. It supports a wide range of creative workflows including text-to-video, image-to-video, text-to-image, video transitions, lip-sync speech, sound effects, templates/effects, and more.
+PixVerse is an AI-powered creative platform that generates high-quality videos, images, and audio from text prompts or reference images. It supports a wide range of creative workflows including text-to-video, image-to-video, text-to-image, video transitions, text-to-speech (voice synthesis), music generation, templates/effects, and more.
 
 ## What is PixVerse CLI?
 
@@ -13,12 +13,12 @@ PixVerse CLI is essentially **a UI-free version of the PixVerse website**. All f
 It is designed for:
 
 - **AI agents** — structured JSON output, deterministic exit codes, and pipeable commands make it a perfect tool for autonomous workflows (e.g. Claude Code, Cursor, Codex, LangChain, custom agents).
-- **Developers & power users** — scriptable video/image generation without leaving the terminal.
+- **Developers & power users** — scriptable video/image/audio generation without leaving the terminal.
 - **Automation** — integrate AI content generation into CI/CD pipelines, batch processing scripts, or content production workflows.
 
 ## Subscription Required
 
-PixVerse CLI uses the same credit system as the website — generating videos and images consumes credits from your PixVerse account balance with the same pricing. To prevent abuse, **PixVerse CLI is currently available to subscribed users only**. For details on subscription plans and member benefits, see the [PixVerse Subscribe](https://app.pixverse.ai/subscribe) page.
+PixVerse CLI uses the same credit system as the website — generating videos, images, and audio consumes credits from your PixVerse account balance with the same pricing. To prevent abuse, **PixVerse CLI is currently available to subscribed users only**. For details on subscription plans and member benefits, see the [PixVerse Subscribe](https://app.pixverse.ai/subscribe) page.
 
 ## Installation
 
@@ -66,6 +66,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Kling O3 Standard | `kling-o3-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling 3.0 Pro | `kling-3.0-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling 3.0 Standard | `kling-3.0-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
+| Grok Imagine 1.5 | `grok-imagine-1.5` | `480p` `720p` | `1`–`15`s | *from image* |
 | Grok Imagine | `grok-imagine` | `480p` `720p` | `1`–`15`s | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3` |
 | Veo 3.1 Lite | `veo-3.1-lite` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
 | Veo 3.1 Standard | `veo-3.1-standard` | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
@@ -76,20 +77,23 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 
+> Grok Imagine 1.5 is image-to-video only — it requires `--image` and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
+
 > Not all models support all creation modes. See the per-mode support matrix below.
 
 #### Per-mode Model Support
 
 | Creation mode | Supported `--model` values |
 |:---|:---|
-| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
 | `create extend` | `v6` `grok-imagine` |
 | `create reference` (multi-subject fusion) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6` |
 | `create transition` (2 frames) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6` |
 | `create transition` (3+ frames) | `v5` |
 | `create modify` | `v5.5` |
 | `create motion-control` | `v5.6` |
-| `create speech` (lip sync) | `v5` |
+
+> Audio creation uses separate model families: `create voice` for text-to-speech and `create music` for prompt-to-music.
 
 ### Image Models (`--model <value>`)
 
@@ -105,6 +109,28 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
 | Kling Image O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` + more |
 | Kling Image V3 | `kling-image-v3` | `1080p` `1440p` | `16:9` `9:16` `1:1` + more |
+
+### Voice / TTS Models (`create voice --model <value>`)
+
+| Model | `--model` value | Provider | Max characters |
+|:---|:---|:---|:---|
+| MiniMax Speech 2.8 HD *(default)* | `speech-2.8-hd` | MiniMax | 10,000 |
+| MiniMax Speech 2.8 Turbo | `speech-2.8-turbo` | MiniMax | 10,000 |
+| Eleven Multilingual v2 | `eleven-multilingual-v2` | ElevenLabs | 10,000 |
+| Eleven v3 | `eleven-v3` | ElevenLabs | 5,000 |
+| Eleven Turbo v2.5 | `eleven-turbo-v2.5` | ElevenLabs | 40,000 |
+
+> Browse available preset voices with `pixverse voice presets --model <id>` and the full live model catalog with `pixverse voice models`.
+
+### Music Models (`create music --model <value>`)
+
+| Model | `--model` value | Provider | Duration | Notes |
+|:---|:---|:---|:---|:---|
+| MiniMax Music 2.6 *(default)* | `music-2.6` | MiniMax | `10`-`240`s | Lyrics, auto lyrics, instrumental |
+| ElevenLabs Music | `music_v1` | ElevenLabs | `10`-`240`s | Lyrics, auto lyrics, instrumental |
+| Google Lyria 3 Pro | `lyria-3-pro-preview` | Google | `10`-`240`s | Image references, no separate `--lyrics` |
+
+> Browse the live music model catalog with `pixverse music models`.
 
 ---
 
@@ -129,15 +155,22 @@ Local image inputs larger than `1920x1920` or `5MB` are automatically resized/co
 pixverse create video --prompt "A cat walking on Mars" --model v6 --quality 720p --aspect-ratio 16:9
 ```
 
-### Prompts from stdin
+### Text inputs: literal, a file, or stdin
 
-Pass `-` to `--prompt` (or `--tts-text`) to read the value from stdin. Handy for long or multi-line prompts and for piping output from another tool without fighting shell quoting:
+Text-input flags — `--prompt` (all create commands), `--text` (`create voice`), and `--lyrics` (`create music`) — accept three forms, just like `--image` / `--video`:
+
+- a **literal** string: `--prompt "A neon city skyline"`
+- a **local file path**: `--prompt ./scene.txt` (the file's contents are used)
+- `-` to read from **stdin**: `... | pixverse create video --prompt -`
 
 ```bash
-echo "A neon city skyline at dusk, slow drone shot" | pixverse create video --prompt -
+pixverse create video --prompt ./scene.txt
 cat scene.txt | pixverse create image --prompt - --json
-some-prompt-generator | pixverse create speech --video <id> --tts-text -
+echo "Hello from the command line" | pixverse create voice --text -
+pixverse create music --prompt "Bright synth-pop" --lyrics ./lyrics.txt
 ```
+
+> A value is treated as a file only when a matching file actually exists on disk; otherwise it's used as literal text (the same rule as `--image` / `--video`).
 
 ### Image to Video
 
@@ -163,9 +196,22 @@ pixverse create image --prompt "Turn this into a watercolor painting" --image ./
 # Create a transition between keyframes (requires 2+ images)
 pixverse create transition --images ./frame1.png ./frame2.png ./frame3.png
 
-# Add lip-sync speech to a video (via TTS or audio file)
-pixverse create speech --video <video_id> --tts-text "Hello world"
-pixverse create speech --video <video_id> --audio ./speech.mp3
+# Generate speech audio from text (text-to-speech)
+pixverse create voice --text "Hello world" --voice-id <preset_voice_id> --output ./out.mp3
+# Browse available models / preset voices:
+pixverse voice models
+pixverse voice presets --model speech-2.8-hd
+
+# Generate music audio from a prompt
+pixverse create music --prompt "A cinematic pop song with bright synths" --auto-lyrics
+pixverse create music --prompt "Uplifting piano theme" --instrumental --duration-seconds 60
+# Lyrics-capable models require lyrics unless --auto-lyrics or --instrumental is used:
+# (--lyrics takes a literal string, a local file path, or - for stdin)
+pixverse create music --prompt "Bright synth-pop, uplifting mood" --lyrics ./lyrics.txt
+# Google Lyria supports image references and expects lyric-like instructions in --prompt:
+pixverse create music -m lyria-3-pro-preview --prompt "Instrumental orchestral cue inspired by these images" --image ./moodboard.png
+# Browse available music models:
+pixverse music models
 
 # Extend video duration
 pixverse create extend --video <video_id>
@@ -189,6 +235,13 @@ pixverse create motion-control --image ./character.png --video ./dance.mp4
 pixverse create template --template-id 12345 --image ./photo.png
 ```
 
+Voice speed uses provider-specific validation:
+
+| Provider | Default | Valid range | Invalid range error | Provider request field |
+|:---|:---|:---|:---|:---|
+| ElevenLabs | `1.0` | `0.7..1.2` | `--speed must be between 0.7 and 1.2` | `voice_settings.speed` |
+| MiniMax | `1.0` | `0.5..2.0` | `--speed must be between 0.5 and 2` | `voice_setting.speed` |
+
 ### Common Creation Flags
 
 These flags are available across most `create` subcommands:
@@ -209,6 +262,9 @@ These flags are available across most `create` subcommands:
 # Check task status
 pixverse task status <id>
 
+# Poll a voice/music audio task (audio is not auto-detected — pass --type audio)
+pixverse task status <id> --type audio
+
 # Batch status query (parallel; per-ID failures captured in the response map)
 pixverse task status --ids 123,456,789 --type video --json
 
@@ -222,21 +278,32 @@ pixverse task wait <id>
 # List your generated assets (default: created videos)
 pixverse asset list
 pixverse asset list --type image
+pixverse asset list --type audio              # voice and music audio history
+pixverse asset list --type audio --source upload
 pixverse asset list --source upload
 pixverse asset list --source create --off-peak
 
 # Upload a local file or URL to asset library
 pixverse asset upload ./photo.png
+pixverse asset upload ./voice-over.mp3
 pixverse asset upload https://example.com/image.jpg
 
-# Get asset details
+# Get asset details (type auto-detected: video → image → audio)
 pixverse asset info <id>
+# Pass --type to skip auto-detection
+pixverse asset info <id> --type audio
+pixverse asset info <id> --type audio --source upload
 
-# Download a generated video or image
+# Download a created video, image, or audio (uploads are not downloadable)
 pixverse asset download <id>
+pixverse asset download <id> --type audio --dest ./out/
 
-# Delete an asset
+# Delete a created asset — pass its id (auto-detected)
 pixverse asset delete <id>
+pixverse asset delete <id> --type audio
+
+# Delete an uploaded asset — pass the id from `asset list --source upload`
+pixverse asset delete <id> --source upload --type image
 ```
 
 ### Saved Folders
@@ -382,7 +449,8 @@ pixverse asset download "$VID" --dest ./output/
 | `create video` | Text-to-video or image-to-video |
 | `create image` | Text-to-image or image-to-image |
 | `create transition` | Create transitions between keyframes |
-| `create speech` | Add lip-sync speech to video |
+| `create voice` | Generate speech audio from text (text-to-speech) |
+| `create music` | Generate music audio from a prompt |
 | `create extend` | Extend video duration |
 | `create modify` | Modify an existing video |
 | `create upscale` | Upscale video resolution |
@@ -393,9 +461,12 @@ pixverse asset download "$VID" --dest ./output/
 | `template list` | List templates (with category filter) |
 | `template search` | Search templates by keyword |
 | `template info` | Get template details |
+| `voice models` | List voice/TTS providers, models, and supported languages |
+| `voice presets` | List preset voices (filterable by model / language / provider) |
+| `music models` | List music providers, models, and capabilities |
 | `task status` | Check task status (single `<id>` or `--ids id1,id2,...` for batch) |
 | `task wait` | Wait for task completion |
-| `asset list` | List assets (`--source create\|upload`, `--type video\|image`, `--off-peak`) |
+| `asset list` | List assets (`--source create\|upload`, `--type video\|image\|audio`, `--off-peak`) |
 | `asset upload` | Upload a local file or HTTPS URL to asset library |
 | `asset info` | Get asset details |
 | `asset download` | Download a generated asset |
@@ -436,6 +507,8 @@ pixverse asset download "$VID" --dest ./output/
 ## For AI Agents — Advanced Usage
 
 For AI agents (Claude Code, Cursor, Codex, etc.), we **strongly recommend** installing [PixVerse Skills](https://github.com/PixVerseAI/skills) — a comprehensive skill library that teaches agents how to use PixVerse CLI correctly with full model constraints, multi-step pipelines, and error handling.
+
+For lightweight discovery, the public repo also includes a compact machine-readable command manifest at `capabilities.json`; the npm package includes the same file at `dist/capabilities.json`.
 
 **Install via Skills CLI:**
 

@@ -3,6 +3,20 @@
 All notable changes to PixVerse CLI will be documented in this file.
 
 
+## [1.2.0](https://github.com/PixVerseAI/cli/releases/tag/v1.2.0) — 2026-06-12
+
+### Breaking Changes
+
+- Remove `create speech` (Lip Sync)
+
+### Features
+
+- Add `create voice` for text-to-speech, with a read-only `voice` group (`voice models`, `voice presets`) listing available models, languages, and preset voices
+- Add `create music` for prompt-to-music generation, with a read-only `music` group (`music models`) listing available models
+- Voice and music outputs are saved as audio assets — list, inspect, and download them with `asset` and `task`
+- Add `grok-imagine-1.5` video model for image-to-video (`create video --model grok-imagine-1.5 --image <path>`)
+- Ship a compact, machine-readable `capabilities.json` manifest — commands, flags, exit codes, and the JSON output contract — for agent and Skill consumption
+
 ## [1.1.12](https://github.com/PixVerseAI/cli/releases/tag/v1.1.12) — 2026-06-04
 
 ### Bug Fixes

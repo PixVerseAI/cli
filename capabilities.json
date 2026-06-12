@@ -1,0 +1,913 @@
+{
+  "schema_version": "1.1.0",
+  "format": "pixverse-cli-capabilities-compact",
+  "source": "Generated from Commander definitions by scripts/generate-capabilities.mjs. Do not hand-edit.",
+  "cli": {
+    "name": "pixverse",
+    "package": "pixverse",
+    "version": "1.2.0",
+    "binary": "pixverse",
+    "node": ">=20",
+    "description": "PixVerse CLI - generate videos and images from the command line"
+  },
+  "contract": {
+    "service": "PixVerse public service",
+    "auth": "OAuth device flow with a local CLI session",
+    "json": "Use --json or -p for pure JSON stdout; errors and progress go to stderr.",
+    "text_inputs": "prompt, text, lyrics accept literal text, local file path, or - for stdin.",
+    "polling": "done=1; retry=5,9,10; failed=7,8; intervals=2s,5s,10s"
+  },
+  "exit_codes": {
+    "0": "SUCCESS: success",
+    "1": "GENERAL_ERROR: general API or unexpected error",
+    "2": "TIMEOUT: polling timeout",
+    "3": "AUTH_EXPIRED: authentication token invalid or expired",
+    "4": "CREDIT_INSUFFICIENT: subscription or credit limit",
+    "5": "GENERATION_FAILED: generation failed or was not approved",
+    "6": "VALIDATION_ERROR: CLI input validation error"
+  },
+  "global_options": {
+    "-V, --version": "output the version number",
+    "--json": "Output results as JSON",
+    "-p": "Print mode - pure JSON output (alias for --json)",
+    "--workspace-id <id>": "Override active workspace for this command (0 = personal)",
+    "--trace-id <id>": "Trace ID to attach to all API requests in this invocation (must be UUIDv4)"
+  },
+  "commands": [
+    {
+      "cmd": "pixverse",
+      "desc": "PixVerse CLI - generate videos and images from the command line",
+      "children": [
+        "auth",
+        "create",
+        "task",
+        "asset",
+        "account",
+        "subscribe",
+        "config",
+        "template",
+        "voice",
+        "music",
+        "saved",
+        "workspace",
+        "update"
+      ],
+      "options": {
+        "-V, --version": "output the version number",
+        "--json": "Output results as JSON",
+        "-p": "Print mode - pure JSON output (alias for --json)",
+        "--workspace-id <id>": "Override active workspace for this command (0 = personal)",
+        "--trace-id <id>": "Trace ID to attach to all API requests in this invocation (must be UUIDv4)"
+      }
+    },
+    {
+      "cmd": "pixverse auth",
+      "desc": "Manage authentication",
+      "children": [
+        "login",
+        "status",
+        "logout"
+      ]
+    },
+    {
+      "cmd": "pixverse auth login",
+      "desc": "Login via browser authorization (OAuth device flow)",
+      "run": true,
+      "effect": "mutates_cli_or_remote_state",
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth status",
+      "desc": "Check authentication status and account info",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth logout",
+      "desc": "Remove stored token",
+      "run": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create",
+      "desc": "Create videos, images, and audio",
+      "children": [
+        "video",
+        "image",
+        "transition",
+        "voice",
+        "music",
+        "extend",
+        "modify",
+        "upscale",
+        "reference",
+        "motion-control",
+        "template"
+      ]
+    },
+    {
+      "cmd": "pixverse create video",
+      "desc": "Text/image to video (T2V / I2V)",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--prompt <text>": "Prompt text - literal, a local file path, or - for stdin (required)",
+        "--image <input>": "Image input: file path, HTTPS URL, image ID, or media path (local oversized images are auto-resized to fit 1920x1920)",
+        "-m, --model <model>": "Video model",
+        "-d, --duration <seconds>": "Duration in seconds",
+        "-q, --quality <quality>": "Video quality",
+        "--aspect-ratio <ratio>": "Aspect ratio",
+        "--seed <number>": "Random seed",
+        "--count <number>": "Number of generations",
+        "--audio": "Enable audio generation",
+        "--no-audio": "Disable audio generation | negates: audio",
+        "--multi-shot": "Enable multi-shot mode",
+        "--no-multi-shot": "Disable multi-shot mode | negates: multiShot",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create image",
+      "desc": "Text/image to image (T2I / I2I)",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--prompt <text>": "Prompt text - literal, a local file path, or - for stdin (required)",
+        "--image <input>": "Single image input: file path, HTTPS URL, image ID, or media path (local oversized images are auto-resized to fit 1920x1920)",
+        "--images <inputs...>": "Multiple image inputs: file paths, HTTPS URLs, image IDs, or media paths (local oversized images are auto-resized to fit 1920x1920)",
+        "-m, --model <model>": "Image model",
+        "-q, --quality <quality>": "Image quality",
+        "--aspect-ratio <ratio>": "Aspect ratio",
+        "--detail-level <level>": "Detail level for gpt-image-2.0: low | medium | high",
+        "--count <number>": "Number of generations",
+        "--seed <number>": "Random seed",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create transition",
+      "desc": "Multi-frame keyframe transition video",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (2+ required; local oversized images are auto-resized to fit 1920x1920)",
+        "--prompt <text>": "Prompt text",
+        "-m, --model <model>": "Video model",
+        "-q, --quality <quality>": "Video quality",
+        "-d, --duration <seconds>": "Duration in seconds",
+        "--count <number>": "Number of generations",
+        "--seed <number>": "Random seed",
+        "--audio": "Enable audio generation",
+        "--no-audio": "Disable audio generation | negates: audio",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create voice",
+      "desc": "Generate speech audio from text (TTS)",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--text <str>": "Text to synthesize - literal, a local file path, or - for stdin",
+        "-m, --model <id>": "Voice/TTS model | default: speech-2.8-hd",
+        "--voice-id <id>": "PixVerse preset voice ID (recommended)",
+        "--provider-voice-id <id>": "Provider raw voice ID",
+        "--language <code>": "Language code (default: auto) | default: auto",
+        "--stability <0..1>": "ElevenLabs stability",
+        "--similarity-boost <0..1>": "ElevenLabs similarity boost",
+        "--style <0..1>": "ElevenLabs style (eleven-multilingual-v2 only)",
+        "--use-speaker-boost": "ElevenLabs speaker boost (eleven-multilingual-v2 only)",
+        "--no-use-speaker-boost": "Disable ElevenLabs speaker boost | negates: useSpeakerBoost",
+        "--speed <n>": "Speech speed (default 1.0; EL 0.7..1.2, MM 0.5..2.0)",
+        "--volume <0..10>": "MiniMax volume",
+        "--pitch <-12..12>": "MiniMax pitch",
+        "--emotion <enum>": "MiniMax emotion preset",
+        "--client-request-id <id>": "Caller-side request id (logged only)",
+        "--output <path>": "Download the finished audio to this file/dir",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create music",
+      "desc": "Generate music audio from a prompt",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--prompt <text>": "Music prompt - literal, a local file path, or - for stdin (required)",
+        "--lyrics <text>": "Lyrics for models that support lyrics - literal, a local file path, or - for stdin",
+        "-m, --model <id>": "Music model | default: music-2.6",
+        "--instrumental": "Generate instrumental music",
+        "--auto-lyrics": "Let the model generate lyrics",
+        "--no-duration-auto": "Disable automatic duration selection | negates: durationAuto",
+        "--duration-seconds <seconds>": "Target duration in seconds (sets duration_auto=false)",
+        "--image <input...>": "Reference image(s) for Google Lyria: file path, HTTPS URL, image ID, or media path",
+        "--client-request-id <id>": "Caller-side request id (logged only)",
+        "--output <path>": "Download the finished music to this file/dir",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create extend",
+      "desc": "Extend an existing video",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--video <input>": "Video input: file path, HTTPS URL, video ID, or media path",
+        "--prompt <text>": "Prompt for extension",
+        "-m, --model <model>": "Video model",
+        "-q, --quality <quality>": "Video quality",
+        "-d, --duration <seconds>": "Duration in seconds",
+        "--count <number>": "Number of generations",
+        "--seed <number>": "Random seed",
+        "--audio": "Enable audio generation",
+        "--no-audio": "Disable audio generation | negates: audio",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create modify",
+      "desc": "Modify an existing video",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--video <input>": "Video input: file path, HTTPS URL, video ID, or media path",
+        "--prompt <text>": "Prompt describing the modification. Reference uploaded images with @image1, @image2, ... (1-indexed, matches --images order)",
+        "--images <inputs...>": "Reference image inputs (max 5): file paths, HTTPS URLs, image IDs, or media paths. Reference them in --prompt as @image1, @image2, ...",
+        "--keyframe-time <ms>": "Keyframe time in milliseconds (0 = first frame) | default: 0",
+        "-m, --model <model>": "Video model",
+        "-q, --quality <quality>": "Video quality",
+        "--count <number>": "Number of generations",
+        "--seed <number>": "Random seed",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create upscale",
+      "desc": "Upscale video resolution",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--video <input>": "Video input: file path, HTTPS URL, video ID, or media path",
+        "-q, --quality <quality>": "Target quality (e.g. 1080p)",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create reference",
+      "desc": "Multi-subject character fusion video",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (1–7; local oversized images are auto-resized to fit 1920x1920)",
+        "--videos <inputs...>": "Video reference inputs (seedance-2.0 only): file paths, HTTPS URLs, video IDs, or media paths (max 3, total duration ≤ 15s)",
+        "--prompt <text>": "Prompt text",
+        "-m, --model <model>": "Video model",
+        "-q, --quality <quality>": "Video quality",
+        "--aspect-ratio <ratio>": "Aspect ratio",
+        "-d, --duration <seconds>": "Duration in seconds",
+        "--count <number>": "Number of generations",
+        "--seed <number>": "Random seed",
+        "--audio": "Enable audio generation",
+        "--no-audio": "Disable audio generation | negates: audio",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create motion-control",
+      "desc": "Generate video with character image + motion reference video",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--image <input>": "Character image: file path, HTTPS URL, image ID, or media path (required; local oversized images are auto-resized to fit 1920x1920)",
+        "--video <input>": "Motion reference video: file path, HTTPS URL, video ID, or media path (required)",
+        "-m, --model <model>": "Video model",
+        "-q, --quality <quality>": "Video quality",
+        "--count <number>": "Number of generations",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse create template",
+      "desc": "Create from a template/effect",
+      "run": true,
+      "auth": true,
+      "effect": "creates_remote_media_asset",
+      "options": {
+        "--template-id <id>": "Template ID (required)",
+        "--image <paths...>": "Image input(s): file paths, HTTPS URLs, image IDs, or media paths (local oversized images are auto-resized to fit 1920x1920)",
+        "--video <input>": "Video input: file path, HTTPS URL, video ID, or media path",
+        "--prompt <text>": "Prompt text (optional for some templates)",
+        "-q, --quality <quality>": "Video/image quality",
+        "-d, --duration <seconds>": "Duration in seconds",
+        "--aspect-ratio <ratio>": "Aspect ratio",
+        "--seed <number>": "Random seed",
+        "--count <number>": "Number of generations",
+        "--off-peak": "Use off-peak pricing",
+        "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
+        "--no-wait": "Return immediately without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse task",
+      "desc": "Manage generation tasks",
+      "children": [
+        "status",
+        "wait"
+      ]
+    },
+    {
+      "cmd": "pixverse task status",
+      "desc": "Check the status of one or more generation tasks",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id?": "Single video, image, or audio ID (omit when using --ids)"
+      },
+      "options": {
+        "--ids <ids>": "Comma-separated list of IDs for batch query (e.g. 123,456,789)",
+        "--type <type>": "Asset type: video, image, or audio | default: video",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse task wait",
+      "desc": "Wait for a generation task to complete",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id": "Video, image, or audio ID"
+      },
+      "options": {
+        "--type <type>": "Asset type: video, image, or audio | default: video",
+        "--timeout <seconds>": "Timeout in seconds | default: 300",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse asset",
+      "desc": "Manage your generated assets",
+      "children": [
+        "list",
+        "info",
+        "download",
+        "upload",
+        "delete"
+      ]
+    },
+    {
+      "cmd": "pixverse asset list",
+      "desc": "List your generated assets",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--type <type>": "Asset type: video, image, or audio | default: video | choices: video, image, audio",
+        "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
+        "--off-peak": "Filter off-peak generations only (video + create only)",
+        "--limit <number>": "Number of items per page | default: 20",
+        "--page <number>": "Page number | default: 1",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse asset info",
+      "desc": "Get details of a specific asset",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id": "Video, image, or audio ID"
+      },
+      "options": {
+        "--type <type>": "Asset type: video, image, or audio (auto-detected if omitted)",
+        "--source <source>": "Audio source: create or upload | default: create | choices: create, upload",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse asset download",
+      "desc": "Download a created video, image, or audio to local disk",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id": "Created video, image, or audio ID (uploads not downloadable)"
+      },
+      "options": {
+        "--type <type>": "Asset type: video, image, or audio (auto-detected if omitted)",
+        "--dest <path>": "Destination directory",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse asset upload",
+      "desc": "Upload a local file or HTTPS URL to asset library",
+      "run": true,
+      "auth": true,
+      "effect": "uploads_local_or_remote_file",
+      "args": {
+        "input": "Local file path or HTTPS URL (jpg/png/webp/mp4/mov/mp3/wav/m4a/aac/ogg)"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse asset delete",
+      "desc": "Delete a video, image, or audio asset",
+      "run": true,
+      "auth": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "args": {
+        "id": "Video, image, or audio ID"
+      },
+      "options": {
+        "--type <type>": "Asset type: video, image, or audio (auto-detected if omitted) | choices: video, image, audio",
+        "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse account",
+      "desc": "View account info and credit usage",
+      "children": [
+        "info",
+        "usage",
+        "slots"
+      ]
+    },
+    {
+      "cmd": "pixverse account info",
+      "desc": "Show account info, workspace, and credit balance",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse account usage",
+      "desc": "Show credit consumption records",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--type <type>": "Filter: all, earned, used (personal only) | default: all",
+        "--limit <n>": "Number of records to show | default: 20",
+        "--page <n>": "Page number | default: 1",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse account slots",
+      "desc": "Show current concurrent generation slots (image / video)",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse subscribe",
+      "desc": "Open the PixVerse subscription page in your browser",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config",
+      "desc": "Manage CLI configuration",
+      "children": [
+        "list",
+        "get",
+        "set",
+        "reset",
+        "path",
+        "defaults"
+      ]
+    },
+    {
+      "cmd": "pixverse config list",
+      "desc": "List configuration values",
+      "run": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config get",
+      "desc": "Get a configuration value",
+      "run": true,
+      "args": {
+        "key": "required"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config set",
+      "desc": "Set a configuration value",
+      "run": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "key": "required",
+        "value": "required"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config reset",
+      "desc": "Reset all configuration to defaults",
+      "run": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config path",
+      "desc": "Show configuration file path",
+      "run": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config defaults",
+      "desc": "Manage per-mode creation default parameters",
+      "run": true,
+      "children": [
+        "show",
+        "set",
+        "reset"
+      ]
+    },
+    {
+      "cmd": "pixverse config defaults show",
+      "desc": "Show creation defaults (all modes or a specific mode)",
+      "run": true,
+      "args": {
+        "mode?": "optional"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config defaults set",
+      "desc": "Set a creation default value",
+      "run": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "mode": "required",
+        "key": "required",
+        "value": "required"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse config defaults reset",
+      "desc": "Reset creation defaults to built-in values",
+      "run": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "args": {
+        "mode?": "optional"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse template",
+      "desc": "Browse and manage templates",
+      "children": [
+        "categories",
+        "list",
+        "search",
+        "info"
+      ]
+    },
+    {
+      "cmd": "pixverse template categories",
+      "desc": "List template categories",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse template list",
+      "desc": "List templates",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--category <id>": "Filter by category ID",
+        "--limit <number>": "Number of items per page | default: 20",
+        "--page <number>": "Page number | default: 1",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse template search",
+      "desc": "Search templates by keyword",
+      "run": true,
+      "auth": true,
+      "args": {
+        "query": "Search keyword"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse template info",
+      "desc": "Get template details",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id": "Template ID"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse voice",
+      "desc": "Browse voice/TTS models and preset voices",
+      "children": [
+        "models",
+        "presets"
+      ]
+    },
+    {
+      "cmd": "pixverse voice models",
+      "desc": "List available voice providers, models, and languages",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse voice presets",
+      "desc": "List preset voices",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--model <id>": "Filter by model id",
+        "--language <code>": "Filter by language code",
+        "--provider <name>": "Filter by provider (minimax|elevenlabs)",
+        "--page <number>": "Page number | default: 1",
+        "--page-size <number>": "Items per page (max 10) | default: 10",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse music",
+      "desc": "Browse music generation models",
+      "children": [
+        "models"
+      ]
+    },
+    {
+      "cmd": "pixverse music models",
+      "desc": "List available music providers and models",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved",
+      "desc": "Manage saved folders and their contents",
+      "children": [
+        "list",
+        "items",
+        "new",
+        "rename",
+        "add",
+        "remove",
+        "delete"
+      ]
+    },
+    {
+      "cmd": "pixverse saved list",
+      "desc": "List your saved folders",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved items",
+      "desc": "List items in a saved folder",
+      "run": true,
+      "auth": true,
+      "args": {
+        "folder_id?": "Folder ID (default: default folder) | default: default"
+      },
+      "options": {
+        "--type <type>": "Asset type: all, video, or image | default: all | choices: all, video, image",
+        "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
+        "--limit <number>": "Number of items per page | default: 20",
+        "--page <number>": "Page number | default: 1",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved new",
+      "desc": "Create a new saved folder",
+      "run": true,
+      "auth": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "name": "Folder name"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved rename",
+      "desc": "Rename a saved folder",
+      "run": true,
+      "auth": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "folder_id": "Folder ID",
+        "name": "New folder name"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved add",
+      "desc": "Add assets to a saved folder",
+      "run": true,
+      "auth": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "ids...": "Asset IDs to add"
+      },
+      "options": {
+        "--folder <folder_id>": "Folder ID (default: default folder) | default: default",
+        "--type <type>": "Asset type: video or image | choices: video, image",
+        "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved remove",
+      "desc": "Remove assets from a saved folder",
+      "run": true,
+      "auth": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "args": {
+        "ids...": "Asset IDs to remove"
+      },
+      "options": {
+        "--folder <folder_id>": "Folder ID (default: default folder) | default: default",
+        "--type <type>": "Asset type: video or image | choices: video, image",
+        "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse saved delete",
+      "desc": "Delete a saved folder",
+      "run": true,
+      "auth": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "args": {
+        "folder_id": "Folder ID"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse workspace",
+      "desc": "Manage workspaces (list, switch, view current)",
+      "children": [
+        "list",
+        "status",
+        "switch",
+        "manage"
+      ]
+    },
+    {
+      "cmd": "pixverse workspace list",
+      "desc": "List all workspaces",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse workspace status",
+      "desc": "Show the currently active workspace",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse workspace switch",
+      "desc": "Switch to a different workspace (interactive if ID omitted)",
+      "run": true,
+      "auth": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "workspace-id?": "optional"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse workspace manage",
+      "desc": "Open workspace management page in your browser",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse update",
+      "desc": "Update the CLI to the latest version (npm i -g pixverse@latest)",
+      "run": true,
+      "effect": "updates_local_cli_installation",
+      "options": {
+        "--json": "Output as JSON"
+      }
+    }
+  ]
+}
