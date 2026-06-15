@@ -2,6 +2,11 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.1](https://github.com/PixVerseAI/cli/releases/tag/v1.2.1) — 2026-06-15
+
+### Bug Fixes
+
+- `create reference` now allows up to 9 reference images on `seedance-2.0` models (previously capped at 7 for all models)
 
 ## [1.2.0](https://github.com/PixVerseAI/cli/releases/tag/v1.2.0) — 2026-06-12
 

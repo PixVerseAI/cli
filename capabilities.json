@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "binary": "pixverse",
     "node": ">=20",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -297,12 +297,12 @@
     },
     {
       "cmd": "pixverse create reference",
-      "desc": "Multi-subject character fusion video",
+      "desc": "Multi-subject character reference video",
       "run": true,
       "auth": true,
       "effect": "creates_remote_media_asset",
       "options": {
-        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (1–7; local oversized images are auto-resized to fit 1920x1920)",
+        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (1–7, up to 9 for seedance-2.0; local oversized images are auto-resized to fit 1920x1920)",
         "--videos <inputs...>": "Video reference inputs (seedance-2.0 only): file paths, HTTPS URLs, video IDs, or media paths (max 3, total duration ≤ 15s)",
         "--prompt <text>": "Prompt text",
         "-m, --model <model>": "Video model",

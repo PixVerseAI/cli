@@ -55,27 +55,27 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 ### Video Models (`--model <value>`)
 
-| Model | `--model` value | Quality | Duration | Aspect Ratio |
-|:---|:---|:---|:---|:---|
-| PixVerse V6 *(default)* | `v6` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` `21:9` |
-| PixVerse C1 | `pixverse-c1` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| Seedance 2.0 Standard | `seedance-2.0-standard` | `480p` `720p` `1080p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
-| Seedance 2.0 Fast | `seedance-2.0-fast` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
-| Happy Horse 1.0 | `happyhorse-1.0` | `720p` `1080p` | `3`–`15`s | `16:9` `9:16` `1:1` `4:3` `3:4` |
-| Kling O3 Pro | `kling-o3-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
-| Kling O3 Standard | `kling-o3-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
-| Kling 3.0 Pro | `kling-3.0-pro` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
-| Kling 3.0 Standard | `kling-3.0-standard` | `720p` | `3`–`15`s | `16:9` `9:16` `1:1` |
-| Grok Imagine 1.5 | `grok-imagine-1.5` | `480p` `720p` | `1`–`15`s | *from image* |
-| Grok Imagine | `grok-imagine` | `480p` `720p` | `1`–`15`s | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3` |
-| Veo 3.1 Lite | `veo-3.1-lite` | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
-| Veo 3.1 Standard | `veo-3.1-standard` | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
-| Veo 3.1 Fast | `veo-3.1-fast` | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
-| Sora 2 Pro | `sora-2-pro` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
-| Sora 2 | `sora-2` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
-| PixVerse v5.6 | `v5.6` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse v5.5 | `v5.5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
-| PixVerse v5 | `v5` | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
+| Model                   | `--model` value         | Quality                             | Duration      | Aspect Ratio                                       |
+| :---------------------- | :---------------------- | :---------------------------------- | :------------ | :------------------------------------------------- |
+| PixVerse V6 _(default)_ | `v6`                    | `360p` `540p` `720p` `1080p`        | `1`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` `21:9` |
+| PixVerse C1             | `pixverse-c1`           | `360p` `540p` `720p` `1080p`        | `1`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
+| Seedance 2.0 Standard   | `seedance-2.0-standard` | `480p` `720p` `1080p`               | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
+| Seedance 2.0 Fast       | `seedance-2.0-fast`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
+| Happy Horse 1.0         | `happyhorse-1.0`        | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1` `4:3` `3:4`                    |
+| Kling O3 Pro            | `kling-o3-pro`          | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling O3 Standard       | `kling-o3-standard`     | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling 3.0 Pro           | `kling-3.0-pro`         | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling 3.0 Standard      | `kling-3.0-standard`    | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Grok Imagine 1.5        | `grok-imagine-1.5`      | `480p` `720p`                       | `1`–`15`s     | _from image_                                       |
+| Grok Imagine            | `grok-imagine`          | `480p` `720p`                       | `1`–`15`s     | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3`        |
+| Veo 3.1 Lite            | `veo-3.1-lite`          | `720p` `1080p`                      | `4` `6` `8`s  | `16:9` `9:16`                                      |
+| Veo 3.1 Standard        | `veo-3.1-standard`      | `720p` `1080p` `2160p`              | `4` `6` `8`s  | `16:9` `9:16`                                      |
+| Veo 3.1 Fast            | `veo-3.1-fast`          | `720p` `1080p` `2160p`              | `4` `6` `8`s  | `16:9` `9:16`                                      |
+| Sora 2 Pro              | `sora-2-pro`            | `720p` `1080p`                      | `4` `8` `12`s | `16:9` `9:16`                                      |
+| Sora 2                  | `sora-2`                | `720p`                              | `4` `8` `12`s | `16:9` `9:16`                                      |
+| PixVerse v5.6           | `v5.6`                  | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
+| PixVerse v5.5           | `v5.5`                  | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
+| PixVerse v5             | `v5`                    | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 
 > Grok Imagine 1.5 is image-to-video only — it requires `--image` and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
 
@@ -83,52 +83,52 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 #### Per-mode Model Support
 
-| Creation mode | Supported `--model` values |
-|:---|:---|
+| Creation mode                                   | Supported `--model` values                                                                                                                                                                                                                                              |
+| :---------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
-| `create extend` | `v6` `grok-imagine` |
-| `create reference` (multi-subject fusion) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6` |
-| `create transition` (2 frames) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6` |
-| `create transition` (3+ frames) | `v5` |
-| `create modify` | `v5.5` |
-| `create motion-control` | `v5.6` |
+| `create extend`                                 | `v6` `grok-imagine`                                                                                                                                                                                                                                                     |
+| `create reference` (multi-subject reference)    | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6`                                                                                                                                                 |
+| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                                          |
+| `create transition` (3+ frames)                 | `v5`                                                                                                                                                                                                                                                                    |
+| `create modify`                                 | `v5.5`                                                                                                                                                                                                                                                                  |
+| `create motion-control`                         | `v5.6`                                                                                                                                                                                                                                                                  |
 
 > Audio creation uses separate model families: `create voice` for text-to-speech and `create music` for prompt-to-music.
 
 ### Image Models (`--model <value>`)
 
-| Model | `--model` value | Quality | Aspect Ratio |
-|:---|:---|:---|:---|
-| GPT Image 2 *(default)* | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
-| Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Qwen-image | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
-| Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` + more |
-| Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more |
-| Kling Image O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` + more |
-| Kling Image V3 | `kling-image-v3` | `1080p` `1440p` | `16:9` `9:16` `1:1` + more |
+| Model                   | `--model` value     | Quality                        | Aspect Ratio                                                   |
+| :---------------------- | :------------------ | :----------------------------- | :------------------------------------------------------------- |
+| GPT Image 2 _(default)_ | `gpt-image-2.0`     | `1080p` `1440p` `2160p`        | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
+| Nano Banana 2           | `gemini-3.1-flash`  | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more                              |
+| Qwen-image              | `qwen-image`        | `720p` `1080p`                 | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
+| Nano Banana Pro         | `gemini-3.0`        | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Nano Banana             | `gemini-2.5-flash`  | `1080p`                        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 5.0 Lite       | `seedream-5.0-lite` | `1440p` `1800p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 4.5            | `seedream-4.5`      | `1440p` `2160p`                | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 4.0            | `seedream-4.0`      | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Kling Image O3          | `kling-image-o3`    | `1080p` `1440p` `2160p`        | `16:9` `9:16` `1:1` + more                                     |
+| Kling Image V3          | `kling-image-v3`    | `1080p` `1440p`                | `16:9` `9:16` `1:1` + more                                     |
 
 ### Voice / TTS Models (`create voice --model <value>`)
 
-| Model | `--model` value | Provider | Max characters |
-|:---|:---|:---|:---|
-| MiniMax Speech 2.8 HD *(default)* | `speech-2.8-hd` | MiniMax | 10,000 |
-| MiniMax Speech 2.8 Turbo | `speech-2.8-turbo` | MiniMax | 10,000 |
-| Eleven Multilingual v2 | `eleven-multilingual-v2` | ElevenLabs | 10,000 |
-| Eleven v3 | `eleven-v3` | ElevenLabs | 5,000 |
-| Eleven Turbo v2.5 | `eleven-turbo-v2.5` | ElevenLabs | 40,000 |
+| Model                             | `--model` value          | Provider   | Max characters |
+| :-------------------------------- | :----------------------- | :--------- | :------------- |
+| MiniMax Speech 2.8 HD _(default)_ | `speech-2.8-hd`          | MiniMax    | 10,000         |
+| MiniMax Speech 2.8 Turbo          | `speech-2.8-turbo`       | MiniMax    | 10,000         |
+| Eleven Multilingual v2            | `eleven-multilingual-v2` | ElevenLabs | 10,000         |
+| Eleven v3                         | `eleven-v3`              | ElevenLabs | 5,000          |
+| Eleven Turbo v2.5                 | `eleven-turbo-v2.5`      | ElevenLabs | 40,000         |
 
 > Browse available preset voices with `pixverse voice presets --model <id>` and the full live model catalog with `pixverse voice models`.
 
 ### Music Models (`create music --model <value>`)
 
-| Model | `--model` value | Provider | Duration | Notes |
-|:---|:---|:---|:---|:---|
-| MiniMax Music 2.6 *(default)* | `music-2.6` | MiniMax | `10`-`240`s | Lyrics, auto lyrics, instrumental |
-| ElevenLabs Music | `music_v1` | ElevenLabs | `10`-`240`s | Lyrics, auto lyrics, instrumental |
-| Google Lyria 3 Pro | `lyria-3-pro-preview` | Google | `10`-`240`s | Image references, no separate `--lyrics` |
+| Model                         | `--model` value       | Provider   | Duration    | Notes                                    |
+| :---------------------------- | :-------------------- | :--------- | :---------- | :--------------------------------------- |
+| MiniMax Music 2.6 _(default)_ | `music-2.6`           | MiniMax    | `10`-`240`s | Lyrics, auto lyrics, instrumental        |
+| ElevenLabs Music              | `music_v1`            | ElevenLabs | `10`-`240`s | Lyrics, auto lyrics, instrumental        |
+| Google Lyria 3 Pro            | `lyria-3-pro-preview` | Google     | `10`-`240`s | Image references, no separate `--lyrics` |
 
 > Browse the live music model catalog with `pixverse music models`.
 
@@ -237,24 +237,24 @@ pixverse create template --template-id 12345 --image ./photo.png
 
 Voice speed uses provider-specific validation:
 
-| Provider | Default | Valid range | Invalid range error | Provider request field |
-|:---|:---|:---|:---|:---|
-| ElevenLabs | `1.0` | `0.7..1.2` | `--speed must be between 0.7 and 1.2` | `voice_settings.speed` |
-| MiniMax | `1.0` | `0.5..2.0` | `--speed must be between 0.5 and 2` | `voice_setting.speed` |
+| Provider   | Default | Valid range | Invalid range error                   | Provider request field |
+| :--------- | :------ | :---------- | :------------------------------------ | :--------------------- |
+| ElevenLabs | `1.0`   | `0.7..1.2`  | `--speed must be between 0.7 and 1.2` | `voice_settings.speed` |
+| MiniMax    | `1.0`   | `0.5..2.0`  | `--speed must be between 0.5 and 2`   | `voice_setting.speed`  |
 
 ### Common Creation Flags
 
 These flags are available across most `create` subcommands:
 
-| Flag | Description |
-|:---|:---|
-| `--count <n>` | Generate multiple variations (1–4, default 1) |
-| `--seed <number>` | Set random seed for reproducible results |
-| `--off-peak` | Use off-peak pricing (lower credit cost) |
-| `--audio` / `--no-audio` | Enable or disable audio generation |
-| `--multi-shot` / `--no-multi-shot` | Enable or disable multi-shot mode (video only) |
-| `--no-wait` | Return immediately without waiting for completion |
-| `--timeout <sec>` | Polling timeout in seconds (default 300) |
+| Flag                               | Description                                       |
+| :--------------------------------- | :------------------------------------------------ |
+| `--count <n>`                      | Generate multiple variations (1–4, default 1)     |
+| `--seed <number>`                  | Set random seed for reproducible results          |
+| `--off-peak`                       | Use off-peak pricing (lower credit cost)          |
+| `--audio` / `--no-audio`           | Enable or disable audio generation                |
+| `--multi-shot` / `--no-multi-shot` | Enable or disable multi-shot mode (video only)    |
+| `--no-wait`                        | Return immediately without waiting for completion |
+| `--timeout <sec>`                  | Polling timeout in seconds (default 300)          |
 
 ### Task Management
 
@@ -429,80 +429,80 @@ pixverse asset download "$VID" --dest ./output/
 
 ### Exit Codes
 
-| Code | Meaning |
-|:---|:---|
-| `0` | Success |
-| `1` | General error |
-| `2` | Timeout |
-| `3` | Authentication error |
-| `4` | Credit / subscription limit |
-| `5` | Generation failed |
-| `6` | Validation error |
+| Code | Meaning                     |
+| :--- | :-------------------------- |
+| `0`  | Success                     |
+| `1`  | General error               |
+| `2`  | Timeout                     |
+| `3`  | Authentication error        |
+| `4`  | Credit / subscription limit |
+| `5`  | Generation failed           |
+| `6`  | Validation error            |
 
 ## All Commands
 
-| Command | Description |
-|:---|:---|
-| `auth login` | Login via browser (OAuth device flow) |
-| `auth status` | Check authentication status |
-| `auth logout` | Remove stored token |
-| `create video` | Text-to-video or image-to-video |
-| `create image` | Text-to-image or image-to-image |
-| `create transition` | Create transitions between keyframes |
-| `create voice` | Generate speech audio from text (text-to-speech) |
-| `create music` | Generate music audio from a prompt |
-| `create extend` | Extend video duration |
-| `create modify` | Modify an existing video |
-| `create upscale` | Upscale video resolution |
-| `create reference` | Generate video with character references |
-| `create motion-control` | Motion control with character image + reference video |
-| `create template` | Create from a template/effect |
-| `template categories` | List template categories |
-| `template list` | List templates (with category filter) |
-| `template search` | Search templates by keyword |
-| `template info` | Get template details |
-| `voice models` | List voice/TTS providers, models, and supported languages |
-| `voice presets` | List preset voices (filterable by model / language / provider) |
-| `music models` | List music providers, models, and capabilities |
-| `task status` | Check task status (single `<id>` or `--ids id1,id2,...` for batch) |
-| `task wait` | Wait for task completion |
-| `asset list` | List assets (`--source create\|upload`, `--type video\|image\|audio`, `--off-peak`) |
-| `asset upload` | Upload a local file or HTTPS URL to asset library |
-| `asset info` | Get asset details |
-| `asset download` | Download a generated asset |
-| `asset delete` | Delete an asset |
-| `saved list` | List saved folders |
-| `saved items` | List items in a saved folder |
-| `saved new` | Create a new saved folder |
-| `saved rename` | Rename a saved folder |
-| `saved add` | Add assets to a saved folder |
-| `saved remove` | Remove assets from a saved folder |
-| `saved delete` | Delete a saved folder |
-| `workspace list` | List all workspaces |
-| `workspace status` | Show current workspace |
-| `workspace switch` | Switch workspace (interactive or by ID) |
-| `workspace manage` | Open workspace management in browser |
-| `account info` | View account info and workspace credits |
-| `account usage` | View credit usage |
-| `account slots` | View current concurrent generation slots (image / video) |
-| `subscribe` | Open subscription page |
-| `update` | Update the CLI to the latest version (`npm i -g pixverse@latest`) |
-| `config set` | Set a config value |
-| `config get` | Get a config value |
-| `config list` | List all config values |
-| `config reset` | Reset config to defaults |
-| `config path` | Show config file path |
-| `config defaults` | Manage per-mode creation defaults |
+| Command                 | Description                                                                         |
+| :---------------------- | :---------------------------------------------------------------------------------- |
+| `auth login`            | Login via browser (OAuth device flow)                                               |
+| `auth status`           | Check authentication status                                                         |
+| `auth logout`           | Remove stored token                                                                 |
+| `create video`          | Text-to-video or image-to-video                                                     |
+| `create image`          | Text-to-image or image-to-image                                                     |
+| `create transition`     | Create transitions between keyframes                                                |
+| `create voice`          | Generate speech audio from text (text-to-speech)                                    |
+| `create music`          | Generate music audio from a prompt                                                  |
+| `create extend`         | Extend video duration                                                               |
+| `create modify`         | Modify an existing video                                                            |
+| `create upscale`        | Upscale video resolution                                                            |
+| `create reference`      | Generate video with character references                                            |
+| `create motion-control` | Motion control with character image + reference video                               |
+| `create template`       | Create from a template/effect                                                       |
+| `template categories`   | List template categories                                                            |
+| `template list`         | List templates (with category filter)                                               |
+| `template search`       | Search templates by keyword                                                         |
+| `template info`         | Get template details                                                                |
+| `voice models`          | List voice/TTS providers, models, and supported languages                           |
+| `voice presets`         | List preset voices (filterable by model / language / provider)                      |
+| `music models`          | List music providers, models, and capabilities                                      |
+| `task status`           | Check task status (single `<id>` or `--ids id1,id2,...` for batch)                  |
+| `task wait`             | Wait for task completion                                                            |
+| `asset list`            | List assets (`--source create\|upload`, `--type video\|image\|audio`, `--off-peak`) |
+| `asset upload`          | Upload a local file or HTTPS URL to asset library                                   |
+| `asset info`            | Get asset details                                                                   |
+| `asset download`        | Download a generated asset                                                          |
+| `asset delete`          | Delete an asset                                                                     |
+| `saved list`            | List saved folders                                                                  |
+| `saved items`           | List items in a saved folder                                                        |
+| `saved new`             | Create a new saved folder                                                           |
+| `saved rename`          | Rename a saved folder                                                               |
+| `saved add`             | Add assets to a saved folder                                                        |
+| `saved remove`          | Remove assets from a saved folder                                                   |
+| `saved delete`          | Delete a saved folder                                                               |
+| `workspace list`        | List all workspaces                                                                 |
+| `workspace status`      | Show current workspace                                                              |
+| `workspace switch`      | Switch workspace (interactive or by ID)                                             |
+| `workspace manage`      | Open workspace management in browser                                                |
+| `account info`          | View account info and workspace credits                                             |
+| `account usage`         | View credit usage                                                                   |
+| `account slots`         | View current concurrent generation slots (image / video)                            |
+| `subscribe`             | Open subscription page                                                              |
+| `update`                | Update the CLI to the latest version (`npm i -g pixverse@latest`)                   |
+| `config set`            | Set a config value                                                                  |
+| `config get`            | Get a config value                                                                  |
+| `config list`           | List all config values                                                              |
+| `config reset`          | Reset config to defaults                                                            |
+| `config path`           | Show config file path                                                               |
+| `config defaults`       | Manage per-mode creation defaults                                                   |
 
 ## Global Flags
 
-| Flag | Description |
-|:---|:---|
-| `--json` | Output as JSON |
-| `-p` | Print mode (alias for `--json`) |
+| Flag                  | Description                                               |
+| :-------------------- | :-------------------------------------------------------- |
+| `--json`              | Output as JSON                                            |
+| `-p`                  | Print mode (alias for `--json`)                           |
 | `--workspace-id <id>` | Override active workspace for this command (0 = personal) |
-| `-V, --version` | Show CLI version |
-| `-h, --help` | Show help for any command |
+| `-V, --version`       | Show CLI version                                          |
+| `-h, --help`          | Show help for any command                                 |
 
 ## For AI Agents — Advanced Usage
 
@@ -521,6 +521,7 @@ npx skills add https://github.com/pixverseai/skills --skill pixverse-ai-image-an
 [https://clawhub.ai/pixverse-official/pixverse-ai-image-and-video-generator](https://clawhub.ai/pixverse-official/pixverse-ai-image-and-video-generator)
 
 Skills include:
+
 - Per-model parameter constraints (which models support which modes, quality levels, durations, aspect ratios)
 - End-to-end workflow pipelines (text-to-video, storyboard-to-video, video production, motion control, etc.)
 - Prompt optimization techniques for better generation quality
