@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.2](https://github.com/PixVerseAI/cli/releases/tag/v1.2.2) — 2026-06-18
+
+### Bug Fixes
+
+- `create reference` no longer rejects `seedance-2.0` video references when their first frame can't be extracted — frame extraction is now best-effort (previously such inputs failed with "Failed to extract first frame")
+- Correct the ElevenLabs Music model ID to `music-v1` (previously the invalid `music_v1`)
+
 ## [1.2.1](https://github.com/PixVerseAI/cli/releases/tag/v1.2.1) — 2026-06-15
 
 ### Bug Fixes

@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "binary": "pixverse",
     "node": ">=20",
     "description": "PixVerse CLI - generate videos and images from the command line"
