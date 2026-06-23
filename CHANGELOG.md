@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.3](https://github.com/PixVerseAI/cli/releases/tag/v1.2.3) — 2026-06-23
+
+### Features
+
+- Add `2160p` (4K) quality to the `seedance-2.0-standard` model (`--quality 2160p`) — available everywhere the model is supported (`create video`, `create reference`, `create transition`)
+
 ## [1.2.2](https://github.com/PixVerseAI/cli/releases/tag/v1.2.2) — 2026-06-18
 
 ### Bug Fixes
