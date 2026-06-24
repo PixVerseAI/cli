@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "binary": "pixverse",
     "node": ">=20",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -304,6 +304,7 @@
       "options": {
         "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (1–7, up to 9 for seedance-2.0; local oversized images are auto-resized to fit 1920x1920)",
         "--videos <inputs...>": "Video reference inputs (seedance-2.0 only): file paths, HTTPS URLs, video IDs, or media paths (max 3, total duration ≤ 15s)",
+        "--audios <inputs...>": "Audio reference inputs (seedance-2.0 only): file paths, HTTPS URLs, audio IDs, or media paths (max 3, each 2–15s, total ≤ 15s; requires at least one image or video reference)",
         "--prompt <text>": "Prompt text",
         "-m, --model <model>": "Video model",
         "-q, --quality <quality>": "Video quality",

@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.4](https://github.com/PixVerseAI/cli/releases/tag/v1.2.4) — 2026-06-24
+
+### Features
+
+- Add `--audios` to `create reference` for `seedance-2.0` audio references (max 3 clips, each 2–15s, total ≤ 15s, ≤ 15MB per clip; requires at least one image/video reference)
+
 ## [1.2.3](https://github.com/PixVerseAI/cli/releases/tag/v1.2.3) — 2026-06-23
 
 ### Features

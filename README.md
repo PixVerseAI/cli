@@ -228,6 +228,9 @@ pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends
 # Seedance 2.0 reference — mix images and videos (max 3 videos, total ≤ 15s)
 pixverse create reference -m seedance-2.0-standard --images ./char.png --videos ./motion.mp4 --prompt "@image1 follows the motion in @video1"
 
+# Seedance 2.0 reference — add audio references (max 3, each 2–15s, total ≤ 15s; needs a visual reference)
+pixverse create reference -m seedance-2.0-standard --images ./char.png --audios ./voice.mp3 --prompt "@image1 speaks the line in @audio1"
+
 # Motion control — character image + motion reference video
 pixverse create motion-control --image ./character.png --video ./dance.mp4
 
