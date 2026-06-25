@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.5](https://github.com/PixVerseAI/cli/releases/tag/v1.2.5) — 2026-06-24
+
+### Features
+
+- Add `seedance-2.0-mini` video model (`Seedance 2.0 Mini`) — available everywhere `seedance-2.0-fast` is supported (`create video`, `create reference`, `create transition`)
+
 ## [1.2.4](https://github.com/PixVerseAI/cli/releases/tag/v1.2.4) — 2026-06-24
 
 ### Features
