@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.6](https://github.com/PixVerseAI/cli/releases/tag/v1.2.6) — 2026-06-28
+
+### Bug Fixes
+
+- Fix the CLI failing to start when launched via the installed `pixverse` command or `npx` (affected 1.2.0–1.2.5)
+
 ## [1.2.5](https://github.com/PixVerseAI/cli/releases/tag/v1.2.5) — 2026-06-24
 
 ### Features

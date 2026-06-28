@@ -1,6 +1,6 @@
 {
   "name": "pixverse",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "CLI for PixVerse — create AI videos and images from the command line",
   "keywords": [
     "ai",
