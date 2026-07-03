@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.7](https://github.com/PixVerseAI/cli/releases/tag/v1.2.7) — 2026-07-03
+
+### Features
+
+- Add `gemini-omni-flash` video model (`Google Gemini Omni`) — available in `create video` and `create reference`, with 720p, 3–10s durations, `16:9` / `9:16`, and a 5-image reference cap
+- Add `gemini-3.1-flash-lite` image model (`Nano Banana 2 Lite`) — supports 1080p generation and up to 14 reference images
+
 ## [1.2.6](https://github.com/PixVerseAI/cli/releases/tag/v1.2.6) — 2026-06-28
 
 ### Bug Fixes
