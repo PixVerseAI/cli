@@ -107,6 +107,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Qwen-image              | `qwen-image`        | `720p` `1080p`                 | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
 | Nano Banana Pro         | `gemini-3.0`        | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
 | Nano Banana             | `gemini-2.5-flash`  | `1080p`                        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 5.0 Pro        | `seedream-5.0-pro`  | `1080p` `1440p`                | `auto` `1:1` `16:9` `9:16` + more                              |
 | Seedream 5.0 Lite       | `seedream-5.0-lite` | `1440p` `1800p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
 | Seedream 4.5            | `seedream-4.5`      | `1440p` `2160p`                | `auto` `1:1` `16:9` `9:16` + more                              |
 | Seedream 4.0            | `seedream-4.0`      | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |

@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.8](https://github.com/PixVerseAI/cli/releases/tag/v1.2.8) — 2026-07-10
+
+### Features
+
+- Add `seedream-5.0-pro` image model (`Seedream 5.0 Pro`) — available in `create image`, with 1080p / 1440p generation, standard aspect ratios, and up to 10 reference images
+
 ## [1.2.7](https://github.com/PixVerseAI/cli/releases/tag/v1.2.7) — 2026-07-03
 
 ### Features
