@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.9](https://github.com/PixVerseAI/cli/releases/tag/v1.2.9) — 2026-07-12
+
+### Bug Fixes
+
+- `create music` no longer rejects `--auto-lyrics` on `lyria-3-pro-preview` (Google Lyria 3 Pro) — every music model supports auto lyrics
+- `create music` flag combinations now match the web app: `--instrumental` takes precedence (forces `auto_lyrics` off and omits lyrics), and explicit `--lyrics` is dropped when `--auto-lyrics` is on
+
 ## [1.2.8](https://github.com/PixVerseAI/cli/releases/tag/v1.2.8) — 2026-07-10
 
 ### Features

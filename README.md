@@ -132,7 +132,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | :---------------------------- | :-------------------- | :--------- | :---------- | :--------------------------------------- |
 | MiniMax Music 2.6 _(default)_ | `music-2.6`           | MiniMax    | `10`-`240`s | Lyrics, auto lyrics, instrumental        |
 | ElevenLabs Music              | `music-v1`            | ElevenLabs | `10`-`240`s | Lyrics, auto lyrics, instrumental        |
-| Google Lyria 3 Pro            | `lyria-3-pro-preview` | Google     | `10`-`240`s | Image references, no separate `--lyrics` |
+| Google Lyria 3 Pro            | `lyria-3-pro-preview` | Google     | `10`-`240`s | Auto lyrics, instrumental, image references, no separate `--lyrics` |
 
 > Browse the live music model catalog with `pixverse music models`.
 
