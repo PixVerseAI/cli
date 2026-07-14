@@ -224,7 +224,7 @@ pixverse create extend --video <video_id>
 pixverse create modify --video <video_id> --prompt "Change the background to a beach"
 
 # Upscale video resolution
-pixverse create upscale --video <video_id> --quality 1080p
+pixverse create upscale --video <video_id> --quality 2160p
 
 # Generate video with character reference (1–7 images)
 pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends walking in a park"
@@ -272,7 +272,10 @@ pixverse task status <id>
 # Poll a voice/music audio task (audio is not auto-detected — pass --type audio)
 pixverse task status <id> --type audio
 
-# Batch status query (parallel; per-ID failures captured in the response map)
+# Batch status query with space-separated IDs (parallel; per-ID failures captured)
+pixverse task status 123 456 789 --type video --json
+
+# Comma-separated batch syntax remains supported
 pixverse task status --ids 123,456,789 --type video --json
 
 # Wait for a task to complete
@@ -436,15 +439,16 @@ pixverse asset download "$VID" --dest ./output/
 
 ### Exit Codes
 
-| Code | Meaning                     |
-| :--- | :-------------------------- |
-| `0`  | Success                     |
-| `1`  | General error               |
-| `2`  | Timeout                     |
-| `3`  | Authentication error        |
-| `4`  | Credit / subscription limit |
-| `5`  | Generation failed           |
-| `6`  | Validation error            |
+| Code | Meaning                                                    |
+| :--- | :--------------------------------------------------------- |
+| `0`  | Success                                                    |
+| `1`  | General error                                              |
+| `2`  | Timeout                                                    |
+| `3`  | Authentication error                                       |
+| `4`  | Credit / subscription limit                                |
+| `5`  | Generation failed                                          |
+| `6`  | Validation error                                           |
+| `7`  | Concurrent generation limit; wait for a slot and retry      |
 
 ## All Commands
 
@@ -471,7 +475,7 @@ pixverse asset download "$VID" --dest ./output/
 | `voice models`          | List voice/TTS providers, models, and supported languages                           |
 | `voice presets`         | List preset voices (filterable by model / language / provider)                      |
 | `music models`          | List music providers, models, and capabilities                                      |
-| `task status`           | Check task status (single `<id>` or `--ids id1,id2,...` for batch)                  |
+| `task status`           | Check one ID or batch with space-separated IDs / `--ids id1,id2,...`               |
 | `task wait`             | Wait for task completion                                                            |
 | `asset list`            | List assets (`--source create\|upload`, `--type video\|image\|audio`, `--off-peak`) |
 | `asset upload`          | Upload a local file or HTTPS URL to asset library                                   |

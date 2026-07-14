@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.2.9",
+    "version": "1.2.10",
     "binary": "pixverse",
     "node": ">=20",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -24,7 +24,8 @@
     "3": "AUTH_EXPIRED: authentication token invalid or expired",
     "4": "CREDIT_INSUFFICIENT: subscription or credit limit",
     "5": "GENERATION_FAILED: generation failed or was not approved",
-    "6": "VALIDATION_ERROR: CLI input validation error"
+    "6": "VALIDATION_ERROR: CLI input validation error",
+    "7": "CONCURRENCY_LIMIT: concurrent generation limit; wait for a slot and retry"
   },
   "global_options": {
     "-V, --version": "output the version number",
@@ -63,11 +64,7 @@
     {
       "cmd": "pixverse auth",
       "desc": "Manage authentication",
-      "children": [
-        "login",
-        "status",
-        "logout"
-      ]
+      "children": ["login", "status", "logout"]
     },
     {
       "cmd": "pixverse auth login",
@@ -282,13 +279,13 @@
     },
     {
       "cmd": "pixverse create upscale",
-      "desc": "Upscale video resolution",
+      "desc": "Upscale video resolution to 2160p",
       "run": true,
       "auth": true,
       "effect": "creates_remote_media_asset",
       "options": {
         "--video <input>": "Video input: file path, HTTPS URL, video ID, or media path",
-        "-q, --quality <quality>": "Target quality (e.g. 1080p)",
+        "-q, --quality <quality>": "Target quality | default: 2160p | choices: 2160p",
         "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
         "--no-wait": "Return immediately without polling | negates: wait",
         "--timeout <seconds>": "Polling timeout in seconds | default: 300",
@@ -366,10 +363,7 @@
     {
       "cmd": "pixverse task",
       "desc": "Manage generation tasks",
-      "children": [
-        "status",
-        "wait"
-      ]
+      "children": ["status", "wait"]
     },
     {
       "cmd": "pixverse task status",
@@ -377,7 +371,7 @@
       "run": true,
       "auth": true,
       "args": {
-        "id?": "Single video, image, or audio ID (omit when using --ids)"
+        "ids...": "One or more space-separated video, image, or audio IDs (omit when using --ids)"
       },
       "options": {
         "--ids <ids>": "Comma-separated list of IDs for batch query (e.g. 123,456,789)",
@@ -402,13 +396,7 @@
     {
       "cmd": "pixverse asset",
       "desc": "Manage your generated assets",
-      "children": [
-        "list",
-        "info",
-        "download",
-        "upload",
-        "delete"
-      ]
+      "children": ["list", "info", "download", "upload", "delete"]
     },
     {
       "cmd": "pixverse asset list",
@@ -484,11 +472,7 @@
     {
       "cmd": "pixverse account",
       "desc": "View account info and credit usage",
-      "children": [
-        "info",
-        "usage",
-        "slots"
-      ]
+      "children": ["info", "usage", "slots"]
     },
     {
       "cmd": "pixverse account info",
@@ -532,14 +516,7 @@
     {
       "cmd": "pixverse config",
       "desc": "Manage CLI configuration",
-      "children": [
-        "list",
-        "get",
-        "set",
-        "reset",
-        "path",
-        "defaults"
-      ]
+      "children": ["list", "get", "set", "reset", "path", "defaults"]
     },
     {
       "cmd": "pixverse config list",
@@ -593,11 +570,7 @@
       "cmd": "pixverse config defaults",
       "desc": "Manage per-mode creation default parameters",
       "run": true,
-      "children": [
-        "show",
-        "set",
-        "reset"
-      ]
+      "children": ["show", "set", "reset"]
     },
     {
       "cmd": "pixverse config defaults show",
@@ -640,12 +613,7 @@
     {
       "cmd": "pixverse template",
       "desc": "Browse and manage templates",
-      "children": [
-        "categories",
-        "list",
-        "search",
-        "info"
-      ]
+      "children": ["categories", "list", "search", "info"]
     },
     {
       "cmd": "pixverse template categories",
@@ -695,10 +663,7 @@
     {
       "cmd": "pixverse voice",
       "desc": "Browse voice/TTS models and preset voices",
-      "children": [
-        "models",
-        "presets"
-      ]
+      "children": ["models", "presets"]
     },
     {
       "cmd": "pixverse voice models",
@@ -726,9 +691,7 @@
     {
       "cmd": "pixverse music",
       "desc": "Browse music generation models",
-      "children": [
-        "models"
-      ]
+      "children": ["models"]
     },
     {
       "cmd": "pixverse music models",
@@ -742,15 +705,7 @@
     {
       "cmd": "pixverse saved",
       "desc": "Manage saved folders and their contents",
-      "children": [
-        "list",
-        "items",
-        "new",
-        "rename",
-        "add",
-        "remove",
-        "delete"
-      ]
+      "children": ["list", "items", "new", "rename", "add", "remove", "delete"]
     },
     {
       "cmd": "pixverse saved list",
@@ -853,13 +808,8 @@
     },
     {
       "cmd": "pixverse workspace",
-      "desc": "Manage workspaces (list, switch, view current)",
-      "children": [
-        "list",
-        "status",
-        "switch",
-        "manage"
-      ]
+      "desc": "Manage workspaces (list, switch, status)",
+      "children": ["list", "status", "switch", "manage"]
     },
     {
       "cmd": "pixverse workspace list",

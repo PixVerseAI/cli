@@ -2,6 +2,19 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.10](https://github.com/PixVerseAI/cli/releases/tag/v1.2.10) — 2026-07-14
+
+### Features
+
+- Improve `create upscale` with a `2160p` default and broader video input support — `--video` now accepts local files, HTTPS URLs, video IDs, and media paths
+- Allow `task status` to query multiple space-separated IDs in parallel while retaining the existing `--ids` syntax
+- Add exit code `7` (`CONCURRENCY_LIMIT`) for temporary concurrency limits, allowing agents to retry them separately from credit errors
+
+### Bug Fixes
+
+- Make batch status exit codes deterministic when requests fail with different error types
+- Fix the workspace help text to reference the `status` subcommand
+
 ## [1.2.9](https://github.com/PixVerseAI/cli/releases/tag/v1.2.9) — 2026-07-12
 
 ### Bug Fixes
