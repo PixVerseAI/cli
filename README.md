@@ -62,6 +62,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Seedance 2.0 Standard   | `seedance-2.0-standard` | `480p` `720p` `1080p` `2160p`       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
 | Seedance 2.0 Fast       | `seedance-2.0-fast`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
 | Seedance 2.0 Mini       | `seedance-2.0-mini`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
+| MiniMax H3               | `minimax-h3`            | `1440p`                             | `5`–`15`s     | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`      |
 | Google Gemini Omni      | `gemini-omni-flash`     | `720p`                              | `3`–`10`s     | `16:9` `9:16`                                      |
 | Happy Horse 1.0         | `happyhorse-1.0`        | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1` `4:3` `3:4`                    |
 | Kling O3 Pro            | `kling-o3-pro`          | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
@@ -79,6 +80,8 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5.5           | `v5.5`                  | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 | PixVerse v5             | `v5`                    | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 
+> MiniMax H3 supports `auto` only when an image is supplied. Text-to-video defaults to `16:9`.
+
 > Grok Imagine 1.5 is image-to-video only — it requires `--image` and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
 
 > Not all models support all creation modes. See the per-mode support matrix below.
@@ -87,10 +90,10 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 | Creation mode                                   | Supported `--model` values                                                                                                                                                                                                                                              |
 | :---------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `gemini-omni-flash` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
 | `create extend`                                 | `v6` `grok-imagine`                                                                                                                                                                                                                                                     |
-| `create reference` (multi-subject reference)    | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `gemini-omni-flash` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6`                                                                                                                              |
-| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                                          |
+| `create reference` (multi-subject reference)    | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6`                                                                                                                 |
+| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                             |
 | `create transition` (3+ frames)                 | `v5`                                                                                                                                                                                                                                                                    |
 | `create modify`                                 | `v5.5`                                                                                                                                                                                                                                                                  |
 | `create motion-control`                         | `v5.6`                                                                                                                                                                                                                                                                  |
@@ -234,6 +237,9 @@ pixverse create reference -m seedance-2.0-standard --images ./char.png --videos 
 
 # Seedance 2.0 reference — add audio references (max 3, each 2–15s, total ≤ 15s; needs a visual reference)
 pixverse create reference -m seedance-2.0-standard --images ./char.png --audios ./voice.mp3 --prompt "@image1 speaks the line in @audio1"
+
+# MiniMax H3 reference — mix up to 9 images, 3 videos, and 3 audios
+pixverse create reference -m minimax-h3 --images ./char.png --videos ./motion.mp4 --audios ./voice.mp3 --prompt "@image1 follows @video1 and @audio1"
 
 # Motion control — character image + motion reference video
 pixverse create motion-control --image ./character.png --video ./dance.mp4
