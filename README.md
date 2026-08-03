@@ -62,7 +62,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | Seedance 2.0 Standard   | `seedance-2.0-standard` | `480p` `720p` `1080p` `2160p`       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
 | Seedance 2.0 Fast       | `seedance-2.0-fast`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
 | Seedance 2.0 Mini       | `seedance-2.0-mini`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
-| MiniMax H3               | `minimax-h3`            | `1440p`                             | `5`–`15`s     | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`      |
+| MiniMax H3               | `minimax-h3`            | `768p` `1440p`                      | `5`–`15`s     | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`      |
 | Google Gemini Omni      | `gemini-omni-flash`     | `720p`                              | `3`–`10`s     | `16:9` `9:16`                                      |
 | Happy Horse 1.0         | `happyhorse-1.0`        | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1` `4:3` `3:4`                    |
 | Kling O3 Pro            | `kling-o3-pro`          | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
@@ -80,7 +80,7 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5.5           | `v5.5`                  | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 | PixVerse v5             | `v5`                    | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 
-> MiniMax H3 supports `auto` only when an image is supplied. Text-to-video defaults to `16:9`.
+> MiniMax H3 text-to-video defaults to `16:9`. Image-to-video forces `auto`; reference mode with images supports both `auto` and fixed aspect ratios and defaults to `auto`.
 
 > Grok Imagine 1.5 is image-to-video only — it requires `--image` and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
 

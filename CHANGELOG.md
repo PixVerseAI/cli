@@ -2,6 +2,16 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.12](https://github.com/PixVerseAI/cli/releases/tag/v1.2.12) — 2026-08-03
+
+### Features
+
+- Add `768p` quality to the `minimax-h3` video model alongside the existing `1440p` option
+
+### Bug Fixes
+
+- `create reference` now preserves explicit fixed `--aspect-ratio` values for `minimax-h3` image references, while continuing to default to `auto` when omitted
+
 ## [1.2.11](https://github.com/PixVerseAI/cli/releases/tag/v1.2.11) — 2026-07-31
 
 ### Features
