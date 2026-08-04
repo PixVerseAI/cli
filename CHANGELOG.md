@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.0](https://github.com/PixVerseAI/cli/releases/tag/v1.3.0) — 2026-08-04
+
+### Features
+
+- Add a top-level `miniapps` command group for PixVerse MiniApps (preset generators): `miniapps list` shows the available apps as an ID/Name/Description table, `miniapps info <id>` shows an app's details and its normalized parameter schema (required fields, types, enum values, and a copy-pasteable example), and `miniapps create --id <app_id> --params <json>` submits the app's args as required JSON (a literal string, a file path, or `-` for stdin) and returns a `project_id`
+- Extend `task` and `asset` with `--type miniapps` to query, wait on, download, and delete MiniApp projects by their `project_id`
+
 ## [1.2.13](https://github.com/PixVerseAI/cli/releases/tag/v1.2.13) — 2026-08-04
 
 ### Bug Fixes

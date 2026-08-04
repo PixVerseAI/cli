@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.2.13",
+    "version": "1.3.0",
     "binary": "pixverse",
     "node": ">=20",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -49,6 +49,7 @@
         "template",
         "voice",
         "music",
+        "miniapps",
         "saved",
         "workspace",
         "update"
@@ -375,7 +376,7 @@
       },
       "options": {
         "--ids <ids>": "Comma-separated list of IDs for batch query (e.g. 123,456,789)",
-        "--type <type>": "Asset type: video, image, or audio | default: video",
+        "--type <type>": "Asset type: video, image, audio, or miniapps | default: video",
         "--json": "Output as JSON"
       }
     },
@@ -385,10 +386,10 @@
       "run": true,
       "auth": true,
       "args": {
-        "id": "Video, image, or audio ID"
+        "id": "Video, image, audio, or MiniApp project ID"
       },
       "options": {
-        "--type <type>": "Asset type: video, image, or audio | default: video",
+        "--type <type>": "Asset type: video, image, audio, or miniapps | default: video",
         "--timeout <seconds>": "Timeout in seconds | default: 300",
         "--json": "Output as JSON"
       }
@@ -404,7 +405,7 @@
       "run": true,
       "auth": true,
       "options": {
-        "--type <type>": "Asset type: video, image, or audio | default: video | choices: video, image, audio",
+        "--type <type>": "Asset type: video, image, audio, or miniapps | default: video | choices: video, image, audio, miniapps",
         "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
         "--off-peak": "Filter off-peak generations only (video + create only)",
         "--limit <number>": "Number of items per page | default: 20",
@@ -421,7 +422,7 @@
         "id": "Video, image, or audio ID"
       },
       "options": {
-        "--type <type>": "Asset type: video, image, or audio (auto-detected if omitted)",
+        "--type <type>": "Asset type: video, image, audio, or miniapps (auto-detected if omitted; miniapps must be explicit)",
         "--source <source>": "Audio source: create or upload | default: create | choices: create, upload",
         "--json": "Output as JSON"
       }
@@ -435,7 +436,7 @@
         "id": "Created video, image, or audio ID (uploads not downloadable)"
       },
       "options": {
-        "--type <type>": "Asset type: video, image, or audio (auto-detected if omitted)",
+        "--type <type>": "Asset type: video, image, audio, or miniapps (auto-detected if omitted; miniapps must be explicit)",
         "--dest <path>": "Destination directory",
         "--json": "Output as JSON"
       }
@@ -464,7 +465,7 @@
         "id": "Video, image, or audio ID"
       },
       "options": {
-        "--type <type>": "Asset type: video, image, or audio (auto-detected if omitted) | choices: video, image, audio",
+        "--type <type>": "Asset type: video, image, audio, or miniapps (auto-detected if omitted; miniapps must be explicit) | choices: video, image, audio, miniapps",
         "--source <source>": "Asset source: create or upload | default: create | choices: create, upload",
         "--json": "Output as JSON"
       }
@@ -699,6 +700,46 @@
       "run": true,
       "auth": true,
       "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse miniapps",
+      "desc": "Run PixVerse MiniApps (preset generators)",
+      "children": ["list", "info", "create"]
+    },
+    {
+      "cmd": "pixverse miniapps list",
+      "desc": "List available MiniApps",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse miniapps info",
+      "desc": "Show a MiniApp's details",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id": "MiniApp id (e.g. magic_extend)"
+      },
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse miniapps create",
+      "desc": "Create a MiniApp project (returns a project_id)",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--id <app_id>": "MiniApp id, e.g. magic_extend or image_region_editor",
+        "--params <input>": "App args as JSON (required) - a literal string, a file path, or - for stdin",
+        "--output <path>": "Download the finished main asset to this directory",
+        "--no-wait": "Return immediately with the project_id, without polling | negates: wait",
+        "--timeout <seconds>": "Polling timeout in seconds | default: 300",
         "--json": "Output as JSON"
       }
     },

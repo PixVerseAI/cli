@@ -269,6 +269,39 @@ These flags are available across most `create` subcommands:
 | `--no-wait`                        | Return immediately without waiting for completion |
 | `--timeout <sec>`                  | Polling timeout in seconds (default 300)          |
 
+### MiniApps
+
+MiniApps are preset, single-purpose generators from the PixVerse web app (Magic
+Extend, Image Region Editor, …). The CLI is a thin pass-through: it does not
+bundle each app's parameter schema. Instead, `miniapps info <id>` returns the
+app's **parameter schema** (required fields, types, enum values, and a
+copy-pasteable example) — read it, then submit the app id plus its `args` as JSON
+with `miniapps create`.
+
+```bash
+# List available MiniApps
+pixverse miniapps list
+
+# Show a MiniApp's details + its parameter schema (what to put in --params)
+pixverse miniapps info magic_extend          # add --json for the machine-readable params_schema
+
+# Create a MiniApp project — --id and --params are required; --params takes JSON (a literal, a file path, or - for stdin)
+pixverse miniapps create --id magic_extend --params '{"image":"<media-path>","ratio":"16:9","quality":"720p"}'
+pixverse miniapps create --id image_region_editor --params ./args.json
+
+# create returns a project_id — query / download / delete it with --type miniapps
+pixverse task status <project_id> --type miniapps
+pixverse task wait <project_id> --type miniapps
+pixverse asset info <project_id> --type miniapps
+pixverse asset download <project_id> --type miniapps --dest ./out/
+pixverse asset delete <project_id> --type miniapps
+```
+
+Media fields inside `--params` must be **media paths** — the `path` returned by
+`asset upload` (not a URL, not a local file). The CLI passes `--params` straight
+through without uploading, so upload first with `pixverse asset upload <file>` and
+use the returned `path`.
+
 ### Task Management
 
 ```bash
@@ -277,6 +310,9 @@ pixverse task status <id>
 
 # Poll a voice/music audio task (audio is not auto-detected — pass --type audio)
 pixverse task status <id> --type audio
+
+# Poll a MiniApp project (pass --type miniapps; project_id comes from `miniapps create`)
+pixverse task status <project_id> --type miniapps
 
 # Batch status query with space-separated IDs (parallel; per-ID failures captured)
 pixverse task status 123 456 789 --type video --json
@@ -296,6 +332,7 @@ pixverse asset list
 pixverse asset list --type image
 pixverse asset list --type audio              # voice and music audio history
 pixverse asset list --type audio --source upload
+pixverse asset list --type miniapps           # MiniApp projects
 pixverse asset list --source upload
 pixverse asset list --source create --off-peak
 
