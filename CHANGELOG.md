@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.2.13](https://github.com/PixVerseAI/cli/releases/tag/v1.2.13) — 2026-08-04
+
+### Bug Fixes
+
+- `create template` now supplies a random seed for image templates when `--seed` is omitted, preventing submissions from failing with `invalid param`
+
 ## [1.2.12](https://github.com/PixVerseAI/cli/releases/tag/v1.2.12) — 2026-08-03
 
 ### Features
