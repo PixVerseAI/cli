@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "binary": "pixverse",
     "node": ">=20",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -300,9 +300,9 @@
       "auth": true,
       "effect": "creates_remote_media_asset",
       "options": {
-        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (1-7, up to 9 for seedance-2.0 and minimax-h3, max 5 for gemini-omni-flash; local oversized images are auto-resized to fit 1920x1920)",
-        "--videos <inputs...>": "Video reference inputs (seedance-2.0 and minimax-h3): file paths, HTTPS URLs, video IDs, or media paths (max 3; seedance total duration ≤ 15s)",
-        "--audios <inputs...>": "Audio reference inputs (seedance-2.0 and minimax-h3): file paths, HTTPS URLs, audio IDs, or media paths (max 3; seedance clips must be 2–15s and total ≤ 15s; requires at least one image or video reference)",
+        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (max 30 for seedance-2.5, 9 for seedance-2.0 and minimax-h3, 5 for gemini-omni-flash, otherwise 7; local oversized images are auto-resized to fit 1920x1920)",
+        "--videos <inputs...>": "Video reference inputs (Seedance and minimax-h3): file paths, HTTPS URLs, video IDs, or media paths (seedance-2.5: max 10 and ≤30s total; others: max 3, seedance-2.0 ≤15s total)",
+        "--audios <inputs...>": "Audio reference inputs (Seedance and minimax-h3): file paths, HTTPS URLs, audio IDs, or media paths (seedance-2.5: max 10 and ≤30s total; others: max 3, seedance-2.0 clips 2–15s and ≤15s total; requires an image or video)",
         "--prompt <text>": "Prompt text",
         "-m, --model <model>": "Video model",
         "-q, --quality <quality>": "Video quality",

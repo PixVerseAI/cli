@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.1](https://github.com/PixVerseAI/cli/releases/tag/v1.3.1) — 2026-08-07
+
+### Features
+
+- Add `seedance-2.5` video model (`Seedance 2.5`) — available in `create video`, `create reference`, and two-frame `create transition`, with 480p / 720p, 4–30s durations, selectable fixed aspect ratios for video/reference, and up to 30 image / 10 video / 10 audio references (50 total; video and audio each ≤ 30s)
+
 ## [1.3.0](https://github.com/PixVerseAI/cli/releases/tag/v1.3.0) — 2026-08-04
 
 ### Features

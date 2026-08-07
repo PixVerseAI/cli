@@ -59,10 +59,11 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | :---------------------- | :---------------------- | :---------------------------------- | :------------ | :------------------------------------------------- |
 | PixVerse V6 _(default)_ | `v6`                    | `360p` `540p` `720p` `1080p`        | `1`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` `21:9` |
 | PixVerse C1             | `pixverse-c1`           | `360p` `540p` `720p` `1080p`        | `1`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
+| Seedance 2.5            | `seedance-2.5`          | `480p` `720p`                       | `4`–`30`s     | `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`             |
 | Seedance 2.0 Standard   | `seedance-2.0-standard` | `480p` `720p` `1080p` `2160p`       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
 | Seedance 2.0 Fast       | `seedance-2.0-fast`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
 | Seedance 2.0 Mini       | `seedance-2.0-mini`     | `480p` `720p`                       | `4`–`15`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9`             |
-| MiniMax H3               | `minimax-h3`            | `768p` `1440p`                      | `5`–`15`s     | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`      |
+| MiniMax H3              | `minimax-h3`            | `768p` `1440p`                      | `5`–`15`s     | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`      |
 | Google Gemini Omni      | `gemini-omni-flash`     | `720p`                              | `3`–`10`s     | `16:9` `9:16`                                      |
 | Happy Horse 1.0         | `happyhorse-1.0`        | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1` `4:3` `3:4`                    |
 | Kling O3 Pro            | `kling-o3-pro`          | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
@@ -80,6 +81,8 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5.5           | `v5.5`                  | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 | PixVerse v5             | `v5`                    | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 
+> Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9`. Text-to-video, image-to-video, and reference mode accept its fixed aspect ratios. Transition does not send a user-selected aspect ratio. Generated audio, multi-shot, and off-peak generation are unsupported.
+
 > MiniMax H3 text-to-video defaults to `16:9`. Image-to-video forces `auto`; reference mode with images supports both `auto` and fixed aspect ratios and defaults to `auto`.
 
 > Grok Imagine 1.5 is image-to-video only — it requires `--image` and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
@@ -88,34 +91,34 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 #### Per-mode Model Support
 
-| Creation mode                                   | Supported `--model` values                                                                                                                                                                                                                                              |
-| :---------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
-| `create extend`                                 | `v6` `grok-imagine`                                                                                                                                                                                                                                                     |
-| `create reference` (multi-subject reference)    | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6`                                                                                                                 |
-| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                             |
-| `create transition` (3+ frames)                 | `v5`                                                                                                                                                                                                                                                                    |
-| `create modify`                                 | `v5.5`                                                                                                                                                                                                                                                                  |
-| `create motion-control`                         | `v5.6`                                                                                                                                                                                                                                                                  |
+| Creation mode                                   | Supported `--model` values                                                                                                                                                                                                                                                                                                                  |
+| :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
+| `create extend`                                 | `v6` `grok-imagine`                                                                                                                                                                                                                                                                                                                         |
+| `create reference` (multi-subject reference)    | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6`                                                                                                                                                 |
+| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                                                              |
+| `create transition` (3+ frames)                 | `v5`                                                                                                                                                                                                                                                                                                                                        |
+| `create modify`                                 | `v5.5`                                                                                                                                                                                                                                                                                                                                      |
+| `create motion-control`                         | `v5.6`                                                                                                                                                                                                                                                                                                                                      |
 
 > Audio creation uses separate model families: `create voice` for text-to-speech and `create music` for prompt-to-music.
 
 ### Image Models (`--model <value>`)
 
-| Model                   | `--model` value     | Quality                        | Aspect Ratio                                                   |
-| :---------------------- | :------------------ | :----------------------------- | :------------------------------------------------------------- |
-| GPT Image 2 _(default)_ | `gpt-image-2.0`     | `1080p` `1440p` `2160p`        | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
-| Nano Banana 2           | `gemini-3.1-flash`  | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more                              |
+| Model                   | `--model` value         | Quality                        | Aspect Ratio                                                   |
+| :---------------------- | :---------------------- | :----------------------------- | :------------------------------------------------------------- |
+| GPT Image 2 _(default)_ | `gpt-image-2.0`         | `1080p` `1440p` `2160p`        | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` |
+| Nano Banana 2           | `gemini-3.1-flash`      | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` + more                              |
 | Nano Banana 2 Lite      | `gemini-3.1-flash-lite` | `1080p`                        | `auto` `1:1` `16:9` `9:16` + more                              |
-| Qwen-image              | `qwen-image`        | `720p` `1080p`                 | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
-| Nano Banana Pro         | `gemini-3.0`        | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
-| Nano Banana             | `gemini-2.5-flash`  | `1080p`                        | `auto` `1:1` `16:9` `9:16` + more                              |
-| Seedream 5.0 Pro        | `seedream-5.0-pro`  | `1080p` `1440p`                | `auto` `1:1` `16:9` `9:16` + more                              |
-| Seedream 5.0 Lite       | `seedream-5.0-lite` | `1440p` `1800p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
-| Seedream 4.5            | `seedream-4.5`      | `1440p` `2160p`                | `auto` `1:1` `16:9` `9:16` + more                              |
-| Seedream 4.0            | `seedream-4.0`      | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
-| Kling Image O3          | `kling-image-o3`    | `1080p` `1440p` `2160p`        | `16:9` `9:16` `1:1` + more                                     |
-| Kling Image V3          | `kling-image-v3`    | `1080p` `1440p`                | `16:9` `9:16` `1:1` + more                                     |
+| Qwen-image              | `qwen-image`            | `720p` `1080p`                 | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` |
+| Nano Banana Pro         | `gemini-3.0`            | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Nano Banana             | `gemini-2.5-flash`      | `1080p`                        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 5.0 Pro        | `seedream-5.0-pro`      | `1080p` `1440p`                | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 5.0 Lite       | `seedream-5.0-lite`     | `1440p` `1800p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 4.5            | `seedream-4.5`          | `1440p` `2160p`                | `auto` `1:1` `16:9` `9:16` + more                              |
+| Seedream 4.0            | `seedream-4.0`          | `1080p` `1440p` `2160p`        | `auto` `1:1` `16:9` `9:16` + more                              |
+| Kling Image O3          | `kling-image-o3`        | `1080p` `1440p` `2160p`        | `16:9` `9:16` `1:1` + more                                     |
+| Kling Image V3          | `kling-image-v3`        | `1080p` `1440p`                | `16:9` `9:16` `1:1` + more                                     |
 
 ### Voice / TTS Models (`create voice --model <value>`)
 
@@ -131,10 +134,10 @@ This opens a browser where you confirm the authorization. You can also copy the 
 
 ### Music Models (`create music --model <value>`)
 
-| Model                         | `--model` value       | Provider   | Duration    | Notes                                    |
-| :---------------------------- | :-------------------- | :--------- | :---------- | :--------------------------------------- |
-| MiniMax Music 2.6 _(default)_ | `music-2.6`           | MiniMax    | `10`-`240`s | Lyrics, auto lyrics, instrumental        |
-| ElevenLabs Music              | `music-v1`            | ElevenLabs | `10`-`240`s | Lyrics, auto lyrics, instrumental        |
+| Model                         | `--model` value       | Provider   | Duration    | Notes                                                               |
+| :---------------------------- | :-------------------- | :--------- | :---------- | :------------------------------------------------------------------ |
+| MiniMax Music 2.6 _(default)_ | `music-2.6`           | MiniMax    | `10`-`240`s | Lyrics, auto lyrics, instrumental                                   |
+| ElevenLabs Music              | `music-v1`            | ElevenLabs | `10`-`240`s | Lyrics, auto lyrics, instrumental                                   |
 | Google Lyria 3 Pro            | `lyria-3-pro-preview` | Google     | `10`-`240`s | Auto lyrics, instrumental, image references, no separate `--lyrics` |
 
 > Browse the live music model catalog with `pixverse music models`.
@@ -160,6 +163,9 @@ Local image inputs larger than `1920x1920` or `5MB` are automatically resized/co
 
 ```bash
 pixverse create video --prompt "A cat walking on Mars" --model v6 --quality 720p --aspect-ratio 16:9
+
+# Seedance 2.5 supports integer durations from 4 through 30 seconds
+pixverse create video --prompt "A slow aerial orbit around an alpine lake" --model seedance-2.5 --quality 720p --duration 12 --aspect-ratio 21:9
 ```
 
 ### Text inputs: literal, a file, or stdin
@@ -183,6 +189,9 @@ pixverse create music --prompt "Bright synth-pop" --lyrics ./lyrics.txt
 
 ```bash
 pixverse create video --prompt "Slow zoom in" --image ./photo.png
+
+# Seedance 2.5 image-to-video preserves an explicitly selected fixed ratio
+pixverse create video --prompt "The subject turns toward the camera" --image ./portrait.png --model seedance-2.5 --aspect-ratio 4:3
 ```
 
 ### Text to Image
@@ -202,6 +211,9 @@ pixverse create image --prompt "Turn this into a watercolor painting" --image ./
 ```bash
 # Create a transition between keyframes (requires 2+ images)
 pixverse create transition --images ./frame1.png ./frame2.png ./frame3.png
+
+# Seedance 2.5 transition requires exactly 2 frames; do not pass --aspect-ratio
+pixverse create transition -m seedance-2.5 --images ./first.png ./last.png --prompt "A seamless transformation"
 
 # Generate speech audio from text (text-to-speech)
 pixverse create voice --text "Hello world" --voice-id <preset_voice_id> --output ./out.mp3
@@ -231,6 +243,10 @@ pixverse create upscale --video <video_id> --quality 2160p
 
 # Generate video with character reference (1–7 images)
 pixverse create reference --images ./char1.png ./char2.png --prompt "Two friends walking in a park"
+
+# Seedance 2.5 reference — up to 50 total inputs: 30 images, 10 videos, and 10 audios;
+# video and audio totals are each limited to 30s, and audio needs an image or video
+pixverse create reference -m seedance-2.5 --images ./char.png --videos ./motion.mp4 --audios ./voice.mp3 --aspect-ratio 16:9 --prompt "@image1 follows @video1 and @audio1"
 
 # Seedance 2.0 reference — mix images and videos (max 3 videos, total ≤ 15s)
 pixverse create reference -m seedance-2.0-standard --images ./char.png --videos ./motion.mp4 --prompt "@image1 follows the motion in @video1"
@@ -268,6 +284,8 @@ These flags are available across most `create` subcommands:
 | `--multi-shot` / `--no-multi-shot` | Enable or disable multi-shot mode (video only)    |
 | `--no-wait`                        | Return immediately without waiting for completion |
 | `--timeout <sec>`                  | Polling timeout in seconds (default 300)          |
+
+> Model-specific support still applies. Seedance 2.5 does not support `--audio`, `--multi-shot`, or `--off-peak`. Its `--audios` values in `create reference` are input references, not a generated-audio toggle.
 
 ### MiniApps
 
@@ -482,16 +500,16 @@ pixverse asset download "$VID" --dest ./output/
 
 ### Exit Codes
 
-| Code | Meaning                                                    |
-| :--- | :--------------------------------------------------------- |
-| `0`  | Success                                                    |
-| `1`  | General error                                              |
-| `2`  | Timeout                                                    |
-| `3`  | Authentication error                                       |
-| `4`  | Credit / subscription limit                                |
-| `5`  | Generation failed                                          |
-| `6`  | Validation error                                           |
-| `7`  | Concurrent generation limit; wait for a slot and retry      |
+| Code | Meaning                                                |
+| :--- | :----------------------------------------------------- |
+| `0`  | Success                                                |
+| `1`  | General error                                          |
+| `2`  | Timeout                                                |
+| `3`  | Authentication error                                   |
+| `4`  | Credit / subscription limit                            |
+| `5`  | Generation failed                                      |
+| `6`  | Validation error                                       |
+| `7`  | Concurrent generation limit; wait for a slot and retry |
 
 ## All Commands
 
@@ -518,7 +536,7 @@ pixverse asset download "$VID" --dest ./output/
 | `voice models`          | List voice/TTS providers, models, and supported languages                           |
 | `voice presets`         | List preset voices (filterable by model / language / provider)                      |
 | `music models`          | List music providers, models, and capabilities                                      |
-| `task status`           | Check one ID or batch with space-separated IDs / `--ids id1,id2,...`               |
+| `task status`           | Check one ID or batch with space-separated IDs / `--ids id1,id2,...`                |
 | `task wait`             | Wait for task completion                                                            |
 | `asset list`            | List assets (`--source create\|upload`, `--type video\|image\|audio`, `--off-peak`) |
 | `asset upload`          | Upload a local file or HTTPS URL to asset library                                   |
