@@ -2,6 +2,14 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.2](https://github.com/PixVerseAI/cli/releases/tag/v1.3.2) — 2026-08-09
+
+### Features
+
+- Expand `create reference` with model-specific video editing — V6 accepts up to 10 images / 2 videos, Gemini Omni accepts up to 5 images / 1 video, Kling O3 accepts up to 7 images or 4 images with 1 video, and Grok Imagine accepts either images or 1 video, with local validation for each model's media constraints
+- Add `--duration auto` handling for video references — V6 locks video inputs to automatic duration, while Seedance 2.5 defaults video inputs to automatic duration but allows an explicit 4–30s value
+- Add `--aspect-ratio auto` to Seedance 2.5 text-to-video and reference creation — automatic reference duration locks the aspect ratio to `auto`, while fixed duration keeps automatic and fixed ratios selectable
+
 ## [1.3.1](https://github.com/PixVerseAI/cli/releases/tag/v1.3.1) — 2026-08-07
 
 ### Features
