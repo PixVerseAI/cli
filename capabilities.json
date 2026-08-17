@@ -5,9 +5,9 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "binary": "pixverse",
-    "node": ">=20",
+    "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
   },
   "contract": {
@@ -305,9 +305,10 @@
         "--audios <inputs...>": "Audio reference inputs (Seedance and minimax-h3): file paths, HTTPS URLs, audio IDs, or media paths (seedance-2.5: max 10 and ≤30s total; others: max 3, seedance-2.0 clips 2–15s and ≤15s total; requires an image or video)",
         "--prompt <text>": "Prompt text",
         "-m, --model <model>": "Video model",
+        "--task-type <type>": "Seedance 2.5 reference task type: auto, reference, edit, or extend",
         "-q, --quality <quality>": "Video quality",
         "--aspect-ratio <ratio>": "Aspect ratio, or auto for model-determined framing where supported",
-        "-d, --duration <seconds|auto>": "Duration in seconds, or auto (locked for V6 video references; default for Seedance 2.5 video references)",
+        "-d, --duration <seconds|auto>": "Duration in seconds, or auto (locked for V6/Grok video references; default for Seedance 2.5 video references)",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--audio": "Enable audio generation",

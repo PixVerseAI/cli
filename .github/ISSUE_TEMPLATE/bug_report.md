@@ -26,7 +26,7 @@ If applicable, paste the command output (use `--json` for structured output):
 
 **Environment**
 - OS: [e.g. macOS 15, Ubuntu 24.04]
-- Node.js version: [e.g. 20.11.0]
+- Node.js version: [e.g. 22.12.0]
 - pixverse version: [e.g. 0.1.0] (`pixverse --version`)
 
 **Additional context**

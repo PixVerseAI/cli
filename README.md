@@ -32,7 +32,7 @@ Or run without installing:
 npx pixverse
 ```
 
-**Requirements:** Node.js >= 20
+**Requirements:** Node.js >= 22.12
 
 ## Authentication
 
@@ -66,11 +66,13 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | MiniMax H3              | `minimax-h3`            | `768p` `1440p`                      | `5`–`15`s     | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16`      |
 | Google Gemini Omni      | `gemini-omni-flash`     | `720p`                              | `3`–`10`s     | `16:9` `9:16`                                      |
 | Happy Horse 1.0         | `happyhorse-1.0`        | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1` `4:3` `3:4`                    |
-| Kling O3 Pro            | `kling-o3-pro`          | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
-| Kling O3 Standard       | `kling-o3-standard`     | `720p` `1080p`                      | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
-| Kling 3.0 Pro           | `kling-3.0-pro`         | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
-| Kling 3.0 Standard      | `kling-3.0-standard`    | `720p`                              | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
-| Grok Imagine 1.5        | `grok-imagine-1.5`      | `480p` `720p`                       | `1`–`15`s     | _from image_                                       |
+| Kling O3 Pro            | `kling-o3-pro`          | _not applicable_                    | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling O3 Standard       | `kling-o3-standard`     | _not applicable_                    | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling O3 4K             | `kling-o3-4k`           | _not applicable_                    | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling 3.0 Pro           | `kling-3.0-pro`         | _not applicable_                    | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling 3.0 Standard      | `kling-3.0-standard`    | _not applicable_                    | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Kling 3.0 4K            | `kling-3.0-4k`          | _not applicable_                    | `3`–`15`s     | `16:9` `9:16` `1:1`                                |
+| Grok Imagine 1.5        | `grok-imagine-1.5`      | `480p` `720p` `1080p`               | `1`–`15`s     | _from image_                                       |
 | Grok Imagine            | `grok-imagine`          | `480p` `720p`                       | `1`–`15`s     | `16:9` `4:3` `1:1` `9:16` `3:4` `3:2` `2:3`        |
 | Veo 3.1 Lite            | `veo-3.1-lite`          | `720p` `1080p`                      | `4` `6` `8`s  | `16:9` `9:16`                                      |
 | Veo 3.1 Standard        | `veo-3.1-standard`      | `720p` `1080p` `2160p`              | `4` `6` `8`s  | `16:9` `9:16`                                      |
@@ -81,27 +83,29 @@ This opens a browser where you confirm the authorization. You can also copy the 
 | PixVerse v5.5           | `v5.5`                  | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 | PixVerse v5             | `v5`                    | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s     | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3`        |
 
-> Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9` for generation without a reference video. Text-to-video and reference mode accept `--aspect-ratio auto` in addition to the fixed ratios. Reference requests containing a video default to automatic duration and lock the aspect ratio to `auto`; selecting an integer from 4 through 30 unlocks both automatic and fixed aspect ratios. Image-to-video retains its existing fixed-ratio behavior, while transition does not send a user-selected aspect ratio. Generated audio, multi-shot, and off-peak generation are unsupported.
+> Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9` for generation without a reference video. Text-to-video and reference mode accept `--aspect-ratio auto` in addition to the fixed ratios. Reference requests containing a video default to automatic duration and lock the aspect ratio to `auto`; selecting an integer from 4 through 30 unlocks both automatic and fixed aspect ratios. Reference mode also accepts the optional `--task-type <type>` flag (`auto` by default, `reference`, `edit`, or `extend`) to guide the task intent; this flag is rejected for other models. Image-to-video retains its existing fixed-ratio behavior, while transition does not send a user-selected aspect ratio. Generated audio, multi-shot, and off-peak generation are unsupported.
 
 > MiniMax H3 text-to-video defaults to `16:9`. Image-to-video forces `auto`; reference mode with images supports both `auto` and fixed aspect ratios and defaults to `auto`.
 
-> Reference video editing: V6 accepts up to 10 images and 2 videos (15s total after per-clip rounding); requests with a video lock duration to `auto` and reject fixed values. Seedance 2.5 accepts up to 10 videos (30s total); requests with a video default to `auto` but may select a fixed 4–30 seconds. Gemini Omni accepts up to 5 images and 1 video up to 10s. Kling O3 accepts up to 7 images without video or 4 images with 1 video up to 15s (200MB, 2048px per side). Grok Imagine accepts either 1–7 images or exactly 1 MP4 video up to 8.7s; video mode forces `auto`. Gemini Omni and Grok Imagine derive output duration from the source video when metadata is available.
+> Kling resolution is selected entirely by the model ID. Kling requests do not send `quality`; an explicit `--quality` value is ignored with a warning. Both 4K models support text/image-to-video and two-frame transitions, while only Kling O3 4K supports `create reference`.
 
-> Grok Imagine 1.5 is image-to-video only — it requires `--image` and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
+> Reference video editing: V6 accepts up to 10 images and 2 videos (15s total after per-clip rounding); requests with a video lock duration to `auto` and reject fixed values. Seedance 2.5 accepts up to 10 videos (30s total); requests with a video default to `auto` but may select a fixed 4–30 seconds. Gemini Omni accepts up to 5 images and 1 video up to 10s; requests with a video lock duration to `auto` and reject fixed values. Kling O3 accepts up to 7 images without video or 4 images with 1 video up to 15s (200MB, 2048px per side). Grok Imagine accepts either 1–7 images with normal fixed duration or exactly 1 MP4 video up to 8.7s; video mode locks duration to `auto` and derives aspect ratio from the source video.
+
+> Grok Imagine 1.5 is image-to-video only — it requires `--image`, supports `480p`, `720p`, and `1080p`, and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
 
 > Not all models support all creation modes. See the per-mode support matrix below.
 
 #### Per-mode Model Support
 
-| Creation mode                                   | Supported `--model` values                                                                                                                                                                                                                                                                                                                  |
-| :---------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
-| `create extend`                                 | `v6` `grok-imagine`                                                                                                                                                                                                                                                                                                                         |
-| `create reference` (reference / video editing)  | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `kling-o3-pro` `kling-o3-standard` `grok-imagine` `v5.6`                                                                                                                                                 |
-| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `kling-o3-pro` `kling-o3-standard` `kling-3.0-pro` `kling-3.0-standard` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                                                              |
-| `create transition` (3+ frames)                 | `v5`                                                                                                                                                                                                                                                                                                                                        |
-| `create modify`                                 | `v5.5`                                                                                                                                                                                                                                                                                                                                      |
-| `create motion-control`                         | `v5.6`                                                                                                                                                                                                                                                                                                                                      |
+| Creation mode                                   | Supported `--model` values                                                                                                                                                                                                                                                                                                                                               |
+| :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `create video` (text-to-video / image-to-video) | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `happyhorse-1.0` `kling-o3-pro` `kling-o3-standard` `kling-o3-4k` `kling-3.0-pro` `kling-3.0-standard` `kling-3.0-4k` `grok-imagine-1.5` `grok-imagine` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `sora-2-pro` `sora-2` `v5.6` |
+| `create extend`                                 | `v6` `grok-imagine`                                                                                                                                                                                                                                                                                                                                                      |
+| `create reference` (reference / video editing)  | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `gemini-omni-flash` `kling-o3-pro` `kling-o3-standard` `kling-o3-4k` `grok-imagine` `v5.6`                                                                                                                                                                |
+| `create transition` (2 frames)                  | `v6` `pixverse-c1` `seedance-2.5` `seedance-2.0-standard` `seedance-2.0-fast` `seedance-2.0-mini` `minimax-h3` `kling-o3-pro` `kling-o3-standard` `kling-o3-4k` `kling-3.0-pro` `kling-3.0-standard` `kling-3.0-4k` `veo-3.1-lite` `veo-3.1-standard` `veo-3.1-fast` `v5.6`                                                                                              |
+| `create transition` (3+ frames)                 | `v5`                                                                                                                                                                                                                                                                                                                                                                     |
+| `create modify`                                 | `v5.5`                                                                                                                                                                                                                                                                                                                                                                   |
+| `create motion-control`                         | `v5.6`                                                                                                                                                                                                                                                                                                                                                                   |
 
 > Audio creation uses separate model families: `create voice` for text-to-speech and `create music` for prompt-to-music.
 
@@ -252,17 +256,18 @@ pixverse create reference -m v6 --images ./char1.png ./char2.png --prompt "Two f
 # Edit video with V6 reference media (up to 2 videos, rounded total ≤ 15s)
 pixverse create reference -m v6 --videos ./shot1.mp4 ./shot2.mov --duration auto --prompt "Turn the scene into a rainy night"
 
-# Gemini Omni derives output duration from its single source video (up to 10s)
+# Gemini Omni defaults to automatic duration with its single source video (up to 10s)
 pixverse create reference -m gemini-omni-flash --images ./style.png --videos ./source.mp4 --prompt "Keep @video1's motion and apply @image1's style"
 
-# Kling O3 accepts up to 4 images when a video is present (video ≤ 15s, 200MB, 2048px per side)
-pixverse create reference -m kling-o3-pro --images ./character.png --videos ./motion.mov --quality 1080p --prompt "Use @image1 as the subject in @video1"
+# Kling O3 4K accepts up to 4 images when a video is present (video ≤ 15s, 200MB, 2048px per side)
+pixverse create reference -m kling-o3-4k --images ./character.png --videos ./motion.mov --prompt "Use @image1 as the subject in @video1"
 
 # Grok Imagine accepts images or one MP4 video, but not both (video ≤ 8.7s)
 pixverse create reference -m grok-imagine --videos ./source.mp4 --prompt "Replace the background with a desert"
 
 # Seedance 2.5 reference — up to 50 total inputs: 30 images, 10 videos, and 10 audios;
-# video and audio totals are each limited to 30s, and audio needs an image or video
+# video and audio totals are each limited to 30s, audio needs an image or video,
+# and --task-type defaults to auto (or explicitly accepts reference, edit, or extend)
 pixverse create reference -m seedance-2.5 --images ./char.png --videos ./motion.mp4 --audios ./voice.mp3 --duration auto --aspect-ratio auto --prompt "@image1 follows @video1 and @audio1"
 
 # Seedance 2.0 reference — mix images and videos (max 3 videos, total ≤ 15s)

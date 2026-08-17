@@ -2,6 +2,18 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.3](https://github.com/PixVerseAI/cli/releases/tag/v1.3.3) — 2026-08-17
+
+### Features
+
+- Add `--task-type <type>` to Seedance 2.5 `create reference` — accepts `auto` (default), `reference`, `edit`, or `extend` and sends the selected task intent as `task_type`, with local model and value validation before media resolution
+- Add high-resolution external video tiers — `kling-o3-4k` supports video, two-frame transition, and mixed-media reference creation as a separate 4K model tier; `kling-3.0-4k` supports video and two-frame transition as a separate 4K model tier; Kling requests omit the quality parameter; and Grok Imagine 1.5 image-to-video accepts 1080p
+
+### Bug Fixes
+
+- Make Grok Imagine `create reference --videos` submit automatic duration (`duration: 0`), omit the derived source-video aspect ratio, and reject fixed video durations, while keeping image-only references on the normal fixed-duration path
+- Make Gemini Omni `create reference --videos` default and lock duration to `auto`, submitting automatic duration and rejecting fixed values while keeping image-only references on the normal fixed-duration path
+
 ## [1.3.2](https://github.com/PixVerseAI/cli/releases/tag/v1.3.2) — 2026-08-09
 
 ### Features
