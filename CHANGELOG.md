@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.4](https://github.com/PixVerseAI/cli/releases/tag/v1.3.4) — 2026-08-18
+
+### Features
+
+- Add `music-3.0` (`MiniMax Music 3.0`) and `music-v2` (`ElevenLabs Music V2`) to `create music` — both support lyrics, auto lyrics, instrumental generation, and 10–240s durations, while `music-2.6` remains the default
+
 ## [1.3.3](https://github.com/PixVerseAI/cli/releases/tag/v1.3.3) — 2026-08-17
 
 ### Features
