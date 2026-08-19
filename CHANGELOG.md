@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.5](https://github.com/PixVerseAI/cli/releases/tag/v1.3.5) — 2026-08-19
+
+### Features
+
+- Add `1080p` quality support to Seedance 2.5 across `create video`, `create reference`, and two-frame `create transition`, while keeping `720p` as the default and all existing duration, aspect-ratio, and reference limits unchanged
+
 ## [1.3.4](https://github.com/PixVerseAI/cli/releases/tag/v1.3.4) — 2026-08-18
 
 ### Features
