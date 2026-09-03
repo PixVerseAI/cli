@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.3.6](https://github.com/PixVerseAI/cli/releases/tag/v1.3.6) — 2026-08-31
+
+### Features
+
+- Add `flux-3.0` (`FLUX 3`) for text-to-video and image-to-video creation, with 720p/1080p output, 5–20s durations, selectable Auto and fixed aspect ratios, optional generated audio, and the required FLUX safety parameter
+- Add `wan-3.0` (`Wan 3.0`) for video, two-frame transition, and mixed-media reference creation, with 480p/720p/1080p output, 2–30s durations, optional generated audio, audio-only references, and up to 10 images / 5 videos / 5 audios (20 references total)
+
 ## [1.3.5](https://github.com/PixVerseAI/cli/releases/tag/v1.3.5) — 2026-08-19
 
 ### Features
