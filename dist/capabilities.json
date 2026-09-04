@@ -5,13 +5,16 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.3.6",
+    "version": "1.3.10",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
   },
   "contract": {
     "service": "PixVerse public service",
+    "regions": ["global", "cn"],
+    "default_region": "global",
+    "region_precedence": ["PIXVERSE_REGION", "--region", "default"],
     "auth": "OAuth device flow with a local CLI session",
     "json": "Use --json or -p for pure JSON stdout; errors and progress go to stderr.",
     "text_inputs": "prompt, text, lyrics accept literal text, local file path, or - for stdin.",
@@ -32,7 +35,8 @@
     "--json": "Output results as JSON",
     "-p": "Print mode - pure JSON output (alias for --json)",
     "--workspace-id <id>": "Override active workspace for this command (0 = personal)",
-    "--trace-id <id>": "Trace ID to attach to all API requests in this invocation (must be UUIDv4)"
+    "--trace-id <id>": "Trace ID to attach to all API requests in this invocation (must be UUIDv4)",
+    "--region <region>": "Region: global or cn (default: global; PIXVERSE_REGION overrides) | choices: global, cn"
   },
   "commands": [
     {
@@ -59,7 +63,8 @@
         "--json": "Output results as JSON",
         "-p": "Print mode - pure JSON output (alias for --json)",
         "--workspace-id <id>": "Override active workspace for this command (0 = personal)",
-        "--trace-id <id>": "Trace ID to attach to all API requests in this invocation (must be UUIDv4)"
+        "--trace-id <id>": "Trace ID to attach to all API requests in this invocation (must be UUIDv4)",
+        "--region <region>": "Region: global or cn (default: global; PIXVERSE_REGION overrides) | choices: global, cn"
       }
     },
     {

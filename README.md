@@ -601,13 +601,14 @@ pixverse asset download "$VID" --dest ./output/
 
 ## Global Flags
 
-| Flag                  | Description                                               |
-| :-------------------- | :-------------------------------------------------------- |
-| `--json`              | Output as JSON                                            |
-| `-p`                  | Print mode (alias for `--json`)                           |
-| `--workspace-id <id>` | Override active workspace for this command (0 = personal) |
-| `-V, --version`       | Show CLI version                                          |
-| `-h, --help`          | Show help for any command                                 |
+| Flag                  | Description                                                 |
+| :-------------------- | :---------------------------------------------------------- |
+| `--json`              | Output as JSON                                              |
+| `-p`                  | Print mode (alias for `--json`)                             |
+| `--workspace-id <id>` | Override active workspace for this command (0 = personal)   |
+| `--region <region>`   | Service region: `global` or `cn` (default: `global`)         |
+| `-V, --version`       | Show CLI version                                            |
+| `-h, --help`          | Show help for any command                                   |
 
 ## For AI Agents — Advanced Usage
 

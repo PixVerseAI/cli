@@ -2,7 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
-## [1.3.6](https://github.com/PixVerseAI/cli/releases/tag/v1.3.6) — 2026-08-31
+## [1.3.10](https://github.com/PixVerseAI/cli/releases/tag/v1.3.10) — 2026-09-04
+
+### Documentation
+
+- Update public README
+
+## [1.3.6](https://github.com/PixVerseAI/cli/releases/tag/v1.3.6) — 2026-09-03
 
 ### Features
 
