@@ -2,6 +2,20 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.0](https://github.com/PixVerseAI/cli/releases/tag/v1.4.0) — 2026-09-07
+
+### Features
+
+- Discover the installed CLI's Create capabilities offline with `capabilities` and `capabilities create`, including supported modes, model-specific parameters, defaults, enums, ranges, units, and media limits, without signing in or making a network request
+- Query current Canvas generation routes, models, supported inputs, and parameter constraints with `capabilities canvas`; filter by node type, route, or model, or return the original Canvas definitions with `--raw`
+- Add the top-level `canvas` command group for building and managing connected Canvas generation workflows from the CLI
+- Create empty Canvas projects directly with `canvas project create`, with optional name and description fields and active workspace support
+- Inspect Canvas projects with `canvas graph`, including nodes, dependencies, edit versions, generation states, and validation issues, and inspect individual node schemas with `canvas node schema`
+- Plan and apply Canvas changes safely with `canvas patch dry-run` and `canvas patch apply` — read a JSON literal, local file, or stdin, validate changes before saving, retry them safely, and reject unsupported dependency edits before they are saved
+- Control generation precisely with `canvas dispatch`, confirm exact node batches with `canvas dispatch rebind`, and recover selected nodes with `canvas graph reconcile`
+- Manage the full Canvas node lifecycle — inspect nodes, browse and apply saved versions, rerun generation, and extract a video's complete audio track into a Canvas audio node
+- Use Canvas with the CLI's existing login, pure JSON output through `--json` / `-p`, and standard exit codes for reliable agent automation
+
 ## [1.3.10](https://github.com/PixVerseAI/cli/releases/tag/v1.3.10) — 2026-09-04
 
 ### Documentation
