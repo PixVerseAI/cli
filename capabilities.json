@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -158,7 +158,7 @@
         "-m, --model <model>": "Image model",
         "-q, --quality <quality>": "Image quality",
         "--aspect-ratio <ratio>": "Aspect ratio",
-        "--detail-level <level>": "Detail level for gpt-image-2.0: low | medium | high",
+        "--detail-level <level>": "GPT Image detail level (model-specific): low | medium | high | xhigh | max",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
@@ -1220,6 +1220,8 @@
         "sora-2-pro": "Sora 2 Pro",
         "sora-2": "Sora 2",
         "v5.6": "PixVerse V5.6",
+        "gpt-image-2.5-flare": "GPT Image 2.5 Flare",
+        "gpt-image-2.5-sunburst": "GPT Image 2.5 Sunburst",
         "gpt-image-2.0": "GPT Image 2",
         "gemini-3.1-flash": "Nano Banana 2",
         "gemini-3.1-flash-lite": "Nano Banana 2 Lite",
@@ -2255,7 +2257,7 @@
           "capability_id": "create.image",
           "command": "pixverse create image",
           "description": "Create an image from text and optional reference images.",
-          "default_model": "gpt-image-2.0",
+          "default_model": "gpt-image-2.5-flare",
           "parameters": {
             "prompt": {
               "flag": "--prompt",
@@ -2285,7 +2287,7 @@
               "flag": "--model",
               "type": "string",
               "required": false,
-              "default": "gpt-image-2.0",
+              "default": "gpt-image-2.5-flare",
               "on_invalid": "reject",
               "description": "Image generation model.",
               "enum_ref": "model_ids"
@@ -2314,10 +2316,12 @@
               "required": false,
               "supported": false,
               "on_invalid": "reject",
-              "description": "GPT Image 2 detail level."
+              "description": "GPT Image detail level; accepted values depend on model."
             }
           },
           "model_ids": [
+            "gpt-image-2.5-flare",
+            "gpt-image-2.5-sunburst",
             "gpt-image-2.0",
             "gemini-3.1-flash",
             "gemini-3.1-flash-lite",
@@ -2333,6 +2337,16 @@
           ],
           "model_parameters": {
             "quality": {
+              "gpt-image-2.5-flare": {
+                "enum": ["1080p", "1440p", "2160p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.5-sunburst": {
+                "enum": ["1080p", "1440p", "2160p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
               "gpt-image-2.0": {
                 "enum": ["1080p", "1440p", "2160p"],
                 "default": "1080p",
@@ -2395,6 +2409,16 @@
               }
             },
             "aspect_ratio": {
+              "gpt-image-2.5-flare": {
+                "enum": ["1:1", "16:9", "9:16", "3:2", "2:3"],
+                "default": "1:1",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.5-sunburst": {
+                "enum": ["1:1", "16:9", "9:16", "3:2", "2:3"],
+                "default": "1:1",
+                "on_invalid": "adjust"
+              },
               "gpt-image-2.0": {
                 "enum": [
                   "1:1",
@@ -2408,7 +2432,7 @@
                   "1:2",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gemini-3.1-flash": {
@@ -2425,7 +2449,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gemini-3.1-flash-lite": {
@@ -2442,7 +2466,7 @@
                   "16:9",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "qwen-image": {
@@ -2458,7 +2482,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gemini-3.0": {
@@ -2475,7 +2499,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gemini-2.5-flash": {
@@ -2492,7 +2516,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "seedream-5.0-pro": {
@@ -2509,7 +2533,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "seedream-5.0-lite": {
@@ -2526,7 +2550,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "seedream-4.5": {
@@ -2543,7 +2567,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "seedream-4.0": {
@@ -2560,7 +2584,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "kling-image-o3": {
@@ -2574,7 +2598,7 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "kling-image-v3": {
@@ -2588,11 +2612,17 @@
                   "2:3",
                   "21:9"
                 ],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               }
             },
             "images": {
+              "gpt-image-2.5-flare": {
+                "max_count": 16
+              },
+              "gpt-image-2.5-sunburst": {
+                "max_count": 16
+              },
               "gpt-image-2.0": {
                 "max_count": 9
               },
@@ -2631,6 +2661,14 @@
               }
             },
             "count": {
+              "gpt-image-2.5-flare": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.5-sunburst": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
               "gpt-image-2.0": {
                 "max": 4,
                 "on_invalid": "adjust"
@@ -2681,6 +2719,16 @@
               }
             },
             "detail_level": {
+              "gpt-image-2.5-flare": {
+                "supported": true,
+                "default": "low",
+                "enum": ["low", "medium", "high", "xhigh", "max"]
+              },
+              "gpt-image-2.5-sunburst": {
+                "supported": true,
+                "default": "low",
+                "enum": ["low", "medium", "high", "xhigh", "max"]
+              },
               "gpt-image-2.0": {
                 "supported": true,
                 "default": "low",
@@ -2731,6 +2779,96 @@
                 "on_invalid": "reject"
               }
             }
+          },
+          "model_rules": {
+            "gpt-image-2.5-flare": [
+              {
+                "id": "quality-1080p-aspect-ratios",
+                "description": "Allowed aspect ratios for 1080p output.",
+                "when": {
+                  "quality": "1080p"
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["1:1", "3:2", "2:3"],
+                    "default": "1:1",
+                    "on_invalid": "adjust"
+                  }
+                }
+              },
+              {
+                "id": "quality-1440p-aspect-ratios",
+                "description": "Allowed aspect ratios for 1440p output.",
+                "when": {
+                  "quality": "1440p"
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["1:1", "16:9", "9:16"],
+                    "default": "16:9",
+                    "on_invalid": "adjust"
+                  }
+                }
+              },
+              {
+                "id": "quality-2160p-aspect-ratios",
+                "description": "Allowed aspect ratios for 2160p output.",
+                "when": {
+                  "quality": "2160p"
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["16:9", "9:16"],
+                    "default": "16:9",
+                    "on_invalid": "adjust"
+                  }
+                }
+              }
+            ],
+            "gpt-image-2.5-sunburst": [
+              {
+                "id": "quality-1080p-aspect-ratios",
+                "description": "Allowed aspect ratios for 1080p output.",
+                "when": {
+                  "quality": "1080p"
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["1:1", "3:2", "2:3"],
+                    "default": "1:1",
+                    "on_invalid": "adjust"
+                  }
+                }
+              },
+              {
+                "id": "quality-1440p-aspect-ratios",
+                "description": "Allowed aspect ratios for 1440p output.",
+                "when": {
+                  "quality": "1440p"
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["1:1", "16:9", "9:16"],
+                    "default": "16:9",
+                    "on_invalid": "adjust"
+                  }
+                }
+              },
+              {
+                "id": "quality-2160p-aspect-ratios",
+                "description": "Allowed aspect ratios for 2160p output.",
+                "when": {
+                  "quality": "2160p"
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["16:9", "9:16"],
+                    "default": "16:9",
+                    "on_invalid": "adjust"
+                  }
+                }
+              }
+            ]
           },
           "parameter_refs": [
             "count",
