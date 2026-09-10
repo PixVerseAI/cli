@@ -77,7 +77,8 @@ jobs:
           VERSION="${RELEASE_VERSION}"
           verify_pkg() {
             local name="$1"
-            for i in 1 2 3 4 5 6; do
+            # npm may take several minutes to process an accepted publication.
+            for i in {1..60}; do
               if npm view "${name}@${VERSION}" version > /dev/null 2>&1; then
                 echo "✓ ${name}@${VERSION} visible on registry"
                 return 0
@@ -85,7 +86,7 @@ jobs:
               echo "… ${name}@${VERSION} not visible yet (attempt $i), retrying in 10s"
               sleep 10
             done
-            echo "✗ ${name}@${VERSION} not visible after 60s"
+            echo "✗ ${name}@${VERSION} not visible after 600s"
             return 1
           }
           verify_pkg "pixverse"

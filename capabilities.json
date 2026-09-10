@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -2411,12 +2411,12 @@
             "aspect_ratio": {
               "gpt-image-2.5-flare": {
                 "enum": ["1:1", "16:9", "9:16", "3:2", "2:3"],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gpt-image-2.5-sunburst": {
                 "enum": ["1:1", "16:9", "9:16", "3:2", "2:3"],
-                "default": "1:1",
+                "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gpt-image-2.0": {
@@ -2779,96 +2779,6 @@
                 "on_invalid": "reject"
               }
             }
-          },
-          "model_rules": {
-            "gpt-image-2.5-flare": [
-              {
-                "id": "quality-1080p-aspect-ratios",
-                "description": "Allowed aspect ratios for 1080p output.",
-                "when": {
-                  "quality": "1080p"
-                },
-                "parameters": {
-                  "aspect_ratio": {
-                    "enum": ["1:1", "3:2", "2:3"],
-                    "default": "1:1",
-                    "on_invalid": "adjust"
-                  }
-                }
-              },
-              {
-                "id": "quality-1440p-aspect-ratios",
-                "description": "Allowed aspect ratios for 1440p output.",
-                "when": {
-                  "quality": "1440p"
-                },
-                "parameters": {
-                  "aspect_ratio": {
-                    "enum": ["1:1", "16:9", "9:16"],
-                    "default": "16:9",
-                    "on_invalid": "adjust"
-                  }
-                }
-              },
-              {
-                "id": "quality-2160p-aspect-ratios",
-                "description": "Allowed aspect ratios for 2160p output.",
-                "when": {
-                  "quality": "2160p"
-                },
-                "parameters": {
-                  "aspect_ratio": {
-                    "enum": ["16:9", "9:16"],
-                    "default": "16:9",
-                    "on_invalid": "adjust"
-                  }
-                }
-              }
-            ],
-            "gpt-image-2.5-sunburst": [
-              {
-                "id": "quality-1080p-aspect-ratios",
-                "description": "Allowed aspect ratios for 1080p output.",
-                "when": {
-                  "quality": "1080p"
-                },
-                "parameters": {
-                  "aspect_ratio": {
-                    "enum": ["1:1", "3:2", "2:3"],
-                    "default": "1:1",
-                    "on_invalid": "adjust"
-                  }
-                }
-              },
-              {
-                "id": "quality-1440p-aspect-ratios",
-                "description": "Allowed aspect ratios for 1440p output.",
-                "when": {
-                  "quality": "1440p"
-                },
-                "parameters": {
-                  "aspect_ratio": {
-                    "enum": ["1:1", "16:9", "9:16"],
-                    "default": "16:9",
-                    "on_invalid": "adjust"
-                  }
-                }
-              },
-              {
-                "id": "quality-2160p-aspect-ratios",
-                "description": "Allowed aspect ratios for 2160p output.",
-                "when": {
-                  "quality": "2160p"
-                },
-                "parameters": {
-                  "aspect_ratio": {
-                    "enum": ["16:9", "9:16"],
-                    "default": "16:9",
-                    "on_invalid": "adjust"
-                  }
-                }
-              }
-            ]
           },
           "parameter_refs": [
             "count",
