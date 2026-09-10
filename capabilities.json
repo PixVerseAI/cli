@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -2410,12 +2410,34 @@
             },
             "aspect_ratio": {
               "gpt-image-2.5-flare": {
-                "enum": ["1:1", "16:9", "9:16", "3:2", "2:3"],
+                "enum": [
+                  "1:1",
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3",
+                  "2:1",
+                  "1:2",
+                  "21:9"
+                ],
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
               "gpt-image-2.5-sunburst": {
-                "enum": ["1:1", "16:9", "9:16", "3:2", "2:3"],
+                "enum": [
+                  "1:1",
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3",
+                  "2:1",
+                  "1:2",
+                  "21:9"
+                ],
                 "default": "16:9",
                 "on_invalid": "adjust"
               },

@@ -107,8 +107,8 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 
 | Model | `--model` value | Quality | Aspect Ratio | Max references |
 | :--- | :--- | :--- | :--- | :--- |
-| GPT Image 2.5 Flare _(default)_ | `gpt-image-2.5-flare` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `3:2` `2:3` | 16 |
-| GPT Image 2.5 Sunburst | `gpt-image-2.5-sunburst` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `3:2` `2:3` | 16 |
+| GPT Image 2.5 Flare _(default)_ | `gpt-image-2.5-flare` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` | 16 |
+| GPT Image 2.5 Sunburst | `gpt-image-2.5-sunburst` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` | 16 |
 | GPT Image 2 | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` | 9 |
 | Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 9 |
 | Nano Banana 2 Lite | `gemini-3.1-flash-lite` | `1080p` | `auto` `1:1` `3:2` `2:3` `3:4` `4:3` `4:5` `5:4` `9:16` `16:9` `21:9` | 14 |

@@ -6,7 +6,7 @@ All notable changes to PixVerse CLI will be documented in this file.
 
 ### Features
 
-- Add `gpt-image-2.5-sunburst` (`GPT Image 2.5 Sunburst`) and `gpt-image-2.5-flare` (`GPT Image 2.5 Flare`) to `create image`, with 1080p / 1440p / 2160p generation, five supported aspect ratios at every quality, `low` / `medium` / `high` / `xhigh` / `max` detail levels, and up to 16 reference images; `gpt-image-2.5-flare` is now the default image model
+- Add `gpt-image-2.5-sunburst` (`GPT Image 2.5 Sunburst`) and `gpt-image-2.5-flare` (`GPT Image 2.5 Flare`) to `create image`, with 1080p / 1440p / 2160p generation, ten supported aspect ratios at every quality, `low` / `medium` / `high` / `xhigh` / `max` detail levels, and up to 16 reference images; `gpt-image-2.5-flare` is now the default image model
 
 ## [1.4.0](https://github.com/PixVerseAI/cli/releases/tag/v1.4.0) — 2026-09-07
 
