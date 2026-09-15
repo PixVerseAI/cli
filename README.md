@@ -66,6 +66,7 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | Seedance 2.0 Fast | `seedance-2.0-fast` | `video`, `transition` (2 frames), `reference` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Seedance 2.0 Mini | `seedance-2.0-mini` | `video`, `transition` (2 frames), `reference` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | MiniMax H3 | `minimax-h3` | `video`, `transition` (2 frames), `reference` | `768p` `1440p` | `5`–`15`s | `21:9` `16:9` `4:3` `1:1` `3:4` `9:16` `auto` |
+| MiniMax H3 Max | `minimax-h3-max` | `video`, `transition` (2 frames), `reference` | `480p` `768p` `1080p` | `5`–`15`s | `21:9` `16:9` `4:3` `1:1` `3:4` `9:16` `auto` |
 | FLUX 3 | `flux-3.0` | `video` | `720p` `1080p` | `5`–`20`s | `auto` `21:9` `2:1` `16:9` `4:3` `1:1` `3:4` `9:16` |
 | Wan 3.0 | `wan-3.0` | `video`, `transition` (2 frames), `reference` | `480p` `720p` `1080p` | `2`–`30`s | `auto` `16:9` `4:3` `1:1` `3:4` `9:16` |
 | Google Gemini Omni | `gemini-omni-flash` | `video`, `reference` | `720p` | `3`–`10`s | `16:9` `9:16` |
@@ -90,6 +91,8 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 > Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9` for generation without a reference video. Text-to-video and reference mode accept `--aspect-ratio auto` in addition to the fixed ratios. Reference requests containing a video default to automatic duration and lock the aspect ratio to `auto`; selecting an integer from 4 through 30 unlocks both automatic and fixed aspect ratios. Reference mode also accepts the optional `--task-type <type>` flag (`auto` by default, `reference`, `edit`, or `extend`) to guide the task intent; this flag is rejected for other models. Image-to-video retains its existing fixed-ratio behavior, while transition does not send a user-selected aspect ratio. Generated audio, multi-shot, and off-peak generation are unsupported.
 
 > MiniMax H3 text-to-video defaults to `16:9`. Image-to-video forces `auto`; reference mode with images supports both `auto` and fixed aspect ratios and defaults to `auto`.
+
+> MiniMax H3 Max defaults to `768p` and 5 seconds. Text-to-video defaults to `16:9`; image-to-video forces `auto`; reference mode supports both `auto` and fixed aspect ratios, defaults to `auto`, and accepts up to 12 total inputs (9 images, 3 videos, and 3 audios).
 
 > FLUX 3 is available only in `create video`. Text-to-video defaults to `16:9`; image-to-video defaults to `auto` while preserving an explicit fixed ratio. Requests always include the model's fixed safety setting.
 
@@ -276,6 +279,9 @@ pixverse create reference -m seedance-2.0-standard --images ./char.png --audios 
 
 # MiniMax H3 reference — mix up to 9 images, 3 videos, and 3 audios
 pixverse create reference -m minimax-h3 --images ./char.png --videos ./motion.mp4 --audios ./voice.mp3 --prompt "@image1 follows @video1 and @audio1"
+
+# MiniMax H3 Max reference — the same per-type limits, with 12 inputs maximum in total
+pixverse create reference -m minimax-h3-max --images ./char.png --videos ./motion.mp4 --audios ./voice.mp3 --prompt "@image1 follows @video1 and @audio1"
 
 # Wan 3.0 reference — mixed inputs or audio-only, with automatic output duration when video is present
 pixverse create reference -m wan-3.0 --videos ./motion.mp4 --audios ./voice.mp3 --duration auto --prompt "Follow @video1 and @audio1"

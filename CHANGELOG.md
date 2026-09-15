@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.4](https://github.com/PixVerseAI/cli/releases/tag/v1.4.4) — 2026-09-15
+
+### Features
+
+- Add `minimax-h3-max` video model (`MiniMax H3 Max`) — available in `create video`, `create reference`, and two-frame `create transition`, with 480p / 768p / 1080p output, 5–15s durations, automatic image/reference framing, and up to 9 image / 3 video / 3 audio references (12 total)
+
 ## [1.4.1](https://github.com/PixVerseAI/cli/releases/tag/v1.4.1) — 2026-09-09
 
 ### Features
