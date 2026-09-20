@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -212,7 +212,7 @@
         "--pitch <-12..12>": "MiniMax pitch",
         "--emotion <enum>": "MiniMax emotion preset",
         "--client-request-id <id>": "Caller-side request id (logged only)",
-        "--output <path>": "Download the finished audio to this file/dir",
+        "--output <path>": "Download the finished audio to this file/dir (never overwrite)",
         "--no-wait": "Return immediately without polling | negates: wait",
         "--timeout <seconds>": "Polling timeout in seconds | default: 300",
         "--json": "Output as JSON"
@@ -234,7 +234,7 @@
         "--duration-seconds <seconds>": "Target duration in seconds (sets duration_auto=false)",
         "--image <input...>": "Reference image(s) for Google Lyria: file path, HTTPS URL, image ID, or media path",
         "--client-request-id <id>": "Caller-side request id (logged only)",
-        "--output <path>": "Download the finished music to this file/dir",
+        "--output <path>": "Download the finished music to this file/dir (never overwrite)",
         "--no-wait": "Return immediately without polling | negates: wait",
         "--timeout <seconds>": "Polling timeout in seconds | default: 300",
         "--json": "Output as JSON"
@@ -407,7 +407,7 @@
     {
       "cmd": "pixverse canvas",
       "desc": "Manage Canvas projects, nodes, versions, and generation workflows",
-      "children": ["project", "graph", "node", "patch", "dispatch"]
+      "children": ["project", "arrange", "graph", "node", "patch", "dispatch"]
     },
     {
       "cmd": "pixverse canvas project",
@@ -427,6 +427,20 @@
       }
     },
     {
+      "cmd": "pixverse canvas arrange",
+      "desc": "Automatically arrange and save all nodes in a Canvas project",
+      "run": true,
+      "auth": true,
+      "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
+      "options": {
+        "--project-id <id>": "Canvas project ID (positive decimal integer string)",
+        "--json": "Output as JSON"
+      }
+    },
+    {
       "cmd": "pixverse canvas graph",
       "desc": "Inspect Canvas project structure, status, and recovery",
       "children": ["get", "status", "invalid-nodes", "reconcile"]
@@ -436,6 +450,9 @@
       "desc": "Get a Canvas project's nodes, connections, and edit version",
       "run": true,
       "auth": true,
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--json": "Output as JSON"
@@ -446,6 +463,9 @@
       "desc": "Get the generation status of Canvas nodes",
       "run": true,
       "auth": true,
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-ids <a,b,c>": "Node IDs to include (comma-separated)",
@@ -457,6 +477,9 @@
       "desc": "Show Canvas validation issues and invalid node details",
       "run": true,
       "auth": true,
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--json": "Output as JSON"
@@ -468,6 +491,9 @@
       "run": true,
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-ids <a,b,c>": "Node IDs to process (required, comma-separated)",
@@ -496,6 +522,9 @@
       "desc": "Get details for a Canvas node",
       "run": true,
       "auth": true,
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Canvas node ID",
@@ -517,6 +546,9 @@
       "desc": "List saved versions for a Canvas node",
       "run": true,
       "auth": true,
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Canvas node ID",
@@ -531,6 +563,9 @@
       "run": true,
       "auth": true,
       "children": ["apply"],
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Canvas node ID",
@@ -544,6 +579,9 @@
       "run": true,
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Canvas node ID",
@@ -559,6 +597,9 @@
       "run": true,
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Canvas node ID",
@@ -574,6 +615,9 @@
       "run": true,
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Target audio node ID (created if missing)",
@@ -591,6 +635,9 @@
       "desc": "Validate Canvas changes without saving them",
       "run": true,
       "auth": true,
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--patch <input>": "Canvas graph_patch as JSON - a literal string, a file path, or \"-\" for stdin",
@@ -606,6 +653,9 @@
       "run": true,
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--patch <input>": "Canvas graph_patch as JSON - a literal string, a file path, or \"-\" for stdin",
@@ -622,6 +672,9 @@
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
       "children": ["rebind"],
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-ids <a,b,c>": "Node IDs to process (required, comma-separated)",
@@ -639,6 +692,9 @@
       "run": true,
       "auth": true,
       "effect": "mutates_cli_or_remote_state",
+      "args": {
+        "id?": "Canvas project ID (or use --project-id)"
+      },
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--dispatch-plan-id <id>": "Dispatch plan ID",
@@ -724,7 +780,7 @@
       },
       "options": {
         "--type <type>": "Asset type: video, image, audio, or miniapps (auto-detected if omitted; miniapps must be explicit)",
-        "--dest <path>": "Destination directory",
+        "--dest <path>": "Destination directory (audio also accepts a file path; never overwrite)",
         "--json": "Output as JSON"
       }
     },
@@ -1024,7 +1080,7 @@
       "options": {
         "--id <app_id>": "MiniApp id, e.g. magic_extend or image_region_editor",
         "--params <input>": "App args as JSON (required) - a literal string, a file path, or - for stdin",
-        "--output <path>": "Download the finished main asset to this directory",
+        "--output <path>": "Download the finished main asset to this directory (never overwrite)",
         "--no-wait": "Return immediately with the project_id, without polling | negates: wait",
         "--timeout <seconds>": "Polling timeout in seconds | default: 300",
         "--json": "Output as JSON"
@@ -1316,7 +1372,7 @@
           "flag": "--output",
           "type": "string",
           "required": false,
-          "description": "File or directory for the completed download."
+          "description": "File or directory for the completed download. Existing files are never overwritten."
         }
       },
       "modes": {

@@ -382,6 +382,22 @@ pixverse canvas project create \
   --json
 ```
 
+Pass the project ID after the command:
+
+```bash
+pixverse canvas graph get 123456789 --json
+pixverse canvas node get 123456789 --node-id image_01 --json
+```
+
+To automatically arrange and save the entire project's layout:
+
+```bash
+pixverse canvas arrange "$PROJECT_ID" --json
+pixverse canvas graph get "$PROJECT_ID" --json
+```
+
+Read the graph after arranging to get the updated positions and `edit_version`.
+
 For reliable automation, inspect capabilities → read the project → validate the
 patch → apply the patch → dispatch generated nodes → check node status:
 
@@ -398,22 +414,20 @@ pixverse capabilities canvas \
 pixverse canvas node schema --node-type image_generate --json
 
 # 3. Read the project and retain edit_version
-pixverse canvas graph get --project-id "$PROJECT_ID" --json
+pixverse canvas graph get "$PROJECT_ID" --json
 
 # 4. Validate and apply the same patch input
-pixverse canvas patch dry-run --project-id "$PROJECT_ID" --patch patch.json --json
-pixverse canvas patch apply --project-id "$PROJECT_ID" --patch patch.json --json
+pixverse canvas patch dry-run "$PROJECT_ID" --patch patch.json --json
+pixverse canvas patch apply "$PROJECT_ID" --patch patch.json --json
 
 # 5. Start generation only for diff.executable_node_ids from patch apply
-pixverse canvas dispatch \
-  --project-id "$PROJECT_ID" \
+pixverse canvas dispatch "$PROJECT_ID" \
   --node-ids image_01,video_01 \
   --edit-version 13 \
   --json
 
 # 6. Check only the nodes involved in this workflow
-pixverse canvas graph status \
-  --project-id "$PROJECT_ID" \
+pixverse canvas graph status "$PROJECT_ID" \
   --node-ids image_01,video_01 \
   --json
 ```
@@ -437,10 +451,8 @@ contains a `graph_patch` object without an outer request wrapper. For example,
 }
 ```
 
-The `--project-id` flag identifies the project. A matching `project_id` inside
-the patch is accepted for compatibility, but omitting it is preferred. Keep all
-IDs as strings. If the edit version has changed, read the project again and
-rebuild the patch instead of replacing only `base_edit_version`.
+Keep all IDs as strings. If the edit version has changed, read the
+project again and rebuild the patch instead of replacing only `base_edit_version`.
 
 For the same project and unchanged patch file, `dry-run` and `apply`
 automatically derive the same stable idempotency key. Use
@@ -450,39 +462,32 @@ Additional Canvas operations:
 
 ```bash
 # Bind a specific batch of ready nodes to a dispatch plan
-pixverse canvas dispatch rebind \
-  --project-id "$PROJECT_ID" \
+pixverse canvas dispatch rebind "$PROJECT_ID" \
   --dispatch-plan-id plan-20260817-001 \
   --node-ids image_01,video_01 \
   --json
 
 # After confirmation, dispatch the same nodes with rebind's edit_version
-pixverse canvas dispatch \
-  --project-id "$PROJECT_ID" \
+pixverse canvas dispatch "$PROJECT_ID" \
   --dispatch-plan-id plan-20260817-001 \
   --node-ids image_01,video_01 \
   --edit-version "$REBIND_EDIT_VERSION" \
   --json
 
 # List, inspect, and apply saved node versions
-pixverse canvas node versions \
-  --project-id "$PROJECT_ID" --node-id video_01 \
+pixverse canvas node versions "$PROJECT_ID" --node-id video_01 \
   --page 1 --page-size 20 --json
-pixverse canvas node version \
-  --project-id "$PROJECT_ID" --node-id video_01 \
+pixverse canvas node version "$PROJECT_ID" --node-id video_01 \
   --history-id "$HISTORY_ID" --json
-pixverse canvas node version apply \
-  --project-id "$PROJECT_ID" --node-id video_01 \
+pixverse canvas node version apply "$PROJECT_ID" --node-id video_01 \
   --history-id "$HISTORY_ID" --json
 
 # Run generation again for a specific failed node
-pixverse canvas node rerun \
-  --project-id "$PROJECT_ID" --node-id video_01 \
+pixverse canvas node rerun "$PROJECT_ID" --node-id video_01 \
   --edit-version 13 --json
 
 # Extract the full audio track from a video node
-pixverse canvas node extract-audio \
-  --project-id "$PROJECT_ID" \
+pixverse canvas node extract-audio "$PROJECT_ID" \
   --node-id audio_extract_01 \
   --source-node-id video_01 \
   --json
@@ -761,6 +766,7 @@ pixverse asset download "$VID" --dest ./output/
 | `config path`                | Show config file path                                                               |
 | `config defaults`            | Manage per-mode creation defaults                                                   |
 | `canvas project create`      | Create an empty Canvas project with an optional name and description                |
+| `canvas arrange`             | Automatically arrange and save all nodes in a Canvas project                        |
 | `canvas graph get`           | Get a Canvas project's nodes, connections, and edit version                         |
 | `canvas graph status`        | Get the generation status of Canvas nodes                                           |
 | `canvas graph invalid-nodes` | Show Canvas validation issues and invalid node details                              |

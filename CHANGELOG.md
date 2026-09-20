@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.5](https://github.com/PixVerseAI/cli/releases/tag/v1.4.5) — 2026-09-20
+
+### Features
+
+- Add `canvas arrange <id>` to automatically arrange and save an entire Canvas project's node layout, with positive decimal ID validation, pure JSON output, and guidance for reading the updated layout
+- Accept positional project IDs across all 15 project-scoped Canvas operations, including graph reads, node versions, patches, and dispatch; retain `--project-id` compatibility, preserve large IDs as strings, and reject conflicting inputs before making requests
+
 ## [1.4.4](https://github.com/PixVerseAI/cli/releases/tag/v1.4.4) — 2026-09-15
 
 ### Features
