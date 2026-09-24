@@ -127,13 +127,13 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 
 ### Voice / TTS Models (`create voice --model <value>`)
 
-| Model | `--model` value | Provider | Max characters | Speed |
-| :--- | :--- | :--- | :--- | :--- |
-| MiniMax Speech 2.8 HD _(default)_ | `speech-2.8-hd` | MiniMax | 10,000 | `0.5`–`2` |
-| MiniMax Speech 2.8 Turbo | `speech-2.8-turbo` | MiniMax | 10,000 | `0.5`–`2` |
-| Eleven Multilingual v2 | `eleven-multilingual-v2` | ElevenLabs | 10,000 | `0.7`–`1.2` |
-| Eleven v3 | `eleven-v3` | ElevenLabs | 5,000 | `0.7`–`1.2` |
-| Eleven Turbo v2.5 | `eleven-turbo-v2.5` | ElevenLabs | 40,000 | `0.7`–`1.2` |
+| Model | `--model` value | Provider | Speed |
+| :--- | :--- | :--- | :--- |
+| MiniMax Speech 2.8 HD _(default)_ | `speech-2.8-hd` | MiniMax | `0.5`–`2` |
+| MiniMax Speech 2.8 Turbo | `speech-2.8-turbo` | MiniMax | `0.5`–`2` |
+| Eleven Multilingual v2 | `eleven-multilingual-v2` | ElevenLabs | `0.7`–`1.2` |
+| Eleven v3 | `eleven-v3` | ElevenLabs | `0.7`–`1.2` |
+| Eleven Turbo v2.5 | `eleven-turbo-v2.5` | ElevenLabs | `0.7`–`1.2` |
 
 > Browse available preset voices with `pixverse voice presets --model <id>` and the full live model catalog with `pixverse voice models`.
 

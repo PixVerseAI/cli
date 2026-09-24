@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.5",
+    "version": "1.4.6",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -3589,23 +3589,6 @@
             "eleven-turbo-v2.5"
           ],
           "model_parameters": {
-            "text": {
-              "speech-2.8-hd": {
-                "max_length": 10000
-              },
-              "speech-2.8-turbo": {
-                "max_length": 10000
-              },
-              "eleven-multilingual-v2": {
-                "max_length": 10000
-              },
-              "eleven-v3": {
-                "max_length": 5000
-              },
-              "eleven-turbo-v2.5": {
-                "max_length": 40000
-              }
-            },
             "language": {
               "speech-2.8-hd": {
                 "supported": true,
@@ -3858,24 +3841,19 @@
           },
           "model_metadata": {
             "speech-2.8-hd": {
-              "provider": "minimax",
-              "max_characters": 10000
+              "provider": "minimax"
             },
             "speech-2.8-turbo": {
-              "provider": "minimax",
-              "max_characters": 10000
+              "provider": "minimax"
             },
             "eleven-multilingual-v2": {
-              "provider": "elevenlabs",
-              "max_characters": 10000
+              "provider": "elevenlabs"
             },
             "eleven-v3": {
-              "provider": "elevenlabs",
-              "max_characters": 5000
+              "provider": "elevenlabs"
             },
             "eleven-turbo-v2.5": {
-              "provider": "elevenlabs",
-              "max_characters": 40000
+              "provider": "elevenlabs"
             }
           },
           "rules": [
@@ -3980,39 +3958,18 @@
             "lyria-3-pro-preview"
           ],
           "model_parameters": {
-            "prompt": {
-              "music-3.0": {
-                "max_length": 2000
-              },
-              "music-2.6": {
-                "max_length": 2000
-              },
-              "music-v2": {
-                "max_length": 4100
-              },
-              "music-v1": {
-                "max_length": 4000
-              },
-              "lyria-3-pro-preview": {
-                "max_length": 5000
-              }
-            },
             "lyrics": {
               "music-3.0": {
-                "supported": true,
-                "max_length": 3500
+                "supported": true
               },
               "music-2.6": {
-                "supported": true,
-                "max_length": 3500
+                "supported": true
               },
               "music-v2": {
-                "supported": true,
-                "max_length": 3500
+                "supported": true
               },
               "music-v1": {
-                "supported": true,
-                "max_length": 3500
+                "supported": true
               },
               "lyria-3-pro-preview": {
                 "supported": false,

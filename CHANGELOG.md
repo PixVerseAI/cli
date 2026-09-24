@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.6](https://github.com/PixVerseAI/cli/releases/tag/v1.4.6) — 2026-09-22
+
+### Bug Fixes
+
+- Remove local `create music` prompt and lyrics length limits, deferring provider-specific validation to the backend
+- Remove local `create voice` text length limits, allowing provider-specific validation errors to pass through from the backend
+
 ## [1.4.5](https://github.com/PixVerseAI/cli/releases/tag/v1.4.5) — 2026-09-20
 
 ### Features
