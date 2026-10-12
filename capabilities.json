@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.7",
+    "version": "1.4.8",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -158,7 +158,7 @@
         "-m, --model <model>": "Image model",
         "-q, --quality <quality>": "Image quality",
         "--aspect-ratio <ratio>": "Aspect ratio",
-        "--detail-level <level>": "GPT Image detail level (model-specific): low | medium | high | xhigh | max",
+        "--detail-level <level>": "Image detail level (model-specific): minimal | low | medium | high | xhigh | max",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
@@ -1280,6 +1280,7 @@
         "gpt-image-2.5-flare": "GPT Image 2.5 Flare",
         "gpt-image-2.5-sunburst": "GPT Image 2.5 Sunburst",
         "gpt-image-2.0": "GPT Image 2",
+        "gemini-nano-banana-2.1": "Nano Banana 2.1",
         "gemini-3.1-flash": "Nano Banana 2",
         "gemini-3.1-flash-lite": "Nano Banana 2 Lite",
         "qwen-image": "Qwen-image",
@@ -2403,13 +2404,14 @@
               "required": false,
               "supported": false,
               "on_invalid": "reject",
-              "description": "GPT Image detail level; accepted values depend on model."
+              "description": "Image detail level; accepted values and defaults depend on model."
             }
           },
           "model_ids": [
             "gpt-image-2.5-flare",
             "gpt-image-2.5-sunburst",
             "gpt-image-2.0",
+            "gemini-nano-banana-2.1",
             "gemini-3.1-flash",
             "gemini-3.1-flash-lite",
             "qwen-image",
@@ -2435,6 +2437,11 @@
                 "on_invalid": "adjust"
               },
               "gpt-image-2.0": {
+                "enum": ["1080p", "1440p", "2160p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
+              "gemini-nano-banana-2.1": {
                 "enum": ["1080p", "1440p", "2160p"],
                 "default": "1080p",
                 "on_invalid": "adjust"
@@ -2540,6 +2547,27 @@
                   "2:1",
                   "1:2",
                   "21:9"
+                ],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
+              "gemini-nano-banana-2.1": {
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "3:2",
+                  "2:3",
+                  "3:4",
+                  "4:3",
+                  "4:5",
+                  "5:4",
+                  "9:16",
+                  "16:9",
+                  "21:9",
+                  "1:4",
+                  "4:1",
+                  "1:8",
+                  "8:1"
                 ],
                 "default": "16:9",
                 "on_invalid": "adjust"
@@ -2735,6 +2763,9 @@
               "gpt-image-2.0": {
                 "max_count": 9
               },
+              "gemini-nano-banana-2.1": {
+                "max_count": 14
+              },
               "gemini-3.1-flash": {
                 "max_count": 9
               },
@@ -2782,6 +2813,10 @@
                 "max": 4,
                 "on_invalid": "adjust"
               },
+              "gemini-nano-banana-2.1": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
               "gemini-3.1-flash": {
                 "max": 4,
                 "on_invalid": "adjust"
@@ -2791,7 +2826,7 @@
                 "on_invalid": "adjust"
               },
               "qwen-image": {
-                "max": 3,
+                "max": 4,
                 "on_invalid": "adjust"
               },
               "gemini-3.0": {
@@ -2799,7 +2834,7 @@
                 "on_invalid": "adjust"
               },
               "gemini-2.5-flash": {
-                "max": 3,
+                "max": 4,
                 "on_invalid": "adjust"
               },
               "seedream-5.0-pro": {
@@ -2823,7 +2858,7 @@
                 "on_invalid": "adjust"
               },
               "kling-image-v3": {
-                "max": 1,
+                "max": 4,
                 "on_invalid": "adjust"
               }
             },
@@ -2843,6 +2878,11 @@
                 "default": "low",
                 "enum": ["low", "medium", "high"]
               },
+              "gemini-nano-banana-2.1": {
+                "supported": true,
+                "default": "medium",
+                "enum": ["minimal", "medium", "high"]
+              },
               "gemini-3.1-flash": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -2886,6 +2926,12 @@
               "kling-image-v3": {
                 "supported": false,
                 "on_invalid": "reject"
+              }
+            },
+            "seed": {
+              "gemini-nano-banana-2.1": {
+                "default": null,
+                "description": "Accepted silently but omitted from the request."
               }
             }
           },

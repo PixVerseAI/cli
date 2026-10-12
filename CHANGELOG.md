@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.8](https://github.com/PixVerseAI/cli/releases/tag/v1.4.8) — 2026-10-09
+
+### Features
+
+- Add `gemini-nano-banana-2.1` image model (`Nano Banana 2.1`) — available in `create image` in the global region, with 1080p / 1440p / 2160p output, Auto and fourteen fixed aspect ratios, selectable Detail Level via `--detail-level` (`minimal` / `medium` / `high`, default `medium`), and up to 14 reference images
+
 ## [1.4.7](https://github.com/PixVerseAI/cli/releases/tag/v1.4.7) — 2026-10-08
 
 ### Bug Fixes

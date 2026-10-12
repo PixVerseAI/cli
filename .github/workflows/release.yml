@@ -55,7 +55,9 @@ jobs:
           VERSION="${RELEASE_VERSION}"
           publish_pkg() {
             local name="$1"
-            if npm view "${name}@${VERSION}" version > /dev/null 2>&1; then
+            local publication_state
+            publication_state=$(node .github/scripts/npm-publication.mjs check "$VERSION" "$name")
+            if [[ "$publication_state" == "published" ]]; then
               echo "✓ ${name}@${VERSION} already published — skipping"
               return 0
             fi
@@ -65,7 +67,7 @@ jobs:
               require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
             "
             npm publish --provenance --access public
-            echo "✓ ${name}@${VERSION} published"
+            echo "✓ ${name}@${VERSION} publication accepted; awaiting registry visibility"
           }
           publish_pkg "pixverse"
           publish_pkg "@pixverse-ai/cli"
@@ -73,26 +75,10 @@ jobs:
           publish_pkg "pixverse-ai-cli"
 
       - name: Verify publication
+        timeout-minutes: 32
         run: |
-          VERSION="${RELEASE_VERSION}"
-          verify_pkg() {
-            local name="$1"
-            # npm may take several minutes to process an accepted publication.
-            for i in {1..60}; do
-              if npm view "${name}@${VERSION}" version > /dev/null 2>&1; then
-                echo "✓ ${name}@${VERSION} visible on registry"
-                return 0
-              fi
-              echo "… ${name}@${VERSION} not visible yet (attempt $i), retrying in 10s"
-              sleep 10
-            done
-            echo "✗ ${name}@${VERSION} not visible after 600s"
-            return 1
-          }
-          verify_pkg "pixverse"
-          verify_pkg "@pixverse-ai/cli"
-          verify_pkg "pixverse-cli"
-          verify_pkg "pixverse-ai-cli"
+          node .github/scripts/npm-publication.mjs wait "$RELEASE_VERSION" \
+            pixverse @pixverse-ai/cli pixverse-cli pixverse-ai-cli
 
       - name: Extract release notes from CHANGELOG
         id: changelog

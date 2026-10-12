@@ -113,6 +113,7 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | GPT Image 2.5 Flare _(default)_ | `gpt-image-2.5-flare` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` | 16 |
 | GPT Image 2.5 Sunburst | `gpt-image-2.5-sunburst` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` | 16 |
 | GPT Image 2 | `gpt-image-2.0` | `1080p` `1440p` `2160p` | `1:1` `16:9` `9:16` `4:3` `3:4` `3:2` `2:3` `2:1` `1:2` `21:9` | 9 |
+| Nano Banana 2.1 | `gemini-nano-banana-2.1` | `1080p` `1440p` `2160p` | `auto` `1:1` `3:2` `2:3` `3:4` `4:3` `4:5` `5:4` `9:16` `16:9` `21:9` `1:4` `4:1` `1:8` `8:1` | 14 |
 | Nano Banana 2 | `gemini-3.1-flash` | `512p` `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 9 |
 | Nano Banana 2 Lite | `gemini-3.1-flash-lite` | `1080p` | `auto` `1:1` `3:2` `2:3` `3:4` `4:3` `4:5` `5:4` `9:16` `16:9` `21:9` | 14 |
 | Qwen-image | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 3 |
@@ -208,6 +209,9 @@ pixverse create video --prompt "The subject turns toward the camera" --image ./p
 
 ```bash
 pixverse create image --prompt "Cyberpunk cityscape at night" --aspect-ratio 16:9
+
+# Nano Banana 2.1 detail level: minimal | medium (default) | high
+pixverse create image --model gemini-nano-banana-2.1 --detail-level high --prompt "A studio portrait"
 ```
 
 ### Image to Image
