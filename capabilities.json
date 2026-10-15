@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.8",
+    "version": "1.4.9",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -5330,7 +5330,7 @@
         "template": {
           "capability_id": "create.template",
           "command": "pixverse create template",
-          "description": "Create media from a template or effect.",
+          "description": "Create media from more template types or effects. Templates with ordered input fields may return multiple image/video outputs and use fixed output settings; quality, duration, framing, seed, count, off-peak, and idempotency overrides are rejected for these templates. Malformed accepted responses from these templates exit with code 1 and preserve the response, valid output IDs, and trace in stderr for recovery; do not resubmit automatically. Polling communication errors exit with code 1, polling deadlines with code 2, and confirmed generation failures with code 5; accepted output IDs and completed results are preserved.",
           "parameters": {
             "template_id": {
               "flag": "--template-id",
@@ -5347,7 +5347,7 @@
               "required": false,
               "accepts": ["local_path", "https_url", "asset_id", "media_path"],
               "on_invalid": "reject",
-              "description": "Template image inputs."
+              "description": "Template image inputs. For ordered input fields, reserve images for required slots and fill remaining optional slots from left to right. Empty arguments must match that mapping; selections lost when empty paths are removed are rejected before upload or generation with validation exit code 6."
             },
             "video": {
               "flag": "--video",

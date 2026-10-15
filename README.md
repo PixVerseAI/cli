@@ -621,6 +621,28 @@ pixverse template search "dance"
 pixverse template info <template_id>
 ```
 
+`create template` supports more template types with ordered image, video, and
+text inputs. Read `template info <id> --json` for the template's input
+requirements, then supply the matching inputs:
+
+```bash
+pixverse create template --template-id <id> --image ./first.png ./second.png --json
+```
+
+When fewer images than slots are supplied, reserve images for required slots
+and fill any remaining optional slots from left to right. Empty arguments are
+accepted only when they match this mapping, for example
+`--image "" ./required.png` for optional-then-required image slots. Selecting a
+later optional slot while skipping an earlier optional slot is unsupported and
+is rejected before upload or generation.
+
+Use `--video` or `--prompt` only when the template exposes the corresponding
+input slot. Templates with fixed output settings reject quality, duration,
+aspect-ratio, seed, count, off-peak and idempotency overrides. Templates with
+ordered input fields return `outputs` with media IDs and types; the CLI waits for each image/video
+output unless `--no-wait` is set. Use `task status` / `task wait` with those
+media IDs to check results later.
+
 ### Workspaces
 
 ```bash

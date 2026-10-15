@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.9](https://github.com/PixVerseAI/cli/releases/tag/v1.4.9) — 2026-10-15
+
+### Features
+
+- Extend `create template` to support more template types, with ordered image, video, and text inputs, template-defined output settings, and polling for returned image/video results
+
 ## [1.4.8](https://github.com/PixVerseAI/cli/releases/tag/v1.4.8) — 2026-10-09
 
 ### Features
