@@ -48,7 +48,9 @@ jobs:
           echo "dist/index.js: $(wc -c < dist/index.js) bytes"
 
       - name: Check package contents
-        run: npm pack --dry-run
+        run: |
+          node .github/scripts/verify-package-bin.mjs
+          npm pack --dry-run
 
       - name: Publish packages
         run: |

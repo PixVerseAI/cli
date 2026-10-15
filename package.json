@@ -22,7 +22,7 @@
     "url": "git+https://github.com/PixVerseAI/cli.git"
   },
   "bin": {
-    "pixverse": "./dist/index.js"
+    "pixverse": "dist/index.js"
   },
   "files": [
     "dist"
