@@ -9,6 +9,11 @@ on:
       tag:
         description: 'Tag to release (e.g. v1.0.0)'
         required: true
+      mode:
+        description: 'Publish missing versions, or only verify and complete a previous release'
+        type: choice
+        options: [verify-only, publish]
+        default: verify-only
 
 permissions:
   contents: write
@@ -22,68 +27,67 @@ jobs:
   release:
     runs-on: ubuntu-latest
     environment: release
+    timeout-minutes: 50
     steps:
       - name: Resolve tag
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
         run: |
-          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          [[ "$TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || { echo "Invalid stable release tag"; exit 1; }
           echo "RELEASE_TAG=${TAG}" >> $GITHUB_ENV
           echo "RELEASE_VERSION=${TAG#v}" >> $GITHUB_ENV
           echo "Releasing: ${TAG}"
 
+      # Keep current recovery tooling even when releasing an older tag.
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: release-tools
+          persist-credentials: false
+
       - uses: actions/checkout@v5
         with:
           ref: ${{ env.RELEASE_TAG }}
+          path: package
+          persist-credentials: false
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
-          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
 
       - name: Install pinned npm for OIDC trusted publishing
-        run: npm install -g npm@11.13.0 sigstore@4.0.0
+        run: npm install -g npm@11.21.0
 
       - name: Verify dist
+        working-directory: package
         run: |
           test -f dist/index.js || { echo "dist/index.js not found"; exit 1; }
           echo "dist/index.js: $(wc -c < dist/index.js) bytes"
 
-      - name: Check package contents
+      - name: Validate release version
+        working-directory: package
         run: |
-          node .github/scripts/verify-package-bin.mjs
+          node --input-type=module -e 'import {validateRelease} from "../release-tools/.github/scripts/release-packages.mjs"; import fs from "node:fs"; validateRelease(process.env.RELEASE_TAG, JSON.parse(fs.readFileSync("package.json", "utf8")));'
+
+      - name: Check publishable package contents
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.mode == 'publish' }}
+        working-directory: package
+        run: |
+          node ../release-tools/.github/scripts/verify-package-bin.mjs
           npm pack --dry-run
 
-      - name: Publish packages
-        run: |
-          VERSION="${RELEASE_VERSION}"
-          publish_pkg() {
-            local name="$1"
-            local publication_state
-            publication_state=$(node .github/scripts/npm-publication.mjs check "$VERSION" "$name")
-            if [[ "$publication_state" == "published" ]]; then
-              echo "✓ ${name}@${VERSION} already published — skipping"
-              return 0
-            fi
-            node -e "
-              const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-              pkg.name = '${name}';
-              require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-            "
-            npm publish --provenance --access public
-            echo "✓ ${name}@${VERSION} publication accepted; awaiting registry visibility"
-          }
-          publish_pkg "pixverse"
-          publish_pkg "@pixverse-ai/cli"
-          publish_pkg "pixverse-cli"
-          publish_pkg "pixverse-ai-cli"
-
-      - name: Verify publication
-        timeout-minutes: 32
-        run: |
-          node .github/scripts/npm-publication.mjs wait "$RELEASE_VERSION" \
-            pixverse @pixverse-ai/cli pixverse-cli pixverse-ai-cli
+      - name: Publish and verify packages
+        working-directory: package
+        timeout-minutes: 42
+        env:
+          RELEASE_MODE: ${{ inputs.mode || 'publish' }}
+          RELEASE_REPORT: ${{ runner.temp }}/npm-release-report.json
+        run: node ../release-tools/.github/scripts/release-packages.mjs "$RELEASE_TAG" "$RELEASE_MODE"
 
       - name: Extract release notes from CHANGELOG
         id: changelog
+        working-directory: package
         run: |
           VERSION="${RELEASE_VERSION}"
           NOTES=$(sed -n "/^## \[${VERSION}\]/,/^## \[/{/^## \[${VERSION}\]/d;/^## \[/d;p}" CHANGELOG.md)
