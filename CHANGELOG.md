@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.10](https://github.com/PixVerseAI/cli/releases/tag/v1.4.10) — 2026-10-21
+
+### Features
+
+- Add MCP-to-CLI pairing
+
 ## [1.4.9](https://github.com/PixVerseAI/cli/releases/tag/v1.4.9) — 2026-10-15
 
 ### Features

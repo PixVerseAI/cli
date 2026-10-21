@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.9",
+    "version": "1.4.10",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -72,7 +72,7 @@
     {
       "cmd": "pixverse auth",
       "desc": "Manage authentication",
-      "children": ["login", "status", "logout"]
+      "children": ["login", "status", "logout", "pair"]
     },
     {
       "cmd": "pixverse auth login",
@@ -96,6 +96,61 @@
       "cmd": "pixverse auth logout",
       "desc": "Remove stored token",
       "run": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth pair",
+      "desc": "Connect a local CLI device through an authorized MCP account",
+      "children": ["start", "finish", "cancel", "status", "logout"]
+    },
+    {
+      "cmd": "pixverse auth pair start",
+      "desc": "Start or resume local pairing; output an approval ticket, never the redemption proof",
+      "run": true,
+      "effect": "mutates_cli_or_remote_state",
+      "options": {
+        "--device-name <name>": "Device label shown during authorization (defaults to this host at execution)",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth pair finish",
+      "desc": "Redeem an approved local pairing once; pending requests can be polled again",
+      "run": true,
+      "effect": "mutates_cli_or_remote_state",
+      "options": {
+        "--expected-account-id <id>": "Account ID returned by the authenticated MCP connection",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth pair cancel",
+      "desc": "Cancel a pending pairing and revoke any device approved by that intent",
+      "run": true,
+      "effect": "destructive_remote_or_local_change",
+      "destructive": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth pair status",
+      "desc": "Validate the isolated CLI profile and show its account without exposing credentials",
+      "run": true,
+      "auth": true,
+      "options": {
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse auth pair logout",
+      "desc": "Revoke this delegated device session and remove its local credential",
+      "run": true,
+      "auth": true,
       "effect": "destructive_remote_or_local_change",
       "destructive": true,
       "options": {
