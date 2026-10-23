@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.10",
+    "version": "1.4.11",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -188,6 +188,8 @@
         "-q, --quality <quality>": "Video quality",
         "--aspect-ratio <ratio>": "Aspect ratio, or auto for model-determined framing where supported",
         "--seed <number>": "Random seed",
+        "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
+        "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
         "--count <number>": "Number of generations",
         "--audio": "Enable audio generation",
         "--no-audio": "Disable audio generation | negates: audio",
@@ -213,7 +215,10 @@
         "-m, --model <model>": "Image model",
         "-q, --quality <quality>": "Image quality",
         "--aspect-ratio <ratio>": "Aspect ratio",
+        "--background <value>": "Image background (GPT Image 2.5 only): auto | transparent | opaque",
         "--detail-level <level>": "Image detail level (model-specific): minimal | low | medium | high | xhigh | max",
+        "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
+        "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
@@ -234,6 +239,8 @@
         "-m, --model <model>": "Video model",
         "-q, --quality <quality>": "Video quality",
         "-d, --duration <seconds>": "Duration in seconds",
+        "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
+        "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--audio": "Enable audio generation",
@@ -331,6 +338,8 @@
         "--keyframe-time <ms>": "Keyframe time in milliseconds (0 = first frame) | default: 0",
         "-m, --model <model>": "Video model",
         "-q, --quality <quality>": "Video quality",
+        "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
+        "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--off-peak": "Use off-peak pricing",
@@ -371,6 +380,8 @@
         "-q, --quality <quality>": "Video quality",
         "--aspect-ratio <ratio>": "Aspect ratio, or auto for model-determined framing where supported",
         "-d, --duration <seconds|auto>": "Duration in seconds, or auto (locked for V6/Grok video references; default for Seedance 2.5/Wan 3.0 video references)",
+        "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
+        "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
         "--count <number>": "Number of generations",
         "--seed <number>": "Random seed",
         "--audio": "Enable audio generation",
@@ -393,6 +404,8 @@
         "--video <input>": "Motion reference video: file path, HTTPS URL, video ID, or media path (required)",
         "-m, --model <model>": "Video model",
         "-q, --quality <quality>": "Video quality",
+        "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
+        "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
         "--count <number>": "Number of generations",
         "--off-peak": "Use off-peak pricing",
         "--idempotency-key <key>": "Idempotency key for safe retry - backend dedupes by key so repeated submissions return the original task without re-charging",
@@ -1418,6 +1431,14 @@
           "on_invalid": "adjust",
           "description": "Enable or disable generated audio where supported."
         },
+        "relax_mode": {
+          "flag": "--relax-mode [boolean] / --no-relax-mode",
+          "type": "boolean",
+          "required": false,
+          "supported": true,
+          "on_invalid": "backend",
+          "description": "Relax mode: bare flag or true enables; false or --no-relax-mode disables. Omitted unless specified; model support and account entitlement are validated by the backend. Image benefits and video discounts depend on account rights."
+        },
         "client_request_id": {
           "flag": "--client-request-id",
           "type": "string",
@@ -2393,7 +2414,8 @@
             "wait",
             "timeout",
             "json",
-            "audio"
+            "audio",
+            "relax_mode"
           ]
         },
         "image": {
@@ -2452,6 +2474,14 @@
               "unit": "width:height",
               "on_invalid": "adjust",
               "description": "Output framing."
+            },
+            "background": {
+              "flag": "--background",
+              "type": "string",
+              "required": false,
+              "supported": false,
+              "on_invalid": "reject",
+              "description": "GPT Image 2.5 background; output format is determined by the backend."
             },
             "detail_level": {
               "flag": "--detail-level",
@@ -2917,6 +2947,70 @@
                 "on_invalid": "adjust"
               }
             },
+            "background": {
+              "gpt-image-2.5-flare": {
+                "supported": true,
+                "enum": ["auto", "transparent", "opaque"],
+                "default": "auto"
+              },
+              "gpt-image-2.5-sunburst": {
+                "supported": true,
+                "enum": ["auto", "transparent", "opaque"],
+                "default": "auto"
+              },
+              "gpt-image-2.0": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "gemini-nano-banana-2.1": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "gemini-3.1-flash": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "gemini-3.1-flash-lite": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "qwen-image": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "gemini-3.0": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "gemini-2.5-flash": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "seedream-5.0-pro": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "seedream-5.0-lite": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "seedream-4.5": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "seedream-4.0": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "kling-image-o3": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "kling-image-v3": {
+                "supported": false,
+                "on_invalid": "reject"
+              }
+            },
             "detail_level": {
               "gpt-image-2.5-flare": {
                 "supported": true,
@@ -2996,7 +3090,8 @@
             "idempotency_key",
             "wait",
             "timeout",
-            "json"
+            "json",
+            "relax_mode"
           ]
         },
         "transition": {
@@ -3551,7 +3646,8 @@
             "wait",
             "timeout",
             "json",
-            "audio"
+            "audio",
+            "relax_mode"
           ]
         },
         "voice": {
@@ -4459,7 +4555,8 @@
             "idempotency_key",
             "wait",
             "timeout",
-            "json"
+            "json",
+            "relax_mode"
           ]
         },
         "upscale": {
@@ -5306,7 +5403,8 @@
             "wait",
             "timeout",
             "json",
-            "audio"
+            "audio",
+            "relax_mode"
           ]
         },
         "motion-control": {
@@ -5379,7 +5477,8 @@
             "idempotency_key",
             "wait",
             "timeout",
-            "json"
+            "json",
+            "relax_mode"
           ]
         },
         "template": {

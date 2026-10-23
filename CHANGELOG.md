@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.11](https://github.com/PixVerseAI/cli/releases/tag/v1.4.11) — 2026-10-23
+
+### Features
+
+- Add `--relax-mode [true|false]` / `--no-relax-mode` to `create image`, `create video`, `create transition`, `create reference`, `create modify`, and `create motion-control` — enable with the bare flag or `true`, disable with `false` or `--no-relax-mode`, pass choices through to the backend, and omit `relax_mode` when neither flag is supplied, with model support and account entitlement validated by the backend
+- Add `--background` to GPT Image 2.5 Sunburst and Flare in `create image`, with `auto` (default), `transparent`, and `opaque` backgrounds for both text-to-image and image-to-image generation
+
 ## [1.4.10](https://github.com/PixVerseAI/cli/releases/tag/v1.4.10) — 2026-10-21
 
 ### Features
