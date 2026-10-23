@@ -1,6 +1,6 @@
 {
   "name": "pixverse",
-  "version": "1.4.11",
+  "version": "1.4.12",
   "description": "CLI for PixVerse — create AI videos and images from the command line",
   "keywords": [
     "ai",
@@ -32,6 +32,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1147.0",
     "@clack/prompts": "^1.7.0",
+    "ali-oss": "6.23.0",
     "commander": "^15.0.0",
     "conf": "^15.1.0",
     "ky": "^2.0.2",

@@ -80,7 +80,8 @@ export async function releasePackages(
           if (after.state === 'published') row.state = 'published'
           else if (row.state === 'staged') {
             row.detail =
-              'Version is staged. A maintainer must inspect Staged Packages on npm, approve with 2FA if correct, then run verify-only. If absent, contact npm support.'
+              'npm reports a staged version; registry processing or review may still be pending. Waiting for public visibility without republishing. If unresolved, check npm notifications and Staged Packages, then use verify-only.'
+            if (after.state !== 'fatal') pending.push(name)
           } else if (row.state === 'conflict') {
             row.detail =
               'Version conflict; check npm version history and registry visibility, then run verify-only. Do not blindly republish.'
@@ -101,13 +102,25 @@ export async function releasePackages(
       try {
         await wait(pending, version)
         for (const row of results)
-          if (pending.includes(row.name)) row.state = 'published'
+          if (pending.includes(row.name)) {
+            row.state = 'published'
+            row.detail = ''
+          }
       } catch (error) {
         for (const row of results) {
           if (!pending.includes(row.name)) continue
           const current = await check(row.name, version)
-          row.state = current.state === 'published' ? 'published' : 'pending'
-          row.detail = row.state === 'published' ? '' : error.message
+          const previousDetail = row.detail
+          row.state =
+            current.state === 'published'
+              ? 'published'
+              : row.state === 'staged'
+                ? 'staged'
+                : 'pending'
+          row.detail =
+            row.state === 'published'
+              ? ''
+              : [previousDetail, error.message].filter(Boolean).join(' ')
         }
       }
     }
@@ -175,7 +188,7 @@ async function main() {
           `- **${row.name}**: ${row.state}${row.detail ? ` — ${row.detail.replaceAll('\n', ' ')}` : ''}`,
       ),
       '',
-      'Recovery: inspect npm Staged Packages/version history; after approval or visibility, dispatch Release with the same tag and mode `verify-only`. No automatic publish retries or approvals.',
+      'Recovery: inspect registry visibility and npm notifications; review Staged Packages if an approval is available. Dispatch Release with the same tag and mode `verify-only`. No automatic publish retries or approvals.',
       '',
     ].join('\n')
     console.log(summary)
