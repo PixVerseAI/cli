@@ -456,8 +456,10 @@ contains a `graph_patch` object without an outer request wrapper. For example,
 }
 ```
 
-Keep all IDs as strings. If the edit version has changed, read the
-project again and rebuild the patch instead of replacing only `base_edit_version`.
+Keep all IDs as strings. `base_edit_version` must be a non-negative safe integer.
+Starting in `1.4.13`, `dry-run` and `apply` send this value unchanged even when
+it differs from the latest Graph `edit_version`. Both commands still read the
+latest graph and capabilities for all other input and contextual validation.
 
 For the same project and unchanged patch file, `dry-run` and `apply`
 automatically derive the same stable idempotency key. Use

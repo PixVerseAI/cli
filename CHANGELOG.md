@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.13](https://github.com/PixVerseAI/cli/releases/tag/v1.4.13) — 2026-10-23
+
+### Bug Fixes
+
+- Allow `canvas patch apply` and `canvas patch dry-run` to submit patches when `base_edit_version` differs from the latest Graph version. Preserve the supplied version and all other input and contextual validation.
+
 ## [1.4.12](https://github.com/PixVerseAI/cli/releases/tag/v1.4.12) — 2026-10-23
 
 ### Bug Fixes
