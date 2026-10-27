@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.14](https://github.com/PixVerseAI/cli/releases/tag/v1.4.14) — 2026-10-27
+
+### Bug Fixes
+
+- Fix media upload stability
+
 ## [1.4.13](https://github.com/PixVerseAI/cli/releases/tag/v1.4.13) — 2026-10-23
 
 ### Bug Fixes
