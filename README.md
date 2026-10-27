@@ -71,6 +71,7 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | Wan 3.0 | `wan-3.0` | `video`, `transition` (2 frames), `reference` | `480p` `720p` `1080p` | `2`–`30`s | `auto` `16:9` `4:3` `1:1` `3:4` `9:16` |
 | Google Gemini Omni | `gemini-omni-flash` | `video`, `reference` | `720p` | `3`–`10`s | `16:9` `9:16` |
 | Happy Horse 1.0 | `happyhorse-1.0` | `video` | `720p` `1080p` | `3`–`15`s | `16:9` `9:16` `1:1` `4:3` `3:4` |
+| Kling 4.0 | `kling-4.0` | `video`, `transition` (2 frames), `reference` | `720p` `1080p` | `3`–`30`s | `16:9` `9:16` `1:1` `21:9` |
 | Kling O3 Pro | `kling-o3-pro` | `video`, `transition` (2 frames), `reference` | Selected by model ID | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling O3 Standard | `kling-o3-standard` | `video`, `transition` (2 frames), `reference` | Selected by model ID | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling O3 4K | `kling-o3-4k` | `video`, `transition` (2 frames), `reference` | Selected by model ID | `3`–`15`s | `16:9` `9:16` `1:1` |
@@ -166,6 +167,10 @@ pixverse create image
 The wizard guides you through prompt, model, quality, aspect ratio, and other options step by step.
 
 Local image inputs larger than `1920x1920` or `5MB` are automatically resized/compressed before upload. Remote image URLs are validated by the backend as-is.
+
+Video uploads default to a 50 MB limit. Kling O3 reference videos retain their
+200 MB limit, and template inputs use their declared limits. Shared API requests
+default to a 60-second timeout; `--timeout` controls generation polling separately.
 
 ### Text to Video
 

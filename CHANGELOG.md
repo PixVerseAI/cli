@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.15](https://github.com/PixVerseAI/cli/releases/tag/v1.4.15) — 2026-10-27
+
+### Features
+
+- Add `kling-4.0` video model (`Kling 4.0`) — available in `create video`, `create reference`, and two-frame `create transition`, with 720p / 1080p output (default 1080p), 3–30s durations, automatic image-to-video framing, and up to 10 image / 5 video references (3–30s per video, 30s total)
+
 ## [1.4.14](https://github.com/PixVerseAI/cli/releases/tag/v1.4.14) — 2026-10-27
 
 ### Bug Fixes

@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.14",
+    "version": "1.4.15",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -1331,6 +1331,7 @@
         "wan-3.0": "Wan 3.0",
         "gemini-omni-flash": "Google Gemini Omni",
         "happyhorse-1.0": "Happy Horse 1.0",
+        "kling-4.0": "Kling 4.0",
         "kling-o3-pro": "Kling O3 Pro",
         "kling-o3-standard": "Kling O3 Standard",
         "kling-o3-4k": "Kling O3 4K",
@@ -1541,6 +1542,7 @@
             "wan-3.0",
             "gemini-omni-flash",
             "happyhorse-1.0",
+            "kling-4.0",
             "kling-o3-pro",
             "kling-o3-standard",
             "kling-o3-4k",
@@ -1623,6 +1625,14 @@
               },
               "happyhorse-1.0": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                "default": 5,
+                "on_invalid": "adjust"
+              },
+              "kling-4.0": {
+                "enum": [
+                  3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                  20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ],
                 "default": 5,
                 "on_invalid": "adjust"
               },
@@ -1768,6 +1778,12 @@
                 "supported": true,
                 "enum": ["720p", "1080p"],
                 "default": "720p",
+                "on_invalid": "adjust"
+              },
+              "kling-4.0": {
+                "supported": true,
+                "enum": ["720p", "1080p"],
+                "default": "1080p",
                 "on_invalid": "adjust"
               },
               "kling-o3-pro": {
@@ -1940,6 +1956,12 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "supported": true,
+                "enum": ["16:9", "9:16", "1:1", "21:9"],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": true,
                 "enum": ["16:9", "9:16", "1:1"],
@@ -2082,6 +2104,10 @@
                 "on_invalid": "adjust",
                 "description": "Audio is always enabled for this model."
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": true,
                 "on_invalid": "reject",
@@ -2198,6 +2224,10 @@
                 "supported": false,
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": false,
                 "on_invalid": "adjust"
@@ -2299,6 +2329,10 @@
                 "on_invalid": "adjust"
               },
               "happyhorse-1.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
+              "kling-4.0": {
                 "supported": false,
                 "on_invalid": "adjust"
               },
@@ -3163,6 +3197,7 @@
             "minimax-h3",
             "minimax-h3-max",
             "wan-3.0",
+            "kling-4.0",
             "kling-o3-pro",
             "kling-o3-standard",
             "kling-o3-4k",
@@ -3224,6 +3259,14 @@
                 "enum": [
                   2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                   19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ],
+                "default": 5,
+                "on_invalid": "adjust"
+              },
+              "kling-4.0": {
+                "enum": [
+                  3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                  20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
                 "on_invalid": "adjust"
@@ -3339,6 +3382,12 @@
                 "default": "720p",
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "supported": true,
+                "enum": ["720p", "1080p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -3443,6 +3492,10 @@
                 "on_invalid": "reject",
                 "description": "Enable generated audio."
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": true,
                 "on_invalid": "reject",
@@ -3534,6 +3587,10 @@
                 "supported": false,
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": false,
                 "on_invalid": "adjust"
@@ -3596,6 +3653,7 @@
                 "minimax-h3",
                 "minimax-h3-max",
                 "wan-3.0",
+                "kling-4.0",
                 "kling-o3-pro",
                 "kling-o3-standard",
                 "kling-o3-4k",
@@ -4687,6 +4745,7 @@
             "minimax-h3-max",
             "wan-3.0",
             "gemini-omni-flash",
+            "kling-4.0",
             "kling-o3-pro",
             "kling-o3-standard",
             "kling-o3-4k",
@@ -4748,6 +4807,14 @@
               },
               "gemini-omni-flash": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 0],
+                "default": 5,
+                "on_invalid": "adjust"
+              },
+              "kling-4.0": {
+                "enum": [
+                  3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                  20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ],
                 "default": 5,
                 "on_invalid": "adjust"
               },
@@ -4836,6 +4903,12 @@
                 "supported": true,
                 "enum": ["720p"],
                 "default": "720p",
+                "on_invalid": "adjust"
+              },
+              "kling-4.0": {
+                "supported": true,
+                "enum": ["720p", "1080p"],
+                "default": "1080p",
                 "on_invalid": "adjust"
               },
               "kling-o3-pro": {
@@ -4935,6 +5008,11 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "enum": ["auto", "16:9", "9:16", "1:1", "21:9"],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": true,
                 "enum": ["16:9", "9:16", "1:1"],
@@ -5013,6 +5091,10 @@
                 "supported": false,
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": true,
                 "on_invalid": "reject",
@@ -5077,6 +5159,10 @@
                 "supported": false,
                 "on_invalid": "adjust"
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "adjust"
+              },
               "kling-o3-pro": {
                 "supported": false,
                 "on_invalid": "adjust"
@@ -5127,6 +5213,9 @@
               },
               "gemini-omni-flash": {
                 "max_count": 5
+              },
+              "kling-4.0": {
+                "max_count": 10
               },
               "kling-o3-pro": {
                 "max_count": 7
@@ -5184,6 +5273,10 @@
               "gemini-omni-flash": {
                 "supported": true,
                 "max_count": 1
+              },
+              "kling-4.0": {
+                "supported": true,
+                "max_count": 5
               },
               "kling-o3-pro": {
                 "supported": true,
@@ -5244,6 +5337,10 @@
                 "max_count": 5
               },
               "gemini-omni-flash": {
+                "supported": false,
+                "max_count": 0
+              },
+              "kling-4.0": {
                 "supported": false,
                 "max_count": 0
               },
@@ -5310,6 +5407,10 @@
                 "supported": false,
                 "on_invalid": "reject"
               },
+              "kling-4.0": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
               "kling-o3-pro": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -5360,6 +5461,9 @@
             },
             "gemini-omni-flash": {
               "max_video_duration_seconds": 10
+            },
+            "kling-4.0": {
+              "max_video_duration_seconds": 30
             },
             "kling-o3-pro": {
               "max_video_duration_seconds": 15
