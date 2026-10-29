@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.16](https://github.com/PixVerseAI/cli/releases/tag/v1.4.16) — 2026-10-29
+
+### Bug Fixes
+
+- Accept both boolean values and numeric `0` / `1` for `audio` and `multi_shot` in `canvas patch apply` and `canvas patch dry-run`. Preserve supplied values and existing missing-field behavior while retaining mode and model validation.
+
 ## [1.4.15](https://github.com/PixVerseAI/cli/releases/tag/v1.4.15) — 2026-10-27
 
 ### Features
