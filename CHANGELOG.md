@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.17](https://github.com/PixVerseAI/cli/releases/tag/v1.4.17) — 2026-11-05
+
+### Features
+
+- Add `seedream-5.5` image model (`Seedream 5.5`) to `create image` for text-to-image and image-to-image generation, with `1K` / `1.5K` / `2K` / `3K` output (default `1K`), Auto and ten fixed aspect ratios, and up to 10 reference images
+- Support `--background auto|transparent|opaque` for Seedream 5.5 (default `auto`)
+
 ## [1.4.16](https://github.com/PixVerseAI/cli/releases/tag/v1.4.16) — 2026-10-29
 
 ### Bug Fixes

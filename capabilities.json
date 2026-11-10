@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.16",
+    "version": "1.4.17",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -213,9 +213,9 @@
         "--image <input>": "Single image input: file path, HTTPS URL, image ID, or media path (local oversized images are auto-resized to fit 1920x1920)",
         "--images <inputs...>": "Multiple image inputs: file paths, HTTPS URLs, image IDs, or media paths (local oversized images are auto-resized to fit 1920x1920)",
         "-m, --model <model>": "Image model",
-        "-q, --quality <quality>": "Image quality",
+        "-q, --quality <quality>": "Image quality (case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p; 1.5K=1.5k)",
         "--aspect-ratio <ratio>": "Aspect ratio",
-        "--background <value>": "Image background (GPT Image 2.5 only): auto | transparent | opaque",
+        "--background <value>": "Image background (GPT Image 2.5 / Seedream 5.5): auto | transparent | opaque",
         "--detail-level <level>": "Image detail level (model-specific): minimal | low | medium | high | xhigh | max",
         "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
         "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
@@ -1355,6 +1355,7 @@
         "qwen-image": "Qwen-image",
         "gemini-3.0": "Nano Banana Pro",
         "gemini-2.5-flash": "Nano Banana",
+        "seedream-5.5": "Seedream 5.5",
         "seedream-5.0-pro": "Seedream 5.0 Pro",
         "seedream-5.0-lite": "Seedream 5.0 Lite",
         "seedream-4.5": "Seedream 4.5",
@@ -2059,7 +2060,8 @@
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "seedance-2.0-standard": {
                 "supported": true,
@@ -2078,11 +2080,13 @@
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "flux-3.0": {
                 "supported": true,
@@ -2096,7 +2100,8 @@
               },
               "gemini-omni-flash": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "happyhorse-1.0": {
                 "supported": true,
@@ -2106,7 +2111,8 @@
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "kling-o3-pro": {
                 "supported": true,
@@ -2140,15 +2146,18 @@
               },
               "grok-imagine-1.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "veo-3.1-lite": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "veo-3.1-standard": {
                 "supported": true,
@@ -2164,11 +2173,13 @@
               },
               "sora-2-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "sora-2": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "v5.6": {
                 "supported": true,
@@ -2182,107 +2193,133 @@
               },
               "pixverse-c1": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "seedance-2.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "seedance-2.0-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "seedance-2.0-mini": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "flux-3.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "wan-3.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "gemini-omni-flash": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "happyhorse-1.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-o3-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-o3-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-o3-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-3.0-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-3.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "kling-3.0-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "grok-imagine-1.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "veo-3.1-lite": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "veo-3.1-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "veo-3.1-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "sora-2-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "sora-2": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "v5.6": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               }
             },
             "off_peak": {
@@ -2294,99 +2331,123 @@
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-mini": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "flux-3.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "wan-3.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "gemini-omni-flash": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "happyhorse-1.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-3.0-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-3.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-3.0-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "grok-imagine-1.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "veo-3.1-lite": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "veo-3.1-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "veo-3.1-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "sora-2-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "sora-2": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "v5.6": {
                 "supported": true
@@ -2498,7 +2559,7 @@
               "default": "1080p",
               "unit": "output_resolution",
               "on_invalid": "adjust",
-              "description": "Output quality."
+              "description": "Output quality. Case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p; 1.5K=1.5k. Aliases remain subject to model support."
             },
             "aspect_ratio": {
               "flag": "--aspect-ratio",
@@ -2515,7 +2576,7 @@
               "required": false,
               "supported": false,
               "on_invalid": "reject",
-              "description": "GPT Image 2.5 background; output format is determined by the backend."
+              "description": "GPT Image 2.5 / Seedream 5.5 background; output format is determined by the backend."
             },
             "detail_level": {
               "flag": "--detail-level",
@@ -2536,6 +2597,7 @@
             "qwen-image",
             "gemini-3.0",
             "gemini-2.5-flash",
+            "seedream-5.5",
             "seedream-5.0-pro",
             "seedream-5.0-lite",
             "seedream-4.5",
@@ -2587,6 +2649,11 @@
               },
               "gemini-2.5-flash": {
                 "enum": ["1080p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
+              "seedream-5.5": {
+                "enum": ["1080p", "1.5k", "1440p", "1800p"],
                 "default": "1080p",
                 "on_invalid": "adjust"
               },
@@ -2775,6 +2842,23 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
+              "seedream-5.5": {
+                "enum": [
+                  "auto",
+                  "1:1",
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "5:4",
+                  "4:5",
+                  "3:2",
+                  "2:3",
+                  "21:9"
+                ],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
               "seedream-5.0-pro": {
                 "enum": [
                   "auto",
@@ -2900,6 +2984,9 @@
               "gemini-2.5-flash": {
                 "max_count": 3
               },
+              "seedream-5.5": {
+                "max_count": 10
+              },
               "seedream-5.0-pro": {
                 "max_count": 10
               },
@@ -2953,6 +3040,10 @@
                 "on_invalid": "adjust"
               },
               "gemini-2.5-flash": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
+              "seedream-5.5": {
                 "max": 4,
                 "on_invalid": "adjust"
               },
@@ -3020,6 +3111,11 @@
                 "supported": false,
                 "on_invalid": "reject"
               },
+              "seedream-5.5": {
+                "supported": true,
+                "enum": ["auto", "transparent", "opaque"],
+                "default": "auto"
+              },
               "seedream-5.0-pro": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -3083,6 +3179,10 @@
                 "on_invalid": "reject"
               },
               "gemini-2.5-flash": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "seedream-5.5": {
                 "supported": false,
                 "on_invalid": "reject"
               },
@@ -3462,7 +3562,8 @@
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "seedance-2.0-standard": {
                 "supported": true,
@@ -3481,11 +3582,13 @@
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "wan-3.0": {
                 "supported": true,
@@ -3494,7 +3597,8 @@
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "kling-o3-pro": {
                 "supported": true,
@@ -3528,7 +3632,8 @@
               },
               "veo-3.1-lite": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "veo-3.1-standard": {
                 "supported": true,
@@ -3549,7 +3654,8 @@
               },
               "v5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               }
             },
             "off_peak": {
@@ -3561,71 +3667,88 @@
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-mini": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "wan-3.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-3.0-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-3.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-3.0-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "veo-3.1-lite": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "veo-3.1-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "veo-3.1-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "v5.6": {
                 "supported": true
@@ -4500,7 +4623,8 @@
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               }
             },
             "off_peak": {
@@ -4509,7 +4633,8 @@
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               }
             }
           },
@@ -5057,7 +5182,8 @@
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "seedance-2.0-standard": {
                 "supported": true,
@@ -5076,11 +5202,13 @@
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "wan-3.0": {
                 "supported": true,
@@ -5089,11 +5217,13 @@
               },
               "gemini-omni-flash": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "kling-o3-pro": {
                 "supported": true,
@@ -5112,7 +5242,8 @@
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
               "v5.6": {
                 "supported": true,
@@ -5129,55 +5260,68 @@
               },
               "seedance-2.5": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-fast": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "seedance-2.0-mini": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "minimax-h3": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "minimax-h3-max": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "wan-3.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "gemini-omni-flash": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-4.0": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-pro": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-standard": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "kling-o3-4k": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "grok-imagine": {
                 "supported": false,
-                "on_invalid": "adjust"
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
               "v5.6": {
                 "supported": true
@@ -5605,7 +5749,7 @@
               "required": false,
               "accepts": ["local_path", "https_url", "asset_id", "media_path"],
               "on_invalid": "reject",
-              "description": "Template image inputs. For ordered input fields, reserve images for required slots and fill remaining optional slots from left to right. Empty arguments must match that mapping; selections lost when empty paths are removed are rejected before upload or generation with validation exit code 6."
+              "description": "Template image inputs. Read template info --json input_requirements first. For ordinary effects, supply required images first followed by up to optional_image_num optional references; optional references are sent separately to the service. For ordered input fields, reserve images for required slots and fill remaining optional slots from left to right. Empty arguments must match that mapping; selections lost when empty paths are removed are rejected before upload or generation with validation exit code 6."
             },
             "video": {
               "flag": "--video",

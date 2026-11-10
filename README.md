@@ -12,7 +12,7 @@ PixVerse CLI is essentially **a UI-free version of the PixVerse website**. All f
 
 It is designed for:
 
-- **AI agents** — structured JSON output, deterministic exit codes, and pipeable commands make it a perfect tool for autonomous workflows (e.g. Claude Code, Cursor, Codex, LangChain, custom agents).
+- **AI agents** — structured JSON output, deterministic exit codes, and pipeable commands support autonomous workflows (e.g. Claude Code, Cursor, Codex, LangChain, custom agents).
 - **Developers & power users** — scriptable video/image/audio generation without leaving the terminal.
 - **Automation** — integrate AI content generation into CI/CD pipelines, batch processing scripts, or content production workflows.
 
@@ -89,25 +89,27 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | PixVerse V5.5 | `v5.5` | `modify` (default) | `360p` `540p` `720p` | — | — |
 | PixVerse V5 | `v5` | `transition` (3+ frames, default) | `360p` `540p` `720p` `1080p` | `1`–`10`s | — |
 
-> Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9` for generation without a reference video. Text-to-video and reference mode accept `--aspect-ratio auto` in addition to the fixed ratios. Reference requests containing a video default to automatic duration and lock the aspect ratio to `auto`; selecting an integer from 4 through 30 unlocks both automatic and fixed aspect ratios. Reference mode also accepts the optional `--task-type <type>` flag (`auto` by default, `reference`, `edit`, or `extend`) to guide the task intent; this flag is rejected for other models. Image-to-video retains its existing fixed-ratio behavior, while transition does not send a user-selected aspect ratio. Generated audio, multi-shot, and off-peak generation are unsupported.
+> Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9` for generation without a reference video. Text-to-video and reference mode accept `--aspect-ratio auto` in addition to the fixed ratios. Reference requests containing a video default to automatic duration and lock the aspect ratio to `auto`; selecting an integer from 4 through 30 unlocks both automatic and fixed aspect ratios. Reference mode also accepts the optional `--task-type <type>` flag (`auto` by default, `reference`, `edit`, or `extend`) to guide the task intent. Image-to-video uses fixed aspect ratios.
 
 > MiniMax H3 text-to-video defaults to `16:9`. Image-to-video forces `auto`; reference mode with images supports both `auto` and fixed aspect ratios and defaults to `auto`.
 
 > MiniMax H3 Max defaults to `768p` and 5 seconds. Text-to-video defaults to `16:9`; image-to-video forces `auto`; reference mode supports both `auto` and fixed aspect ratios, defaults to `auto`, and accepts up to 12 total inputs (9 images, 3 videos, and 3 audios).
 
-> FLUX 3 is available only in `create video`. Text-to-video defaults to `16:9`; image-to-video defaults to `auto` while preserving an explicit fixed ratio. Requests always include the model's fixed safety setting.
+> Use FLUX 3 with `create video`. Text-to-video defaults to `16:9`; image-to-video defaults to `auto` while preserving an explicit fixed ratio.
 
 > Wan 3.0 defaults to `720p`, 5 seconds, and `auto`, and is available in video, two-frame transition, and reference creation. Reference accepts up to 10 images, 5 videos, and 5 audios (20 total), including audio-only input. Video and audio reference durations are each limited to 15 seconds in aggregate. With a video reference, duration defaults to `auto`; fixed output duration is limited by `30 - reference video duration`.
 
-> Kling resolution is selected entirely by the model ID. Kling requests do not send `quality`; an explicit `--quality` value is ignored with a warning. Both 4K models support text/image-to-video and two-frame transitions, while only Kling O3 4K supports `create reference`.
+> Kling resolution is selected by the model ID. Both 4K models support text/image-to-video and two-frame transitions, while only Kling O3 4K supports `create reference`.
 
-> Reference video editing: V6 accepts up to 10 images and 2 videos (15s total after per-clip rounding); requests with a video lock duration to `auto` and reject fixed values. Seedance 2.5 accepts up to 10 videos (30s total); requests with a video default to `auto` but may select a fixed 4–30 seconds. Gemini Omni accepts up to 5 images and 1 video up to 10s; requests with a video lock duration to `auto` and reject fixed values. Kling O3 accepts up to 7 images without video or 4 images with 1 video up to 15s (200MB, 2048px per side). Grok Imagine accepts either 1–7 images with normal fixed duration or exactly 1 MP4 video up to 8.7s; video mode locks duration to `auto` and derives aspect ratio from the source video.
+> Reference video editing: V6 accepts up to 10 images and 2 videos (15s total after per-clip rounding); requests with a video use automatic output duration (`auto`). Seedance 2.5 accepts up to 10 videos (30s total); requests with a video default to `auto` but may select a fixed 4–30 seconds. Gemini Omni accepts up to 5 images and 1 video up to 10s; requests with a video use automatic output duration (`auto`). Kling O3 accepts up to 7 images without video or 4 images with 1 video up to 15s (200MB, 2048px per side). Grok Imagine accepts either 1–7 images with normal fixed duration or exactly 1 MP4 video up to 8.7s; video mode locks duration to `auto` and derives aspect ratio from the source video.
 
-> Grok Imagine 1.5 is image-to-video only — it requires `--image`, supports `480p`, `720p`, and `1080p`, and derives its aspect ratio from the input image (the `--aspect-ratio` flag is ignored).
+> Use Grok Imagine 1.5 with `create video --image <input>`. It supports `480p`, `720p`, and `1080p`, and derives its aspect ratio from the input image.
 
 > Audio creation uses separate model families: `create voice` for text-to-speech and `create music` for prompt-to-music.
 
 ### Image Models (`--model <value>`)
+
+Image `--quality` accepts case-insensitive aliases: `1K` → `1080p`, `2K` → `1440p`, `3K` → `1800p`, `4K` → `2160p`, and `1.5K` → `1.5k`. The selected model must support the corresponding quality.
 
 | Model | `--model` value | Quality | Aspect Ratio | Max references | Background (`--background`) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -120,6 +122,7 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | Qwen-image | `qwen-image` | `720p` `1080p` | `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 3 | — |
 | Nano Banana Pro | `gemini-3.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 9 | — |
 | Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 3 | — |
+| Seedream 5.5 | `seedream-5.5` | `1080p` `1.5k` `1440p` `1800p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 10 | `auto` `transparent` `opaque` |
 | Seedream 5.0 Pro | `seedream-5.0-pro` | `1080p` `1440p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 10 | — |
 | Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 6 | — |
 | Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 6 | — |
@@ -157,7 +160,7 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 
 ### Interactive Mode
 
-Run any creation command without arguments to enter the interactive wizard:
+For guided video or image creation, run:
 
 ```bash
 pixverse create video
@@ -186,7 +189,7 @@ pixverse create video --prompt "A cinematic landscape revealed through fog" --mo
 
 ### Text inputs: literal, a file, or stdin
 
-Text-input flags — `--prompt` (all create commands), `--text` (`create voice`), and `--lyrics` (`create music`) — accept three forms, just like `--image` / `--video`:
+Text-input flags — `--prompt` on commands that accept a prompt, `--text` (`create voice`), and `--lyrics` (`create music`) — accept three forms:
 
 - a **literal** string: `--prompt "A neon city skyline"`
 - a **local file path**: `--prompt ./scene.txt` (the file's contents are used)
@@ -199,7 +202,7 @@ echo "Hello from the command line" | pixverse create voice --text -
 pixverse create music --prompt "Bright synth-pop" --lyrics ./lyrics.txt
 ```
 
-> A value is treated as a file only when a matching file actually exists on disk; otherwise it's used as literal text (the same rule as `--image` / `--video`).
+> A value is treated as a file only when a matching file actually exists on disk; otherwise it's used as literal text.
 
 ### Image to Video
 
@@ -231,7 +234,7 @@ pixverse create image --prompt "Turn this into a watercolor painting" --image ./
 # Create a transition between keyframes (requires 2+ images)
 pixverse create transition --images ./frame1.png ./frame2.png ./frame3.png
 
-# Seedance 2.5 transition requires exactly 2 frames; do not pass --aspect-ratio
+# Seedance 2.5 transition uses exactly 2 frames
 pixverse create transition -m seedance-2.5 --images ./first.png ./last.png --prompt "A seamless transformation"
 
 # Generate speech audio from text (text-to-speech)
@@ -324,13 +327,12 @@ These flags are available across most `create` subcommands:
 | `--no-wait` | boolean | `true` | model-specific | Wait for the generated asset unless disabled. |
 | `--timeout` | integer | `300` | `1`–`∞` seconds | Polling timeout when waiting for completion. |
 
-> Model-specific support still applies. Seedance 2.5 does not support `--audio`, `--multi-shot`, or `--off-peak`. Its `--audios` values in `create reference` are input references, not a generated-audio toggle.
+> Seedance 2.5 accepts audio references through `--audios` in `create reference`.
 
 ### MiniApps
 
 MiniApps are preset, single-purpose generators from the PixVerse web app (Magic
-Extend, Image Region Editor, …). The CLI is a thin pass-through: it does not
-bundle each app's parameter schema. Instead, `miniapps info <id>` returns the
+Extend, Image Region Editor, …). Use `miniapps info <id>` to get the
 app's **parameter schema** (required fields, types, enum values, and a
 copy-pasteable example) — read it, then submit the app id plus its `args` as JSON
 with `miniapps create`.
@@ -355,9 +357,8 @@ pixverse asset delete <project_id> --type miniapps
 ```
 
 Media fields inside `--params` must be **media paths** — the `path` returned by
-`asset upload` (not a URL, not a local file). The CLI passes `--params` straight
-through without uploading, so upload first with `pixverse asset upload <file>` and
-use the returned `path`.
+`asset upload`. Upload first with `pixverse asset upload <file>`, then use the
+returned `path` in `--params`.
 
 ### Canvas
 
@@ -511,8 +512,7 @@ Important constraints:
   `payload.tracks`. Omit `depends_on` entirely; composition timeline materials
   do not create Canvas dependency edges.
 - `dispatch` and `graph reconcile` require explicit node IDs and the current
-  `edit_version`; the CLI does not intentionally start every ready node in a
-  project.
+  `edit_version` to select the batch to start or recover.
 - Dispatch states `partial` and `failed` return a non-zero exit code. Add
   `--require-dispatch` when `skipped` or `no_ready_nodes` should also stop an
   automated workflow.
@@ -525,7 +525,7 @@ Important constraints:
 - Applying a version may return `applied=false` when that version is already
   current. This is a successful no-op. Read the project again before the next
   change.
-- Audio extraction accepts a trusted source video node, not a raw media path.
+- To extract audio, select a source video node with `--source-node-id`.
   The CLI creates the target audio node when needed and extracts the complete
   audio track.
 
@@ -535,7 +535,7 @@ Important constraints:
 # Check task status
 pixverse task status <id>
 
-# Poll a voice/music audio task (audio is not auto-detected — pass --type audio)
+# Poll a voice/music audio task with --type audio
 pixverse task status <id> --type audio
 
 # Poll a MiniApp project (pass --type miniapps; project_id comes from `miniapps create`)
@@ -574,7 +574,7 @@ pixverse asset info <id>
 pixverse asset info <id> --type audio
 pixverse asset info <id> --type audio --source upload
 
-# Download a created video, image, or audio (uploads are not downloadable)
+# Download a generated video, image, or audio
 pixverse asset download <id>
 pixverse asset download <id> --type audio --dest ./out/
 
@@ -629,7 +629,7 @@ pixverse template search "dance"
 pixverse template info <template_id>
 ```
 
-`create template` supports more template types with ordered image, video, and
+`create template` accepts templates with ordered image, video, and
 text inputs. Read `template info <id> --json` for the template's input
 requirements, then supply the matching inputs:
 
@@ -640,14 +640,12 @@ pixverse create template --template-id <id> --image ./first.png ./second.png --j
 When fewer images than slots are supplied, reserve images for required slots
 and fill any remaining optional slots from left to right. Empty arguments are
 accepted only when they match this mapping, for example
-`--image "" ./required.png` for optional-then-required image slots. Selecting a
-later optional slot while skipping an earlier optional slot is unsupported and
-is rejected before upload or generation.
+`--image "" ./required.png` for optional-then-required image slots.
 
-Use `--video` or `--prompt` only when the template exposes the corresponding
-input slot. Templates with fixed output settings reject quality, duration,
-aspect-ratio, seed, count, off-peak and idempotency overrides. Templates with
-ordered input fields return `outputs` with media IDs and types; the CLI waits for each image/video
+Use `--video` or `--prompt` for the corresponding input slots exposed by the
+template. Templates with fixed output settings use their preset generation
+parameters. Templates with ordered input fields return `outputs` with media IDs
+and types; the CLI waits for each image/video
 output unless `--no-wait` is set. Use `task status` / `task wait` with those
 media IDs to check results later.
 
@@ -712,7 +710,7 @@ pixverse config defaults show
 
 ## JSON Output for Scripts & Agents
 
-All commands support `--json` (or `-p`) for structured JSON output, making the CLI easy to integrate into automated workflows:
+Use `--json` (or `-p`) for structured command results in automated workflows:
 
 ```bash
 pixverse create video --prompt "A sunset over the ocean" --json
