@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.17",
+    "version": "1.4.18",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -18,7 +18,7 @@
     "auth": "OAuth device flow with a local CLI session",
     "json": "Use --json or -p for pure JSON stdout; errors and progress go to stderr.",
     "text_inputs": "prompt, text, lyrics accept literal text, local file path, or - for stdin.",
-    "polling": "done=1; retry=5,9,10; failed=7,8; intervals=2s,5s,10s"
+    "polling": "done=1; retry=5,9,10; failed=7,8,17; intervals=2s,5s,10s"
   },
   "exit_codes": {
     "0": "SUCCESS: success",

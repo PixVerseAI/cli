@@ -718,6 +718,10 @@ pixverse task wait <id> --json
 pixverse account info --json
 ```
 
+Moderation rejections (`7`/`17`) display `Not approved`. Queries preserve the
+original status and exit `0`; waits exit `5`, with `error_type: "content_rejected"`
+and the original `status_code` in JSON errors.
+
 ### Pipeline Example
 
 ```bash

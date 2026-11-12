@@ -2,6 +2,12 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.18](https://github.com/PixVerseAI/cli/releases/tag/v1.4.18) — 2026-11-12
+
+### Bug Fixes
+
+- Recognize external moderation rejections and clarify status messages and JSON errors, with existing exit codes unchanged.
+
 ## [1.4.17](https://github.com/PixVerseAI/cli/releases/tag/v1.4.17) — 2026-11-05
 
 ### Features
