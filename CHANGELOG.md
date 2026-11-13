@@ -2,6 +2,24 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.19](https://github.com/PixVerseAI/cli/releases/tag/v1.4.19) — 2026-11-13
+
+### Features
+
+- Add the `seedance-2.5-480draft` model for 480p samples in `create video`, `create reference`, and two-image `create transition`, with Seedance 2.5 duration and reference-media limits.
+- Add `create seedance-final --video-id <draft_id>` to generate a 1080p Final from an eligible, unexpired Draft. Generation parameters are inherited from the source; each accepted submission creates a paid task, and requests are never automatically retried.
+- Expose Draft/Final stage, expiry, eligibility, and related video IDs in task queries and completed video creation output. Update capability discovery and model documentation for the new workflow.
+- Support optional `--relax-mode [true|false]` / `--no-relax-mode` for Final generation. Preserve explicit boolean values in Global; omit the field when unspecified and always omit it in CN.
+- Support Team workspace selection in delegated ChatGPT CLI sessions with account-wide selection and workspace request guards.
+
+### Bug Fixes
+
+- Preserve delegated account JSON compatibility, structured errors, and safe terminal display names.
+
+### Testing
+
+- Cover delegated workspace scope, shared assets, and startup validation for workspace overrides.
+
 ## [1.4.18](https://github.com/PixVerseAI/cli/releases/tag/v1.4.18) — 2026-11-12
 
 ### Bug Fixes

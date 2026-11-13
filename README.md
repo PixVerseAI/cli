@@ -62,6 +62,7 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | PixVerse V6 | `v6` | `video` (default), `transition` (2 frames, default), `extend` (default), `reference` (default) | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `21:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | PixVerse C1 | `pixverse-c1` | `video`, `transition` (2 frames), `reference` | `360p` `540p` `720p` `1080p` | `1`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `3:2` `2:3` |
 | Seedance 2.5 | `seedance-2.5` | `video`, `transition` (2 frames), `reference` | `480p` `720p` `1080p` | `4`–`30`s | `auto` `21:9` `16:9` `4:3` `1:1` `3:4` `9:16` |
+| Seedance 2.5 Draft | `seedance-2.5-480draft` | `video`, `transition` (2 frames), `reference` | `480p` | `4`–`30`s | `21:9` `16:9` `4:3` `1:1` `3:4` `9:16` `auto` |
 | Seedance 2.0 Standard | `seedance-2.0-standard` | `video`, `transition` (2 frames), `reference` | `480p` `720p` `1080p` `2160p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Seedance 2.0 Fast | `seedance-2.0-fast` | `video`, `transition` (2 frames), `reference` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
 | Seedance 2.0 Mini | `seedance-2.0-mini` | `video`, `transition` (2 frames), `reference` | `480p` `720p` | `4`–`15`s | `16:9` `4:3` `1:1` `3:4` `9:16` `21:9` |
@@ -304,6 +305,30 @@ pixverse create motion-control --image ./character.png --video ./dance.mp4
 # Create from a template/effect
 pixverse create template --template-id 12345 --image ./photo.png
 ```
+
+Seedance 2.5 Draft produces a 480p sample using the independent
+`seedance-2.5-480draft` model. After reviewing the sample, create a 1080p Final
+from its video ID:
+
+```bash
+pixverse create video --model seedance-2.5-480draft --prompt "A bird takes flight" --json
+pixverse task status <draft_video_id> --json
+pixverse create seedance-final --video-id <draft_video_id> --no-wait --json
+pixverse task wait <final_video_id> --json
+```
+
+Draft also supports `create reference` and two-image `create transition`.
+Task JSON includes `seedance_draft` with stage, expiry, permission,
+and related video IDs. The CLI submits the Draft ID directly. The Final creation
+service checks eligibility and expiry at submission and inherits the Draft generation parameters. Each accepted Final submission creates a new
+paid task; the CLI never automatically retries it. After a timeout, query the
+task instead of submitting again. Ordinary `seedance-2.5 --quality 480p` does not
+create a Draft.
+
+Final supports `--relax-mode` (or `--relax-mode true`) to enable Relax mode and
+`--no-relax-mode` (or `--relax-mode false`) to disable it. If omitted, no Relax
+field is sent; the Draft setting is not inherited. CN always omits this field.
+Account entitlement is validated by the backend.
 
 Voice speed uses provider-specific validation:
 
@@ -758,6 +783,7 @@ pixverse asset download "$VID" --dest ./output/
 | `create music`               | Generate music audio from a prompt                                                  |
 | `create extend`              | Extend video duration                                                               |
 | `create modify`              | Modify an existing video                                                            |
+| `create seedance-final`      | Create a 1080p Final from an eligible Seedance Draft                                |
 | `create upscale`             | Upscale video resolution                                                            |
 | `create reference`           | Create or edit a video with reference media                                         |
 | `create motion-control`      | Motion control with character image + reference video                               |
