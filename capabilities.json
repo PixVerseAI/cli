@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.19",
+    "version": "1.4.20",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -215,6 +215,7 @@
         "--images <inputs...>": "Multiple image inputs: file paths, HTTPS URLs, image IDs, or media paths (local oversized images are auto-resized to fit 1920x1920)",
         "-m, --model <model>": "Image model",
         "-q, --quality <quality>": "Image quality (case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p; 1.5K=1.5k)",
+        "--output-format <format>": "MiniMax H3 Image output format (case-insensitive): png (default), jpeg (or jpg), or webp",
         "--aspect-ratio <ratio>": "Aspect ratio",
         "--background <value>": "Image background (GPT Image 2.5 / Seedream 5.5): auto | transparent | opaque",
         "--detail-level <level>": "Image detail level (model-specific): minimal | low | medium | high | xhigh | max",
@@ -1370,6 +1371,7 @@
         "gemini-3.1-flash": "Nano Banana 2",
         "gemini-3.1-flash-lite": "Nano Banana 2 Lite",
         "qwen-image": "Qwen-image",
+        "minimax-h3-image": "MiniMax H3 Image",
         "gemini-3.0": "Nano Banana Pro",
         "gemini-2.5-flash": "Nano Banana",
         "seedream-5.5": "Seedream 5.5",
@@ -2649,6 +2651,14 @@
               "on_invalid": "adjust",
               "description": "Output framing."
             },
+            "output_format": {
+              "flag": "--output-format",
+              "type": "string",
+              "required": false,
+              "supported": false,
+              "on_invalid": "reject",
+              "description": "MiniMax H3 Image output format. Input is case-insensitive and jpg is an alias for jpeg."
+            },
             "background": {
               "flag": "--background",
               "type": "string",
@@ -2674,6 +2684,7 @@
             "gemini-3.1-flash",
             "gemini-3.1-flash-lite",
             "qwen-image",
+            "minimax-h3-image",
             "gemini-3.0",
             "gemini-2.5-flash",
             "seedream-5.5",
@@ -2718,6 +2729,11 @@
               },
               "qwen-image": {
                 "enum": ["720p", "1080p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
+              "minimax-h3-image": {
+                "enum": ["1080p", "1440p", "2160p"],
                 "default": "1080p",
                 "on_invalid": "adjust"
               },
@@ -2873,6 +2889,23 @@
               },
               "qwen-image": {
                 "enum": [
+                  "1:1",
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "5:4",
+                  "4:5",
+                  "3:2",
+                  "2:3",
+                  "21:9"
+                ],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
+              "minimax-h3-image": {
+                "enum": [
+                  "auto",
                   "1:1",
                   "16:9",
                   "9:16",
@@ -3057,6 +3090,9 @@
               "qwen-image": {
                 "max_count": 3
               },
+              "minimax-h3-image": {
+                "max_count": 16
+              },
               "gemini-3.0": {
                 "max_count": 9
               },
@@ -3111,6 +3147,10 @@
                 "on_invalid": "adjust"
               },
               "qwen-image": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
+              "minimax-h3-image": {
                 "max": 4,
                 "on_invalid": "adjust"
               },
@@ -3179,6 +3219,10 @@
                 "on_invalid": "reject"
               },
               "qwen-image": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
+              "minimax-h3-image": {
                 "supported": false,
                 "on_invalid": "reject"
               },
@@ -3253,6 +3297,10 @@
                 "supported": false,
                 "on_invalid": "reject"
               },
+              "minimax-h3-image": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
               "gemini-3.0": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -3294,6 +3342,24 @@
               "gemini-nano-banana-2.1": {
                 "default": null,
                 "description": "Accepted silently but omitted from the request."
+              },
+              "minimax-h3-image": {
+                "default": null,
+                "description": "Accepted silently but omitted from the request."
+              }
+            },
+            "prompt": {
+              "minimax-h3-image": {
+                "max_length": 20000,
+                "on_invalid": "reject"
+              }
+            },
+            "output_format": {
+              "minimax-h3-image": {
+                "supported": true,
+                "enum": ["png", "jpeg", "webp"],
+                "default": "png",
+                "on_invalid": "adjust"
               }
             }
           },

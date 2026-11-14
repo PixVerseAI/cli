@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.20](https://github.com/PixVerseAI/cli/releases/tag/v1.4.20) — 2026-11-12
+
+### Features
+
+- Add MiniMax H3 Image (`--model minimax-h3-image`) to `create image` in the global region. Generate images from text or up to 16 reference images at 1K, 2K, or 4K resolution.
+- MiniMax H3 Image supports `png`, `jpeg`, and `webp` with `--output-format`.
+
 ## [1.4.19](https://github.com/PixVerseAI/cli/releases/tag/v1.4.19) — 2026-11-13
 
 ### Features
