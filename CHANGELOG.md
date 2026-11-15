@@ -2,6 +2,14 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.21](https://github.com/PixVerseAI/cli/releases/tag/v1.4.21) — 2026-11-14
+
+### Features
+
+- Add Seedance 2.5 Flash (`--model seedance-2.5-flash`) for text-to-video, image-to-video, two-frame transitions, and reference videos, including audio-only references. Flash supports 480p and 720p (default).
+- Add 4K output (`--quality 2160p`) to Seedance 2.5 video generation.
+- Support 1080p (default) and 4K output in `create seedance-final`.
+
 ## [1.4.20](https://github.com/PixVerseAI/cli/releases/tag/v1.4.20) — 2026-11-12
 
 ### Features

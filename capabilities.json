@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.20",
+    "version": "1.4.21",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -375,7 +375,7 @@
       "options": {
         "--images <inputs...>": "Image references: file paths, HTTPS URLs, image IDs, or media paths (model-specific limits; local oversized images are auto-resized to fit 1920x1920)",
         "--videos <inputs...>": "Video references: file paths, HTTPS URLs, video IDs, or media paths (supported by V6, Seedance, MiniMax H3/H3 Max, Wan 3.0, Gemini Omni, Kling O3, and Grok Imagine; model-specific limits apply)",
-        "--audios <inputs...>": "Audio references (Seedance, MiniMax H3/H3 Max, and Wan 3.0): file paths, HTTPS URLs, audio IDs, or media paths (model-specific count and known-duration limits apply; Wan 3.0 permits audio-only input)",
+        "--audios <inputs...>": "Audio references: file paths, HTTPS URLs, audio IDs, or media paths. Model-specific counts apply. Wan 3.0 and Seedance 2.5 Flash accept audio-only input. The service checks duration: Seedance 2.0, 2–15s per clip and 15s total; Seedance 2.5 and Draft, 30s total; Flash, 2–30s per clip and 30s total; Wan 3.0, 1–15s per clip and 15s total.",
         "--prompt <text>": "Prompt text",
         "-m, --model <model>": "Video model",
         "--task-type <type>": "Seedance 2.5 reference task type: auto, reference, edit, or extend",
@@ -441,12 +441,13 @@
     },
     {
       "cmd": "pixverse create seedance-final",
-      "desc": "Create a paid 1080p Final from an unexpired Seedance 2.5 Draft; submissions are never automatically retried",
+      "desc": "Create a paid 1080p or 4K Final from an unexpired Seedance 2.5 Draft; submissions are never automatically retried",
       "run": true,
       "auth": true,
       "effect": "creates_remote_media_asset",
       "options": {
         "--video-id <id>": "Source Draft video ID",
+        "--quality <quality>": "Final resolution: 1080p (default) | 2160p (4K)",
         "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; omitted in CN)",
         "--no-relax-mode": "Disable Relax mode (omitted in CN) | negates: relaxMode",
         "--no-wait": "Return immediately without polling | negates: wait",
@@ -1339,6 +1340,7 @@
         "v6": "PixVerse V6",
         "pixverse-c1": "PixVerse C1",
         "seedance-2.5": "Seedance 2.5",
+        "seedance-2.5-flash": "Seedance 2.5 Flash",
         "seedance-2.5-480draft": "Seedance 2.5 Draft",
         "seedance-2.0-standard": "Seedance 2.0 Standard",
         "seedance-2.0-fast": "Seedance 2.0 Fast",
@@ -1467,7 +1469,7 @@
           "required": false,
           "default": 5,
           "unit": "seconds",
-          "on_invalid": "adjust",
+          "on_invalid": "reject",
           "description": "Output duration."
         },
         "audio": {
@@ -1553,6 +1555,7 @@
             "v6",
             "pixverse-c1",
             "seedance-2.5",
+            "seedance-2.5-flash",
             "seedance-2.5-480draft",
             "seedance-2.0-standard",
             "seedance-2.0-fast",
@@ -1584,12 +1587,12 @@
               "v6": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "pixverse-c1": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.5": {
                 "enum": [
@@ -1597,7 +1600,15 @@
                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
+              },
+              "seedance-2.5-flash": {
+                "enum": [
+                  4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                  21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ],
+                "default": 5,
+                "on_invalid": "reject"
               },
               "seedance-2.5-480draft": {
                 "enum": [
@@ -1605,39 +1616,39 @@
                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-standard": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-fast": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-mini": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "minimax-h3": {
                 "enum": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "minimax-h3-max": {
                 "enum": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "flux-3.0": {
                 "enum": [
                   5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "wan-3.0": {
                 "enum": [
@@ -1645,17 +1656,17 @@
                   19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "gemini-omni-flash": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "happyhorse-1.0": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-4.0": {
                 "enum": [
@@ -1663,77 +1674,77 @@
                   20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-pro": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-standard": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-4k": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-3.0-pro": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-3.0-standard": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-3.0-4k": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "grok-imagine-1.5": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "grok-imagine": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "veo-3.1-lite": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "veo-3.1-standard": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "veo-3.1-fast": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "sora-2-pro": {
                 "enum": [4, 8, 12],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "sora-2": {
                 "enum": [4, 8, 12],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "v5.6": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               }
             },
             "quality": {
@@ -1751,7 +1762,13 @@
               },
               "seedance-2.5": {
                 "supported": true,
-                "enum": ["480p", "720p", "1080p"],
+                "enum": ["480p", "720p", "1080p", "2160p"],
+                "default": "720p",
+                "on_invalid": "adjust"
+              },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "enum": ["720p", "480p"],
                 "default": "720p",
                 "on_invalid": "adjust"
               },
@@ -1925,6 +1942,12 @@
               "seedance-2.5": {
                 "supported": true,
                 "enum": ["auto", "21:9", "16:9", "4:3", "1:1", "3:4", "9:16"],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "enum": ["21:9", "16:9", "4:3", "1:1", "3:4", "9:16", "auto"],
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
@@ -2103,6 +2126,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -2246,6 +2274,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -2384,6 +2417,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -2507,6 +2545,15 @@
               "v5.6": {
                 "supported": true
               }
+            },
+            "count": {
+              "seedance-2.5-flash": {
+                "enum": [1],
+                "min": 1,
+                "max": 1,
+                "default": 1,
+                "on_invalid": "adjust"
+              }
             }
           },
           "variants": {
@@ -2520,9 +2567,11 @@
               "rules": [
                 {
                   "id": "seedance-draft-text-framing",
-                  "description": "Seedance Draft text-to-video uses a fixed aspect ratio.",
+                  "description": "Seedance Draft and Flash text-to-video uses a fixed aspect ratio.",
                   "when": {
-                    "model": "seedance-2.5-480draft"
+                    "model": {
+                      "in": ["seedance-2.5-480draft", "seedance-2.5-flash"]
+                    }
                   },
                   "parameters": {
                     "aspect_ratio": {
@@ -2544,9 +2593,11 @@
               "rules": [
                 {
                   "id": "seedance-draft-image-framing",
-                  "description": "Seedance Draft image-to-video derives framing from the source image.",
+                  "description": "Seedance Draft and Flash image-to-video derives framing from the source image.",
                   "when": {
-                    "model": "seedance-2.5-480draft"
+                    "model": {
+                      "in": ["seedance-2.5-480draft", "seedance-2.5-flash"]
+                    }
                   },
                   "parameters": {
                     "aspect_ratio": {
@@ -3411,6 +3462,7 @@
             "v6",
             "pixverse-c1",
             "seedance-2.5",
+            "seedance-2.5-flash",
             "seedance-2.5-480draft",
             "seedance-2.0-standard",
             "seedance-2.0-fast",
@@ -3436,12 +3488,12 @@
               "v6": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "pixverse-c1": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.5": {
                 "enum": [
@@ -3449,7 +3501,15 @@
                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
+              },
+              "seedance-2.5-flash": {
+                "enum": [
+                  4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                  21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                ],
+                "default": 5,
+                "on_invalid": "reject"
               },
               "seedance-2.5-480draft": {
                 "enum": [
@@ -3457,32 +3517,32 @@
                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-standard": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-fast": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-mini": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "minimax-h3": {
                 "enum": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "minimax-h3-max": {
                 "enum": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "wan-3.0": {
                 "enum": [
@@ -3490,7 +3550,7 @@
                   19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-4.0": {
                 "enum": [
@@ -3498,62 +3558,62 @@
                   20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-pro": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-standard": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-4k": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-3.0-pro": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-3.0-standard": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-3.0-4k": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "veo-3.1-lite": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "veo-3.1-standard": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "veo-3.1-fast": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "v5.6": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "v5": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               }
             },
             "quality": {
@@ -3571,7 +3631,13 @@
               },
               "seedance-2.5": {
                 "supported": true,
-                "enum": ["480p", "720p", "1080p"],
+                "enum": ["480p", "720p", "1080p", "2160p"],
+                "default": "720p",
+                "on_invalid": "adjust"
+              },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "enum": ["720p", "480p"],
                 "default": "720p",
                 "on_invalid": "adjust"
               },
@@ -3700,6 +3766,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -3810,6 +3881,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -3901,6 +3977,15 @@
               "v5": {
                 "supported": true
               }
+            },
+            "count": {
+              "seedance-2.5-flash": {
+                "enum": [1],
+                "min": 1,
+                "max": 1,
+                "default": 1,
+                "on_invalid": "adjust"
+              }
             }
           },
           "variants": {
@@ -3915,6 +4000,7 @@
                 "v6",
                 "pixverse-c1",
                 "seedance-2.5",
+                "seedance-2.5-flash",
                 "seedance-2.5-480draft",
                 "seedance-2.0-standard",
                 "seedance-2.0-fast",
@@ -3955,6 +4041,7 @@
                     "minimax-h3",
                     "minimax-h3-max",
                     "seedance-2.5",
+                    "seedance-2.5-flash",
                     "seedance-2.5-480draft",
                     "wan-3.0"
                   ]
@@ -4709,6 +4796,15 @@
               "on_invalid": "reject",
               "description": "Generation model.",
               "enum_ref": "model_ids"
+            },
+            "duration": {
+              "flag": "--duration",
+              "type": "integer",
+              "required": false,
+              "default": 5,
+              "unit": "seconds",
+              "on_invalid": "adjust",
+              "description": "Output duration."
             }
           },
           "model_ids": ["v6", "grok-imagine"],
@@ -4770,7 +4866,6 @@
             "wait",
             "timeout",
             "json",
-            "duration",
             "audio",
             "off_peak"
           ]
@@ -4908,7 +5003,7 @@
               "required": false,
               "accepts": ["local_path", "https_url", "asset_id", "media_path"],
               "on_invalid": "reject",
-              "description": "Reference audio clips."
+              "description": "Audio references: file paths, HTTPS URLs, audio IDs, or media paths. Model-specific counts apply. Wan 3.0 and Seedance 2.5 Flash accept audio-only input. The service checks duration: Seedance 2.0, 2–15s per clip and 15s total; Seedance 2.5 and Draft, 30s total; Flash, 2–30s per clip and 30s total; Wan 3.0, 1–15s per clip and 15s total."
             },
             "prompt": {
               "flag": "--prompt",
@@ -4933,7 +5028,7 @@
               "required": false,
               "default": 5,
               "unit": "seconds",
-              "on_invalid": "adjust",
+              "on_invalid": "reject",
               "description": "Output duration in seconds; 0 is the normalized automatic-duration value where supported (use \"auto\" in the CLI)."
             },
             "task_type": {
@@ -4958,6 +5053,7 @@
             "v6",
             "pixverse-c1",
             "seedance-2.5",
+            "seedance-2.5-flash",
             "seedance-2.5-480draft",
             "seedance-2.0-standard",
             "seedance-2.0-fast",
@@ -4978,12 +5074,12 @@
               "v6": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "pixverse-c1": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.5": {
                 "enum": [
@@ -4991,7 +5087,15 @@
                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 0
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
+              },
+              "seedance-2.5-flash": {
+                "enum": [
+                  4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                  21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 0
+                ],
+                "default": 5,
+                "on_invalid": "reject"
               },
               "seedance-2.5-480draft": {
                 "enum": [
@@ -4999,32 +5103,32 @@
                   21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 0
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-standard": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-fast": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "seedance-2.0-mini": {
                 "enum": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "minimax-h3": {
                 "enum": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "minimax-h3-max": {
                 "enum": [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "wan-3.0": {
                 "enum": [
@@ -5032,12 +5136,12 @@
                   19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 0
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "gemini-omni-flash": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 0],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-4.0": {
                 "enum": [
@@ -5045,32 +5149,32 @@
                   20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
                 ],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-pro": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-standard": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "kling-o3-4k": {
                 "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "grok-imagine": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               },
               "v5.6": {
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 "default": 5,
-                "on_invalid": "adjust"
+                "on_invalid": "reject"
               }
             },
             "quality": {
@@ -5088,7 +5192,13 @@
               },
               "seedance-2.5": {
                 "supported": true,
-                "enum": ["480p", "720p", "1080p"],
+                "enum": ["480p", "720p", "1080p", "2160p"],
+                "default": "720p",
+                "on_invalid": "adjust"
+              },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "enum": ["720p", "480p"],
                 "default": "720p",
                 "on_invalid": "adjust"
               },
@@ -5202,6 +5312,11 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
+              "seedance-2.5-flash": {
+                "enum": ["21:9", "16:9", "4:3", "1:1", "3:4", "9:16"],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
               "seedance-2.5-480draft": {
                 "enum": ["21:9", "16:9", "4:3", "1:1", "3:4", "9:16"],
                 "default": "16:9",
@@ -5300,6 +5415,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -5383,6 +5503,11 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
+              "seedance-2.5-flash": {
+                "supported": false,
+                "on_invalid": "adjust",
+                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
+              },
               "seedance-2.5-480draft": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -5462,6 +5587,9 @@
               "seedance-2.5": {
                 "max_count": 30
               },
+              "seedance-2.5-flash": {
+                "max_count": 10
+              },
               "seedance-2.5-480draft": {
                 "max_count": 30
               },
@@ -5517,6 +5645,10 @@
               "seedance-2.5": {
                 "supported": true,
                 "max_count": 10
+              },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "max_count": 5
               },
               "seedance-2.5-480draft": {
                 "supported": true,
@@ -5587,6 +5719,10 @@
               "seedance-2.5": {
                 "supported": true,
                 "max_count": 10
+              },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "max_count": 5
               },
               "seedance-2.5-480draft": {
                 "supported": true,
@@ -5659,6 +5795,11 @@
                 "enum": ["auto", "reference", "edit", "extend"],
                 "default": "auto"
               },
+              "seedance-2.5-flash": {
+                "supported": true,
+                "enum": ["auto", "reference", "edit", "extend"],
+                "default": "auto"
+              },
               "seedance-2.5-480draft": {
                 "supported": true,
                 "enum": ["auto", "reference", "edit", "extend"],
@@ -5716,6 +5857,15 @@
                 "supported": false,
                 "on_invalid": "reject"
               }
+            },
+            "count": {
+              "seedance-2.5-flash": {
+                "enum": [1],
+                "min": 1,
+                "max": 1,
+                "default": 1,
+                "on_invalid": "adjust"
+              }
             }
           },
           "model_metadata": {
@@ -5725,6 +5875,13 @@
             "pixverse-c1": {},
             "seedance-2.5": {
               "max_reference_items": 50,
+              "max_video_duration_seconds": 30
+            },
+            "seedance-2.5-flash": {
+              "audio_only_supported": true,
+              "min_audio_duration_seconds": 2,
+              "max_audio_duration_seconds": 30,
+              "max_reference_items": 20,
               "max_video_duration_seconds": 30
             },
             "seedance-2.5-480draft": {
@@ -5769,6 +5926,69 @@
             "v5.6": {}
           },
           "model_rules": {
+            "seedance-2.5-flash": [
+              {
+                "id": "draft-reference-video-default-duration",
+                "description": "Video references default to automatic duration and framing.",
+                "when": {
+                  "videos": {
+                    "min_count": 1
+                  },
+                  "duration": {
+                    "present": false
+                  }
+                },
+                "parameters": {
+                  "duration": {
+                    "default": 0
+                  },
+                  "aspect_ratio": {
+                    "enum": ["auto"],
+                    "default": "auto",
+                    "on_invalid": "adjust"
+                  }
+                }
+              },
+              {
+                "id": "draft-reference-video-auto-duration",
+                "description": "Automatic duration locks framing to auto.",
+                "when": {
+                  "videos": {
+                    "min_count": 1
+                  },
+                  "duration": 0
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["auto"],
+                    "default": "auto",
+                    "on_invalid": "adjust"
+                  }
+                }
+              },
+              {
+                "id": "draft-reference-video-fixed-duration",
+                "description": "Framing choices depend on the model when a fixed duration is selected.",
+                "when": {
+                  "videos": {
+                    "min_count": 1
+                  },
+                  "duration": {
+                    "in": [
+                      4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                      20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+                    ]
+                  }
+                },
+                "parameters": {
+                  "aspect_ratio": {
+                    "enum": ["21:9", "16:9", "4:3", "1:1", "3:4", "9:16"],
+                    "default": "16:9",
+                    "on_invalid": "adjust"
+                  }
+                }
+              }
+            ],
             "seedance-2.5-480draft": [
               {
                 "id": "draft-reference-video-default-duration",
@@ -5811,7 +6031,7 @@
               },
               {
                 "id": "draft-reference-video-fixed-duration",
-                "description": "At a fixed duration, video references allow automatic or fixed framing.",
+                "description": "Framing choices depend on the model when a fixed duration is selected.",
                 "when": {
                   "videos": {
                     "min_count": 1
@@ -5854,7 +6074,7 @@
               "description": "Audio references require an image or video reference except where the selected model explicitly supports audio-only input.",
               "when": {
                 "model": {
-                  "not_in": ["wan-3.0"]
+                  "not_in": ["wan-3.0", "seedance-2.5-flash"]
                 },
                 "audios": {
                   "min_count": 1
@@ -6027,13 +6247,21 @@
         "seedance-final": {
           "capability_id": "create.seedance-final",
           "command": "pixverse create seedance-final",
-          "description": "Create a paid 1080p Final from an eligible, unexpired Seedance Draft. Parameters are inherited; never automatically retry.",
+          "description": "Create a paid 1080p or 4K Final from an eligible, unexpired Seedance Draft. Other generation settings are inherited. Never automatically retry.",
           "parameters": {
             "video_id": {
               "flag": "--video-id",
               "type": "string",
               "required": true,
               "description": "Source Draft video ID; must be a positive safe integer.",
+              "on_invalid": "reject"
+            },
+            "quality": {
+              "flag": "--quality",
+              "type": "string",
+              "required": false,
+              "enum": ["1080p", "2160p"],
+              "default": "1080p",
               "on_invalid": "reject"
             },
             "relax_mode": {
