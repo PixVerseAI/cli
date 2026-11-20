@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.21",
+    "version": "1.4.22",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -214,10 +214,13 @@
         "--image <input>": "Single image input: file path, HTTPS URL, image ID, or media path (local oversized images are auto-resized to fit 1920x1920)",
         "--images <inputs...>": "Multiple image inputs: file paths, HTTPS URLs, image IDs, or media paths (local oversized images are auto-resized to fit 1920x1920)",
         "-m, --model <model>": "Image model",
-        "-q, --quality <quality>": "Image quality (case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p; 1.5K=1.5k)",
-        "--output-format <format>": "MiniMax H3 Image output format (case-insensitive): png (default), jpeg (or jpg), or webp",
+        "-q, --quality <quality>": "Image quality (case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p, 8K=4320p; 1.5K=1.5k). GIF frame sizes (maximum frames): 384x384 (16), 512x512 (16), 720x720 (16), 960x960 (9), 512x288 (16), 768x432 (16), 1024x576 (12), 288x512 (16), 432x768 (16), 576x1024 (12). Default: 384x384.",
+        "--output-format <format>": "Image output format (model-specific): png, jpeg (or jpg), webp, gif, svg",
+        "--complexity <level>": "Generation complexity (low, medium, high)",
+        "--frame-count <number>": "GIF frame count (minimum 2, default 9; see --quality for size-specific limits)",
+        "--frame-duration-ms <number>": "GIF frame duration in milliseconds (20–2000, step 10, default 200)",
         "--aspect-ratio <ratio>": "Aspect ratio",
-        "--background <value>": "Image background (GPT Image 2.5 / Seedream 5.5): auto | transparent | opaque",
+        "--background <value>": "Image background (GPT Image 2.5, 2.6 / Seedream 5.5): auto | transparent | opaque",
         "--detail-level <level>": "Image detail level (model-specific): minimal | low | medium | high | xhigh | max",
         "--relax-mode [boolean]": "Set Relax mode: true | false (bare flag enables; requires account entitlement)",
         "--no-relax-mode": "Disable Relax mode | negates: relaxMode",
@@ -1368,6 +1371,8 @@
         "v5.6": "PixVerse V5.6",
         "gpt-image-2.5-flare": "GPT Image 2.5 Flare",
         "gpt-image-2.5-sunburst": "GPT Image 2.5 Sunburst",
+        "gpt-image-2.6-flare": "GPT Image 2.6 Flare",
+        "gpt-image-2.6-sunburst": "GPT Image 2.6 Sunburst",
         "gpt-image-2.0": "GPT Image 2",
         "gemini-nano-banana-2.1": "Nano Banana 2.1",
         "gemini-3.1-flash": "Nano Banana 2",
@@ -1381,6 +1386,7 @@
         "seedream-5.0-lite": "Seedream 5.0 Lite",
         "seedream-4.5": "Seedream 4.5",
         "seedream-4.0": "Seedream 4.0",
+        "kling-image-4.0": "Kling Image 4.0",
         "kling-image-o3": "Kling Image O3",
         "kling-image-v3": "Kling Image V3",
         "v5": "PixVerse V5",
@@ -2691,7 +2697,7 @@
               "default": "1080p",
               "unit": "output_resolution",
               "on_invalid": "adjust",
-              "description": "Output quality. Case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p; 1.5K=1.5k. Aliases remain subject to model support."
+              "description": "Output quality. Case-insensitive aliases: 1K=1080p, 2K=1440p, 3K=1800p, 4K=2160p, 8K=4320p; 1.5K=1.5k. Aliases remain subject to model support."
             },
             "aspect_ratio": {
               "flag": "--aspect-ratio",
@@ -2708,7 +2714,7 @@
               "required": false,
               "supported": false,
               "on_invalid": "reject",
-              "description": "MiniMax H3 Image output format. Input is case-insensitive and jpg is an alias for jpeg."
+              "description": "Image output format depends on the model. Input is case-insensitive and jpg is an alias for jpeg."
             },
             "background": {
               "flag": "--background",
@@ -2716,7 +2722,7 @@
               "required": false,
               "supported": false,
               "on_invalid": "reject",
-              "description": "GPT Image 2.5 / Seedream 5.5 background; output format is determined by the backend."
+              "description": "Image background for supported models and output formats."
             },
             "detail_level": {
               "flag": "--detail-level",
@@ -2725,11 +2731,37 @@
               "supported": false,
               "on_invalid": "reject",
               "description": "Image detail level; accepted values and defaults depend on model."
+            },
+            "complexity": {
+              "flag": "--complexity",
+              "type": "string",
+              "required": false,
+              "supported": false,
+              "on_invalid": "reject",
+              "description": "Generation complexity for supported models."
+            },
+            "frame_count": {
+              "flag": "--frame-count",
+              "type": "integer",
+              "required": false,
+              "supported": false,
+              "on_invalid": "reject",
+              "description": "Number of GIF frames."
+            },
+            "frame_duration_ms": {
+              "flag": "--frame-duration-ms",
+              "type": "integer",
+              "required": false,
+              "supported": false,
+              "on_invalid": "reject",
+              "description": "GIF frame duration in multiples of 10 milliseconds."
             }
           },
           "model_ids": [
             "gpt-image-2.5-flare",
             "gpt-image-2.5-sunburst",
+            "gpt-image-2.6-flare",
+            "gpt-image-2.6-sunburst",
             "gpt-image-2.0",
             "gemini-nano-banana-2.1",
             "gemini-3.1-flash",
@@ -2743,6 +2775,7 @@
             "seedream-5.0-lite",
             "seedream-4.5",
             "seedream-4.0",
+            "kling-image-4.0",
             "kling-image-o3",
             "kling-image-v3"
           ],
@@ -2754,6 +2787,16 @@
                 "on_invalid": "adjust"
               },
               "gpt-image-2.5-sunburst": {
+                "enum": ["1080p", "1440p", "2160p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-flare": {
+                "enum": ["1080p", "1440p", "2160p"],
+                "default": "1080p",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-sunburst": {
                 "enum": ["1080p", "1440p", "2160p"],
                 "default": "1080p",
                 "on_invalid": "adjust"
@@ -2823,6 +2866,11 @@
                 "default": "1080p",
                 "on_invalid": "adjust"
               },
+              "kling-image-4.0": {
+                "enum": ["1440p", "2160p", "4320p"],
+                "default": "1440p",
+                "on_invalid": "adjust"
+              },
               "kling-image-o3": {
                 "enum": ["1080p", "1440p", "2160p"],
                 "default": "1080p",
@@ -2852,6 +2900,38 @@
                 "on_invalid": "adjust"
               },
               "gpt-image-2.5-sunburst": {
+                "enum": [
+                  "1:1",
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3",
+                  "2:1",
+                  "1:2",
+                  "21:9"
+                ],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-flare": {
+                "enum": [
+                  "1:1",
+                  "16:9",
+                  "9:16",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3",
+                  "2:1",
+                  "1:2",
+                  "21:9"
+                ],
+                "default": "16:9",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-sunburst": {
                 "enum": [
                   "1:1",
                   "16:9",
@@ -3090,6 +3170,21 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
+              "kling-image-4.0": {
+                "enum": [
+                  "auto",
+                  "16:9",
+                  "9:16",
+                  "1:1",
+                  "4:3",
+                  "3:4",
+                  "3:2",
+                  "2:3",
+                  "21:9"
+                ],
+                "default": "auto",
+                "on_invalid": "adjust"
+              },
               "kling-image-o3": {
                 "enum": [
                   "16:9",
@@ -3126,6 +3221,14 @@
               "gpt-image-2.5-sunburst": {
                 "max_count": 16
               },
+              "gpt-image-2.6-flare": {
+                "max_count": 16,
+                "description": "Each reference must be JPEG, PNG, or WebP and smaller than 50 MiB. SVG requires text-only input."
+              },
+              "gpt-image-2.6-sunburst": {
+                "max_count": 16,
+                "description": "Each reference must be JPEG, PNG, or WebP and smaller than 50 MiB. SVG requires text-only input."
+              },
               "gpt-image-2.0": {
                 "max_count": 9
               },
@@ -3165,6 +3268,9 @@
               "seedream-4.0": {
                 "max_count": 6
               },
+              "kling-image-4.0": {
+                "max_count": 10
+              },
               "kling-image-o3": {
                 "max_count": 10
               },
@@ -3178,6 +3284,14 @@
                 "on_invalid": "adjust"
               },
               "gpt-image-2.5-sunburst": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-flare": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-sunburst": {
                 "max": 4,
                 "on_invalid": "adjust"
               },
@@ -3230,6 +3344,10 @@
                 "on_invalid": "adjust"
               },
               "seedream-4.0": {
+                "max": 4,
+                "on_invalid": "adjust"
+              },
+              "kling-image-4.0": {
                 "max": 4,
                 "on_invalid": "adjust"
               },
@@ -3253,6 +3371,16 @@
                 "enum": ["auto", "transparent", "opaque"],
                 "default": "auto"
               },
+              "gpt-image-2.6-flare": {
+                "supported": true,
+                "enum": ["auto", "transparent", "opaque"],
+                "default": "auto"
+              },
+              "gpt-image-2.6-sunburst": {
+                "supported": true,
+                "enum": ["auto", "transparent", "opaque"],
+                "default": "auto"
+              },
               "gpt-image-2.0": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -3306,6 +3434,10 @@
                 "supported": false,
                 "on_invalid": "reject"
               },
+              "kling-image-4.0": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
               "kling-image-o3": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -3322,6 +3454,16 @@
                 "enum": ["low", "medium", "high", "xhigh", "max"]
               },
               "gpt-image-2.5-sunburst": {
+                "supported": true,
+                "default": "low",
+                "enum": ["low", "medium", "high", "xhigh", "max"]
+              },
+              "gpt-image-2.6-flare": {
+                "supported": true,
+                "default": "low",
+                "enum": ["low", "medium", "high", "xhigh", "max"]
+              },
+              "gpt-image-2.6-sunburst": {
                 "supported": true,
                 "default": "low",
                 "enum": ["low", "medium", "high", "xhigh", "max"]
@@ -3380,6 +3522,10 @@
                 "supported": false,
                 "on_invalid": "reject"
               },
+              "kling-image-4.0": {
+                "supported": false,
+                "on_invalid": "reject"
+              },
               "kling-image-o3": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -3389,7 +3535,65 @@
                 "on_invalid": "reject"
               }
             },
+            "prompt": {
+              "gpt-image-2.6-flare": {
+                "max_length": 20000,
+                "on_invalid": "reject"
+              },
+              "gpt-image-2.6-sunburst": {
+                "max_length": 20000,
+                "on_invalid": "reject"
+              },
+              "minimax-h3-image": {
+                "max_length": 20000,
+                "on_invalid": "reject"
+              },
+              "kling-image-4.0": {
+                "max_length": 20000,
+                "on_invalid": "reject"
+              }
+            },
+            "output_format": {
+              "gpt-image-2.6-flare": {
+                "supported": true,
+                "enum": ["png", "jpeg", "webp", "gif", "svg"],
+                "default": "png",
+                "on_invalid": "adjust"
+              },
+              "gpt-image-2.6-sunburst": {
+                "supported": true,
+                "enum": ["png", "jpeg", "webp", "gif", "svg"],
+                "default": "png",
+                "on_invalid": "adjust"
+              },
+              "minimax-h3-image": {
+                "supported": true,
+                "enum": ["png", "jpeg", "webp"],
+                "default": "png",
+                "on_invalid": "adjust"
+              }
+            },
+            "complexity": {
+              "gpt-image-2.6-flare": {
+                "supported": true,
+                "enum": ["low", "medium", "high"],
+                "default": "high"
+              },
+              "gpt-image-2.6-sunburst": {
+                "supported": true,
+                "enum": ["low", "medium", "high"],
+                "default": "high"
+              }
+            },
             "seed": {
+              "gpt-image-2.6-flare": {
+                "default": null,
+                "description": "Accepted silently but omitted from the request."
+              },
+              "gpt-image-2.6-sunburst": {
+                "default": null,
+                "description": "Accepted silently but omitted from the request."
+              },
               "gemini-nano-banana-2.1": {
                 "default": null,
                 "description": "Accepted silently but omitted from the request."
@@ -3397,22 +3601,250 @@
               "minimax-h3-image": {
                 "default": null,
                 "description": "Accepted silently but omitted from the request."
-              }
-            },
-            "prompt": {
-              "minimax-h3-image": {
-                "max_length": 20000,
-                "on_invalid": "reject"
-              }
-            },
-            "output_format": {
-              "minimax-h3-image": {
-                "supported": true,
-                "enum": ["png", "jpeg", "webp"],
-                "default": "png",
-                "on_invalid": "adjust"
+              },
+              "kling-image-4.0": {
+                "default": null,
+                "description": "Accepted silently but omitted from the request."
               }
             }
+          },
+          "model_rules": {
+            "gpt-image-2.6-flare": [
+              {
+                "id": "text-only-formats",
+                "when": {
+                  "output_format": "svg"
+                },
+                "description": "SVG requires text-only input.",
+                "parameters": {
+                  "images": {
+                    "max_count": 0
+                  },
+                  "image": {
+                    "supported": false
+                  }
+                }
+              },
+              {
+                "id": "gif-output",
+                "when": {
+                  "output_format": "gif"
+                },
+                "description": "GIF uses animation fields and omits background.",
+                "parameters": {
+                  "quality": {
+                    "enum": [
+                      "384x384",
+                      "512x512",
+                      "720x720",
+                      "960x960",
+                      "512x288",
+                      "768x432",
+                      "1024x576",
+                      "288x512",
+                      "432x768",
+                      "576x1024"
+                    ],
+                    "default": "384x384"
+                  },
+                  "aspect_ratio": {
+                    "supported": false,
+                    "default": null,
+                    "description": "GIF frame size determines the aspect ratio."
+                  },
+                  "background": {
+                    "supported": false,
+                    "default": null,
+                    "on_invalid": "reject",
+                    "description": "Valid background values are accepted and omitted from GIF requests."
+                  },
+                  "frame_count": {
+                    "supported": true,
+                    "min": 2,
+                    "max": 16,
+                    "default": 9
+                  },
+                  "frame_duration_ms": {
+                    "supported": true,
+                    "min": 20,
+                    "max": 2000,
+                    "default": 200
+                  }
+                }
+              },
+              {
+                "id": "gif-frame-limit-960x960",
+                "when": {
+                  "output_format": "gif",
+                  "quality": "960x960"
+                },
+                "description": "GIF output at 960x960 supports up to 9 frames.",
+                "parameters": {
+                  "frame_count": {
+                    "max": 9,
+                    "on_invalid": "backend"
+                  }
+                }
+              },
+              {
+                "id": "gif-frame-limit-1024x576",
+                "when": {
+                  "output_format": "gif",
+                  "quality": "1024x576"
+                },
+                "description": "GIF output at 1024x576 supports up to 12 frames.",
+                "parameters": {
+                  "frame_count": {
+                    "max": 12,
+                    "on_invalid": "backend"
+                  }
+                }
+              },
+              {
+                "id": "gif-frame-limit-576x1024",
+                "when": {
+                  "output_format": "gif",
+                  "quality": "576x1024"
+                },
+                "description": "GIF output at 576x1024 supports up to 12 frames.",
+                "parameters": {
+                  "frame_count": {
+                    "max": 12,
+                    "on_invalid": "backend"
+                  }
+                }
+              },
+              {
+                "id": "jpeg-background",
+                "when": {
+                  "output_format": "jpeg"
+                },
+                "description": "JPEG does not support transparency.",
+                "parameters": {
+                  "background": {
+                    "enum": ["auto", "opaque"]
+                  }
+                }
+              }
+            ],
+            "gpt-image-2.6-sunburst": [
+              {
+                "id": "text-only-formats",
+                "when": {
+                  "output_format": "svg"
+                },
+                "description": "SVG requires text-only input.",
+                "parameters": {
+                  "images": {
+                    "max_count": 0
+                  },
+                  "image": {
+                    "supported": false
+                  }
+                }
+              },
+              {
+                "id": "gif-output",
+                "when": {
+                  "output_format": "gif"
+                },
+                "description": "GIF uses animation fields and omits background.",
+                "parameters": {
+                  "quality": {
+                    "enum": [
+                      "384x384",
+                      "512x512",
+                      "720x720",
+                      "960x960",
+                      "512x288",
+                      "768x432",
+                      "1024x576",
+                      "288x512",
+                      "432x768",
+                      "576x1024"
+                    ],
+                    "default": "384x384"
+                  },
+                  "aspect_ratio": {
+                    "supported": false,
+                    "default": null,
+                    "description": "GIF frame size determines the aspect ratio."
+                  },
+                  "background": {
+                    "supported": false,
+                    "default": null,
+                    "on_invalid": "reject",
+                    "description": "Valid background values are accepted and omitted from GIF requests."
+                  },
+                  "frame_count": {
+                    "supported": true,
+                    "min": 2,
+                    "max": 16,
+                    "default": 9
+                  },
+                  "frame_duration_ms": {
+                    "supported": true,
+                    "min": 20,
+                    "max": 2000,
+                    "default": 200
+                  }
+                }
+              },
+              {
+                "id": "gif-frame-limit-960x960",
+                "when": {
+                  "output_format": "gif",
+                  "quality": "960x960"
+                },
+                "description": "GIF output at 960x960 supports up to 9 frames.",
+                "parameters": {
+                  "frame_count": {
+                    "max": 9,
+                    "on_invalid": "backend"
+                  }
+                }
+              },
+              {
+                "id": "gif-frame-limit-1024x576",
+                "when": {
+                  "output_format": "gif",
+                  "quality": "1024x576"
+                },
+                "description": "GIF output at 1024x576 supports up to 12 frames.",
+                "parameters": {
+                  "frame_count": {
+                    "max": 12,
+                    "on_invalid": "backend"
+                  }
+                }
+              },
+              {
+                "id": "gif-frame-limit-576x1024",
+                "when": {
+                  "output_format": "gif",
+                  "quality": "576x1024"
+                },
+                "description": "GIF output at 576x1024 supports up to 12 frames.",
+                "parameters": {
+                  "frame_count": {
+                    "max": 12,
+                    "on_invalid": "backend"
+                  }
+                }
+              },
+              {
+                "id": "jpeg-background",
+                "when": {
+                  "output_format": "jpeg"
+                },
+                "description": "JPEG does not support transparency.",
+                "parameters": {
+                  "background": {
+                    "enum": ["auto", "opaque"]
+                  }
+                }
+              }
+            ]
           },
           "parameter_refs": [
             "prompt",

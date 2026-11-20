@@ -2,6 +2,16 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.22](https://github.com/PixVerseAI/cli/releases/tag/v1.4.22) — 2026-11-18
+
+### Features
+
+- Add Kling Image 4.0 (`--model kling-image-4.0`) to `create image` in the global region. Use a text prompt alone or include up to 10 reference images. Choose 2K (default), 4K, or 8K with `--quality`. The aspect ratio defaults to `auto`.
+- Add GPT Image 2.6 Flare (`--model gpt-image-2.6-flare`) and Sunburst (`--model gpt-image-2.6-sunburst`) to `create image` in the global region. Generate PNG, JPEG, or WebP images at 1K, 2K, or 4K from text or up to 16 reference images.
+- Set generation complexity with `--complexity low|medium|high` (default `high`) independently of `--detail-level`.
+- Generate animated GIFs from text or up to 16 reference images with `--output-format gif`, and SVG images from text with `--output-format svg`.
+- Choose from ten GIF frame sizes with `--quality` (default `384x384`). The size determines the aspect ratio and maximum frame count. Set `--frame-count` (default 9) and `--frame-duration-ms` (default 200 ms). See `create image --help` for all sizes and frame limits.
+
 ## [1.4.21](https://github.com/PixVerseAI/cli/releases/tag/v1.4.21) — 2026-11-14
 
 ### Features
