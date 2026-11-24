@@ -5,7 +5,7 @@
   "cli": {
     "name": "pixverse",
     "package": "pixverse",
-    "version": "1.4.22",
+    "version": "1.4.23",
     "binary": "pixverse",
     "node": ">=22.12.0",
     "description": "PixVerse CLI - generate videos and images from the command line"
@@ -234,12 +234,12 @@
     },
     {
       "cmd": "pixverse create transition",
-      "desc": "Multi-frame keyframe transition video",
+      "desc": "Create a transition video between two keyframes",
       "run": true,
       "auth": true,
       "effect": "creates_remote_media_asset",
       "options": {
-        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (2+ required; local oversized images are auto-resized to fit 1920x1920)",
+        "--images <inputs...>": "Image inputs: file paths, HTTPS URLs, image IDs, or media paths (exactly 2 required; local oversized images are auto-resized to fit 1920x1920)",
         "--prompt <text>": "Prompt text",
         "-m, --model <model>": "Video model",
         "-q, --quality <quality>": "Video quality",
@@ -617,6 +617,8 @@
       "options": {
         "--project-id <id>": "Canvas project ID",
         "--node-id <id>": "Canvas node ID",
+        "--node-ids <list>": "Read a comma-separated batch",
+        "--max-response-bytes <n>": "Batch response byte budget",
         "--json": "Output as JSON"
       }
     },
@@ -627,6 +629,8 @@
       "auth": true,
       "options": {
         "--node-type <type>": "Canvas node type (for example video_compose)",
+        "--node-types <list>": "Read a comma-separated batch",
+        "--max-response-bytes <n>": "Batch response byte budget",
         "--json": "Output as JSON"
       }
     },
@@ -717,7 +721,7 @@
     {
       "cmd": "pixverse canvas patch",
       "desc": "Validate and apply changes to a Canvas project",
-      "children": ["dry-run", "apply"]
+      "children": ["dry-run", "apply", "status"]
     },
     {
       "cmd": "pixverse canvas patch dry-run",
@@ -732,7 +736,7 @@
         "--patch <input>": "Canvas graph_patch as JSON - a literal string, a file path, or \"-\" for stdin",
         "--session-id <id>": "Optional agent session ID (positive decimal)",
         "--run-id <id>": "Optional agent run ID (positive decimal)",
-        "--idempotency-key <key>": "Custom stable retry key (automatically derived if omitted)",
+        "--idempotency-key <key>": "Stable key (required for confirmed non-cascade deletion)",
         "--json": "Output as JSON"
       }
     },
@@ -750,7 +754,22 @@
         "--patch <input>": "Canvas graph_patch as JSON - a literal string, a file path, or \"-\" for stdin",
         "--session-id <id>": "Optional agent session ID (positive decimal)",
         "--run-id <id>": "Optional agent run ID (positive decimal)",
-        "--idempotency-key <key>": "Custom stable retry key (automatically derived if omitted)",
+        "--idempotency-key <key>": "Stable key (required for confirmed non-cascade deletion)",
+        "--json": "Output as JSON"
+      }
+    },
+    {
+      "cmd": "pixverse canvas patch status",
+      "desc": "Query a saved Canvas patch receipt",
+      "run": true,
+      "auth": true,
+      "args": {
+        "id?": "Canvas project ID"
+      },
+      "options": {
+        "--project-id <id>": "Canvas project ID",
+        "--idempotency-key <key>": "Original submission key",
+        "--expected-graph-patch <input>": "Original graph_patch as JSON, file path, or - for stdin",
         "--json": "Output as JSON"
       }
     },
@@ -1353,7 +1372,6 @@
         "flux-3.0": "FLUX 3",
         "wan-3.0": "Wan 3.0",
         "gemini-omni-flash": "Google Gemini Omni",
-        "happyhorse-1.0": "Happy Horse 1.0",
         "kling-4.0": "Kling 4.0",
         "kling-o3-pro": "Kling O3 Pro",
         "kling-o3-standard": "Kling O3 Standard",
@@ -1366,9 +1384,6 @@
         "veo-3.1-lite": "Veo 3.1 Lite",
         "veo-3.1-standard": "Veo 3.1 Standard",
         "veo-3.1-fast": "Veo 3.1 Fast",
-        "sora-2-pro": "Sora 2 Pro",
-        "sora-2": "Sora 2",
-        "v5.6": "PixVerse V5.6",
         "gpt-image-2.5-flare": "GPT Image 2.5 Flare",
         "gpt-image-2.5-sunburst": "GPT Image 2.5 Sunburst",
         "gpt-image-2.6-flare": "GPT Image 2.6 Flare",
@@ -1383,13 +1398,10 @@
         "gemini-2.5-flash": "Nano Banana",
         "seedream-5.5": "Seedream 5.5",
         "seedream-5.0-pro": "Seedream 5.0 Pro",
-        "seedream-5.0-lite": "Seedream 5.0 Lite",
-        "seedream-4.5": "Seedream 4.5",
         "seedream-4.0": "Seedream 4.0",
         "kling-image-4.0": "Kling Image 4.0",
         "kling-image-o3": "Kling Image O3",
         "kling-image-v3": "Kling Image V3",
-        "v5": "PixVerse V5",
         "speech-2.8-hd": "MiniMax Speech 2.8 HD",
         "speech-2.8-turbo": "MiniMax Speech 2.8 Turbo",
         "eleven-multilingual-v2": "Eleven Multilingual v2",
@@ -1400,7 +1412,8 @@
         "music-v2": "ElevenLabs Music V2",
         "music-v1": "ElevenLabs Music",
         "lyria-3-pro-preview": "Google Lyria 3 Pro",
-        "v5.5": "PixVerse V5.5"
+        "v5.5": "PixVerse V5.5",
+        "v5.6": "PixVerse V5.6"
       },
       "shared_parameters": {
         "prompt": {
@@ -1571,7 +1584,6 @@
             "flux-3.0",
             "wan-3.0",
             "gemini-omni-flash",
-            "happyhorse-1.0",
             "kling-4.0",
             "kling-o3-pro",
             "kling-o3-standard",
@@ -1583,10 +1595,7 @@
             "grok-imagine",
             "veo-3.1-lite",
             "veo-3.1-standard",
-            "veo-3.1-fast",
-            "sora-2-pro",
-            "sora-2",
-            "v5.6"
+            "veo-3.1-fast"
           ],
           "model_parameters": {
             "duration": {
@@ -1669,11 +1678,6 @@
                 "default": 5,
                 "on_invalid": "reject"
               },
-              "happyhorse-1.0": {
-                "enum": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-                "default": 5,
-                "on_invalid": "reject"
-              },
               "kling-4.0": {
                 "enum": [
                   3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -1735,21 +1739,6 @@
               "veo-3.1-fast": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "reject"
-              },
-              "sora-2-pro": {
-                "enum": [4, 8, 12],
-                "default": 4,
-                "on_invalid": "reject"
-              },
-              "sora-2": {
-                "enum": [4, 8, 12],
-                "default": 4,
-                "on_invalid": "reject"
-              },
-              "v5.6": {
-                "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                "default": 5,
                 "on_invalid": "reject"
               }
             },
@@ -1832,12 +1821,6 @@
                 "default": "720p",
                 "on_invalid": "adjust"
               },
-              "happyhorse-1.0": {
-                "supported": true,
-                "enum": ["720p", "1080p"],
-                "default": "720p",
-                "on_invalid": "adjust"
-              },
               "kling-4.0": {
                 "supported": true,
                 "enum": ["720p", "1080p"],
@@ -1901,24 +1884,6 @@
               "veo-3.1-fast": {
                 "supported": true,
                 "enum": ["720p", "1080p", "2160p"],
-                "default": "720p",
-                "on_invalid": "adjust"
-              },
-              "sora-2-pro": {
-                "supported": true,
-                "enum": ["720p", "1080p"],
-                "default": "720p",
-                "on_invalid": "adjust"
-              },
-              "sora-2": {
-                "supported": true,
-                "enum": ["720p"],
-                "default": "720p",
-                "on_invalid": "adjust"
-              },
-              "v5.6": {
-                "supported": true,
-                "enum": ["360p", "480p", "540p", "720p", "1080p"],
                 "default": "720p",
                 "on_invalid": "adjust"
               }
@@ -2020,12 +1985,6 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
-              "happyhorse-1.0": {
-                "supported": true,
-                "enum": ["16:9", "9:16", "1:1", "4:3", "3:4"],
-                "default": "16:9",
-                "on_invalid": "adjust"
-              },
               "kling-4.0": {
                 "supported": true,
                 "enum": ["16:9", "9:16", "1:1", "21:9"],
@@ -2096,24 +2055,6 @@
                 "enum": ["16:9", "9:16"],
                 "default": "16:9",
                 "on_invalid": "adjust"
-              },
-              "sora-2-pro": {
-                "supported": true,
-                "enum": ["16:9", "9:16"],
-                "default": "16:9",
-                "on_invalid": "adjust"
-              },
-              "sora-2": {
-                "supported": true,
-                "enum": ["16:9", "9:16"],
-                "default": "16:9",
-                "on_invalid": "adjust"
-              },
-              "v5.6": {
-                "supported": true,
-                "enum": ["16:9", "9:16", "1:1", "4:3", "3:4", "3:2", "2:3"],
-                "default": "16:9",
-                "on_invalid": "adjust"
               }
             },
             "audio": {
@@ -2182,12 +2123,6 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               },
-              "happyhorse-1.0": {
-                "supported": true,
-                "default": true,
-                "on_invalid": "adjust",
-                "description": "Audio is always enabled for this model."
-              },
               "kling-4.0": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -2249,21 +2184,6 @@
                 "default": true,
                 "on_invalid": "adjust",
                 "description": "Audio is always enabled for this model."
-              },
-              "sora-2-pro": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
-              },
-              "sora-2": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
-              },
-              "v5.6": {
-                "supported": true,
-                "on_invalid": "reject",
-                "description": "Enable generated audio."
               }
             },
             "multi_shot": {
@@ -2330,11 +2250,6 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
-              "happyhorse-1.0": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
-              },
               "kling-4.0": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -2391,21 +2306,6 @@
                 "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
               },
               "veo-3.1-fast": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
-              },
-              "sora-2-pro": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
-              },
-              "sora-2": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
-              },
-              "v5.6": {
                 "supported": false,
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --multi-shot / --no-multi-shot. This parameter restriction does not describe the model's multi-shot generation capabilities."
@@ -2473,11 +2373,6 @@
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
               },
-              "happyhorse-1.0": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
-              },
               "kling-4.0": {
                 "supported": false,
                 "on_invalid": "adjust",
@@ -2537,19 +2432,6 @@
                 "supported": false,
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
-              },
-              "sora-2-pro": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
-              },
-              "sora-2": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
-              },
-              "v5.6": {
-                "supported": true
               }
             },
             "count": {
@@ -2772,8 +2654,6 @@
             "gemini-2.5-flash",
             "seedream-5.5",
             "seedream-5.0-pro",
-            "seedream-5.0-lite",
-            "seedream-4.5",
             "seedream-4.0",
             "kling-image-4.0",
             "kling-image-o3",
@@ -2849,16 +2729,6 @@
               "seedream-5.0-pro": {
                 "enum": ["1080p", "1440p"],
                 "default": "1080p",
-                "on_invalid": "adjust"
-              },
-              "seedream-5.0-lite": {
-                "enum": ["1440p", "1800p", "2160p"],
-                "default": "1440p",
-                "on_invalid": "adjust"
-              },
-              "seedream-4.5": {
-                "enum": ["1440p", "2160p"],
-                "default": "1440p",
                 "on_invalid": "adjust"
               },
               "seedream-4.0": {
@@ -3119,40 +2989,6 @@
                 "default": "16:9",
                 "on_invalid": "adjust"
               },
-              "seedream-5.0-lite": {
-                "enum": [
-                  "auto",
-                  "1:1",
-                  "16:9",
-                  "9:16",
-                  "4:3",
-                  "3:4",
-                  "5:4",
-                  "4:5",
-                  "3:2",
-                  "2:3",
-                  "21:9"
-                ],
-                "default": "16:9",
-                "on_invalid": "adjust"
-              },
-              "seedream-4.5": {
-                "enum": [
-                  "auto",
-                  "1:1",
-                  "16:9",
-                  "9:16",
-                  "4:3",
-                  "3:4",
-                  "5:4",
-                  "4:5",
-                  "3:2",
-                  "2:3",
-                  "21:9"
-                ],
-                "default": "16:9",
-                "on_invalid": "adjust"
-              },
               "seedream-4.0": {
                 "enum": [
                   "auto",
@@ -3259,12 +3095,6 @@
               "seedream-5.0-pro": {
                 "max_count": 10
               },
-              "seedream-5.0-lite": {
-                "max_count": 6
-              },
-              "seedream-4.5": {
-                "max_count": 6
-              },
               "seedream-4.0": {
                 "max_count": 6
               },
@@ -3332,14 +3162,6 @@
                 "on_invalid": "adjust"
               },
               "seedream-5.0-pro": {
-                "max": 4,
-                "on_invalid": "adjust"
-              },
-              "seedream-5.0-lite": {
-                "max": 4,
-                "on_invalid": "adjust"
-              },
-              "seedream-4.5": {
                 "max": 4,
                 "on_invalid": "adjust"
               },
@@ -3422,14 +3244,6 @@
                 "supported": false,
                 "on_invalid": "reject"
               },
-              "seedream-5.0-lite": {
-                "supported": false,
-                "on_invalid": "reject"
-              },
-              "seedream-4.5": {
-                "supported": false,
-                "on_invalid": "reject"
-              },
               "seedream-4.0": {
                 "supported": false,
                 "on_invalid": "reject"
@@ -3507,14 +3321,6 @@
                 "on_invalid": "reject"
               },
               "seedream-5.0-pro": {
-                "supported": false,
-                "on_invalid": "reject"
-              },
-              "seedream-5.0-lite": {
-                "supported": false,
-                "on_invalid": "reject"
-              },
-              "seedream-4.5": {
                 "supported": false,
                 "on_invalid": "reject"
               },
@@ -3860,7 +3666,7 @@
         "transition": {
           "capability_id": "create.transition",
           "command": "pixverse create transition",
-          "description": "Create a transition video from ordered keyframe images.",
+          "description": "Create a transition video between two keyframes.",
           "default_model": "v6",
           "parameters": {
             "images": {
@@ -3869,8 +3675,9 @@
               "required": true,
               "accepts": ["local_path", "https_url", "asset_id", "media_path"],
               "min_count": 2,
+              "max_count": 2,
               "on_invalid": "reject",
-              "description": "Ordered keyframe images."
+              "description": "First and last keyframe images."
             },
             "prompt": {
               "flag": "--prompt",
@@ -3911,9 +3718,7 @@
             "kling-3.0-4k",
             "veo-3.1-lite",
             "veo-3.1-standard",
-            "veo-3.1-fast",
-            "v5.6",
-            "v5"
+            "veo-3.1-fast"
           ],
           "model_parameters": {
             "duration": {
@@ -4035,16 +3840,6 @@
               "veo-3.1-fast": {
                 "enum": [4, 6, 8],
                 "default": 4,
-                "on_invalid": "reject"
-              },
-              "v5.6": {
-                "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                "default": 5,
-                "on_invalid": "reject"
-              },
-              "v5": {
-                "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                "default": 5,
                 "on_invalid": "reject"
               }
             },
@@ -4168,18 +3963,6 @@
                 "enum": ["720p", "1080p", "2160p"],
                 "default": "720p",
                 "on_invalid": "adjust"
-              },
-              "v5.6": {
-                "supported": true,
-                "enum": ["360p", "480p", "540p", "720p", "1080p"],
-                "default": "720p",
-                "on_invalid": "adjust"
-              },
-              "v5": {
-                "supported": true,
-                "enum": ["360p", "540p", "720p", "1080p"],
-                "default": "720p",
-                "on_invalid": "adjust"
               }
             },
             "audio": {
@@ -4289,16 +4072,6 @@
                 "default": true,
                 "on_invalid": "adjust",
                 "description": "Audio is always enabled for this model."
-              },
-              "v5.6": {
-                "supported": true,
-                "on_invalid": "reject",
-                "description": "Enable generated audio."
-              },
-              "v5": {
-                "supported": false,
-                "on_invalid": "adjust",
-                "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
               }
             },
             "off_peak": {
@@ -4402,12 +4175,6 @@
                 "supported": false,
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
-              },
-              "v5.6": {
-                "supported": true
-              },
-              "v5": {
-                "supported": true
               }
             },
             "count": {
@@ -4449,18 +4216,8 @@
                 "kling-3.0-4k",
                 "veo-3.1-lite",
                 "veo-3.1-standard",
-                "veo-3.1-fast",
-                "v5.6"
+                "veo-3.1-fast"
               ]
-            },
-            "multi_frame": {
-              "description": "Three or more keyframes.",
-              "when": {
-                "images": {
-                  "min_count": 3
-                }
-              },
-              "allowed_models": ["v5"]
             }
           },
           "rules": [
@@ -5498,8 +5255,7 @@
             "kling-o3-pro",
             "kling-o3-standard",
             "kling-o3-4k",
-            "grok-imagine",
-            "v5.6"
+            "grok-imagine"
           ],
           "model_parameters": {
             "duration": {
@@ -5602,11 +5358,6 @@
                 "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0],
                 "default": 5,
                 "on_invalid": "reject"
-              },
-              "v5.6": {
-                "enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                "default": 5,
-                "on_invalid": "reject"
               }
             },
             "quality": {
@@ -5706,12 +5457,6 @@
               "grok-imagine": {
                 "supported": true,
                 "enum": ["480p", "720p"],
-                "default": "720p",
-                "on_invalid": "adjust"
-              },
-              "v5.6": {
-                "supported": true,
-                "enum": ["360p", "480p", "540p", "720p", "1080p"],
                 "default": "720p",
                 "on_invalid": "adjust"
               }
@@ -5823,12 +5568,6 @@
                 "enum": ["16:9", "4:3", "1:1", "9:16", "3:4", "3:2", "2:3"],
                 "default": "16:9",
                 "on_invalid": "adjust"
-              },
-              "v5.6": {
-                "supported": true,
-                "enum": ["16:9", "9:16", "1:1", "4:3", "3:4", "3:2", "2:3"],
-                "default": "16:9",
-                "on_invalid": "adjust"
               }
             },
             "audio": {
@@ -5916,11 +5655,6 @@
                 "supported": false,
                 "on_invalid": "adjust",
                 "description": "The CLI does not support controlling this model with --audio / --no-audio. This parameter restriction does not describe the model's audio generation capabilities."
-              },
-              "v5.6": {
-                "supported": true,
-                "on_invalid": "reject",
-                "description": "Enable generated audio."
               }
             },
             "off_peak": {
@@ -6004,9 +5738,6 @@
                 "supported": false,
                 "on_invalid": "adjust",
                 "description": "The CLI does not support selecting off-peak generation for this model with --off-peak. This parameter restriction does not describe service-side scheduling availability."
-              },
-              "v5.6": {
-                "supported": true
               }
             },
             "images": {
@@ -6059,9 +5790,6 @@
                 "max_count": 7
               },
               "grok-imagine": {
-                "max_count": 7
-              },
-              "v5.6": {
                 "max_count": 7
               }
             },
@@ -6133,10 +5861,6 @@
               "grok-imagine": {
                 "supported": true,
                 "max_count": 1
-              },
-              "v5.6": {
-                "supported": false,
-                "max_count": 0
               }
             },
             "audios": {
@@ -6205,10 +5929,6 @@
                 "max_count": 0
               },
               "grok-imagine": {
-                "supported": false,
-                "max_count": 0
-              },
-              "v5.6": {
                 "supported": false,
                 "max_count": 0
               }
@@ -6284,10 +6004,6 @@
               "grok-imagine": {
                 "supported": false,
                 "on_invalid": "reject"
-              },
-              "v5.6": {
-                "supported": false,
-                "on_invalid": "reject"
               }
             },
             "count": {
@@ -6354,8 +6070,7 @@
             },
             "grok-imagine": {
               "max_video_duration_seconds": 8.7
-            },
-            "v5.6": {}
+            }
           },
           "model_rules": {
             "seedance-2.5-flash": [
@@ -6710,6 +6425,34 @@
       }
     },
     "canvas": {
+      "features": {
+        "canvas.node.get.batch.v1": {
+          "response_schema": "canvas_node_details_batch.v1",
+          "max_items": 32,
+          "default_response_bytes": 65536,
+          "min_response_bytes": 16384,
+          "max_response_bytes": 262144
+        },
+        "canvas.node.schema.batch.v1": {
+          "response_schema": "canvas_node_schemas_batch.v1",
+          "max_items": 16,
+          "default_response_bytes": 65536,
+          "min_response_bytes": 16384,
+          "max_response_bytes": 262144
+        },
+        "canvas.patch.status.v1": {
+          "response_schema": "canvas_graph_patch_query.v1",
+          "read_only": true,
+          "in_progress_timeout_seconds": 600
+        },
+        "canvas.patch.delete.atomic.v1": {
+          "max_items": 32,
+          "delete_mode": "non_cascade",
+          "creator_scope": "project_editable",
+          "receipt_atomic": true,
+          "unresolved_replay": "query_only"
+        }
+      },
       "source": "runtime",
       "discovery": {
         "merged_command": "pixverse capabilities canvas --json",

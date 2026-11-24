@@ -2,6 +2,15 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.23](https://github.com/PixVerseAI/cli/releases/tag/v1.4.23) — 2026-11-24
+
+### Features
+
+- Read Canvas nodes in batches with `canvas node get --node-ids` or fetch schemas in batches with `canvas node schema --node-types`. Set the response size limit with `--max-response-bytes`.
+- Preview a non-cascade batch deletion with `canvas patch dry-run`. Apply the confirmed deletion as a single operation with `canvas patch apply --idempotency-key <key>`.
+- Check a saved submission with `canvas patch status --idempotency-key <key>`. Pass the original patch with `--expected-graph-patch` to verify that it matches the submission.
+- Remove retired models from creation commands.
+
 ## [1.4.22](https://github.com/PixVerseAI/cli/releases/tag/v1.4.22) — 2026-11-18
 
 ### Features

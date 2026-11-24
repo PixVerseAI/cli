@@ -72,7 +72,6 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | FLUX 3 | `flux-3.0` | `video` | `720p` `1080p` | `5`–`20`s | `auto` `21:9` `2:1` `16:9` `4:3` `1:1` `3:4` `9:16` |
 | Wan 3.0 | `wan-3.0` | `video`, `transition` (2 frames), `reference` | `480p` `720p` `1080p` | `2`–`30`s | `auto` `16:9` `4:3` `1:1` `3:4` `9:16` |
 | Google Gemini Omni | `gemini-omni-flash` | `video`, `reference` | `720p` | `3`–`10`s | `16:9` `9:16` |
-| Happy Horse 1.0 | `happyhorse-1.0` | `video` | `720p` `1080p` | `3`–`15`s | `16:9` `9:16` `1:1` `4:3` `3:4` |
 | Kling 4.0 | `kling-4.0` | `video`, `transition` (2 frames), `reference` | `720p` `1080p` | `3`–`30`s | `16:9` `9:16` `1:1` `21:9` |
 | Kling O3 Pro | `kling-o3-pro` | `video`, `transition` (2 frames), `reference` | Selected by model ID | `3`–`15`s | `16:9` `9:16` `1:1` |
 | Kling O3 Standard | `kling-o3-standard` | `video`, `transition` (2 frames), `reference` | Selected by model ID | `3`–`15`s | `16:9` `9:16` `1:1` |
@@ -85,11 +84,8 @@ Supported modes are `pixverse create` subcommands. Defaults are mode-specific.
 | Veo 3.1 Lite | `veo-3.1-lite` | `video`, `transition` (2 frames) | `720p` `1080p` | `4` `6` `8`s | `16:9` `9:16` |
 | Veo 3.1 Standard | `veo-3.1-standard` | `video`, `transition` (2 frames) | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
 | Veo 3.1 Fast | `veo-3.1-fast` | `video`, `transition` (2 frames) | `720p` `1080p` `2160p` | `4` `6` `8`s | `16:9` `9:16` |
-| Sora 2 Pro | `sora-2-pro` | `video` | `720p` `1080p` | `4` `8` `12`s | `16:9` `9:16` |
-| Sora 2 | `sora-2` | `video` | `720p` | `4` `8` `12`s | `16:9` `9:16` |
-| PixVerse V5.6 | `v5.6` | `video`, `transition` (2 frames), `reference`, `motion-control` (default) | `360p` `480p` `540p` `720p` `1080p` | `1`–`10`s | `16:9` `9:16` `1:1` `4:3` `3:4` `3:2` `2:3` |
+| PixVerse V5.6 | `v5.6` | `motion-control` (default) | `360p` `480p` `540p` `720p` `1080p` | — | — |
 | PixVerse V5.5 | `v5.5` | `modify` (default) | `360p` `540p` `720p` | — | — |
-| PixVerse V5 | `v5` | `transition` (3+ frames, default) | `360p` `540p` `720p` `1080p` | `1`–`10`s | — |
 
 > Seedance 2.5 defaults to `720p`, 5 seconds, and `16:9` for generation without a reference video. Text-to-video and reference mode accept `--aspect-ratio auto` in addition to the fixed ratios. Reference requests containing a video default to automatic duration and lock the aspect ratio to `auto`; selecting an integer from 4 through 30 unlocks both automatic and fixed aspect ratios. Reference mode also accepts the optional `--task-type <type>` flag (`auto` by default, `reference`, `edit`, or `extend`) to guide the task intent. Image-to-video uses fixed aspect ratios.
 
@@ -129,8 +125,6 @@ Image `--quality` accepts case-insensitive aliases: `1K` → `1080p`, `2K` → `
 | Nano Banana | `gemini-2.5-flash` | `1080p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 3 | — | — |
 | Seedream 5.5 | `seedream-5.5` | `1080p` `1.5k` `1440p` `1800p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 10 | `auto` `transparent` `opaque` | — |
 | Seedream 5.0 Pro | `seedream-5.0-pro` | `1080p` `1440p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 10 | — | — |
-| Seedream 5.0 Lite | `seedream-5.0-lite` | `1440p` `1800p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 6 | — | — |
-| Seedream 4.5 | `seedream-4.5` | `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 6 | — | — |
 | Seedream 4.0 | `seedream-4.0` | `1080p` `1440p` `2160p` | `auto` `1:1` `16:9` `9:16` `4:3` `3:4` `5:4` `4:5` `3:2` `2:3` `21:9` | 6 | — | — |
 | Kling Image 4.0 | `kling-image-4.0` | `1440p` `2160p` `4320p` | `auto` `16:9` `9:16` `1:1` `4:3` `3:4` `3:2` `2:3` `21:9` | 10 | — | — |
 | Kling Image O3 | `kling-image-o3` | `1080p` `1440p` `2160p` | `16:9` `9:16` `1:1` `4:3` `3:4` `3:2` `2:3` `21:9` | 10 | — | — |
@@ -237,8 +231,8 @@ pixverse create image --prompt "Turn this into a watercolor painting" --image ./
 ### Other Creation Modes
 
 ```bash
-# Create a transition between keyframes (requires 2+ images)
-pixverse create transition --images ./frame1.png ./frame2.png ./frame3.png
+# Create a transition between the first and last frame
+pixverse create transition --images ./first.png ./last.png
 
 # Seedance 2.5 transition uses exactly 2 frames
 pixverse create transition -m seedance-2.5 --images ./first.png ./last.png --prompt "A seamless transformation"
@@ -428,6 +422,8 @@ Pass the project ID after the command:
 ```bash
 pixverse canvas graph get 123456789 --json
 pixverse canvas node get 123456789 --node-id image_01 --json
+pixverse canvas node get 123456789 --node-ids image_01,video_02 --json
+pixverse canvas node schema --node-types script,image_generate --max-response-bytes 65536 --json
 ```
 
 To automatically arrange and save the entire project's layout:
@@ -494,12 +490,31 @@ contains a `graph_patch` object without an outer request wrapper. For example,
 
 Keep all IDs as strings. `base_edit_version` must be a non-negative safe integer.
 Starting in `1.4.13`, `dry-run` and `apply` send this value unchanged even when
-it differs from the latest Graph `edit_version`. Both commands still read the
-latest graph and capabilities for all other input and contextual validation.
+it differs from the latest Graph `edit_version`. For generic patches, both commands read the
+latest graph and capabilities for contextual validation.
 
-For the same project and unchanged patch file, `dry-run` and `apply`
+For the same project and unchanged generic patch file, `dry-run` and `apply`
 automatically derive the same stable idempotency key. Use
-`--idempotency-key` only when your workflow needs to supply its own retry key.
+`--idempotency-key` to supply your own key for a generic patch.
+
+For pure non-cascade deletion, dry-run the proposed targets, review the full
+returned `delete_impact`, and save it in the original patch as
+`confirmed-delete.json`. Dry-run that exact file again. After confirmation,
+save a distinct submission key in your operation record and use it for one apply.
+
+```bash
+pixverse canvas patch dry-run "$PROJECT_ID" --patch confirmed-delete.json --json
+pixverse canvas patch apply "$PROJECT_ID" --patch confirmed-delete.json \
+  --idempotency-key "$SUBMISSION_KEY" --json
+```
+
+If the apply outcome is uncertain, query the saved receipt in the same workspace
+with the original file and submission key.
+
+```bash
+pixverse canvas patch status "$PROJECT_ID" --idempotency-key "$SUBMISSION_KEY" \
+  --expected-graph-patch confirmed-delete.json --json
+```
 
 Additional Canvas operations:
 
@@ -847,6 +862,7 @@ pixverse asset download "$VID" --dest ./output/
 | `canvas node extract-audio`  | Extract the full audio track from a Canvas video node                               |
 | `canvas patch dry-run`       | Validate Canvas changes without saving them                                         |
 | `canvas patch apply`         | Apply validated changes to a Canvas project                                         |
+| `canvas patch status`        | Query a saved Canvas patch receipt                                                  |
 | `canvas dispatch`            | Start generation for specific ready Canvas nodes                                    |
 | `canvas dispatch rebind`     | Bind specific ready Canvas nodes to a dispatch plan                                 |
 
