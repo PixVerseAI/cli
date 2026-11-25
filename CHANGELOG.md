@@ -2,6 +2,13 @@
 
 All notable changes to PixVerse CLI will be documented in this file.
 
+## [1.4.24](https://github.com/PixVerseAI/cli/releases/tag/v1.4.24) — 2026-11-25
+
+### Bug Fixes
+
+- Keep the selected team workspace in the CN region after `workspace switch`. `workspace status`, `workspace list`, and `account usage` use the selected team. Use `--workspace-id` to select a different workspace for a single command.
+- Align CN model availability with the web app. Use Kling 4.0 (`kling-4.0`) and Wan 3.0 (`wan-3.0`) with `create video`, `create transition`, and `create reference`. Use Seedream 5.5 (`seedream-5.5`) and MiniMax H3 Image (`minimax-h3-image`) with `create image`.
+
 ## [1.4.23](https://github.com/PixVerseAI/cli/releases/tag/v1.4.23) — 2026-11-24
 
 ### Features
